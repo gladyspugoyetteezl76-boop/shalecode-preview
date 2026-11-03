@@ -2,7 +2,7 @@
   (function () {
     const $ = (s) => document.querySelector(s);
     const LANGS = [["ru", "RU"], ["en", "EN"], ["ar", "AR"]];
-    const MOCKS = { aurum: "Aurum — ювелирный", nord: "Nordhaus — недвижимость", qalam: "Qalam — онлайн-школа", ombre: "Maison Ombre — ресторан", atlas: "Atlas — клиника" };
+    const MOCKS = { aurum: "Aurum — ювелирный", nord: "Nordhaus — недвижимость", qalam: "Qalam — онлайн-школа", ombre: "Maison Ombre — ресторан", atlas: "Atlas — клиника", lumen: "Lumen — LMS-платформа", strata: "Strata — CMS-система" };
     const ICONS = {
       up: '<path d="M12 19V5M6 11l6-6 6 6"/>', down: '<path d="M12 5v14M6 13l6 6 6-6"/>',
       edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>', trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'

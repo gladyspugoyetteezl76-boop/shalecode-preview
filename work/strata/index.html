@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strata — CMS для управления контентом · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Strata CMS">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_graphite.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=2">
+  <style>
+    :root { --bg: #f5f4f0; --white: #fff; --ink: #17171a; --muted: #77767d; --line: #e6e4de; --acc: #ff5b2e; --acc2: #fff0ea; --ok: #1fa87a; --ease: cubic-bezier(.22,1,.36,1); }
+    body { background: var(--bg); color: var(--ink); font: 400 14px/1.55 "Manrope", sans-serif; }
+    .app { display: grid; grid-template-columns: 230px 1fr; min-height: 100vh; }
+    .side { position: sticky; top: 0; height: 100vh; background: var(--ink); color: #c9c8cf; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px; }
+    .logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 19px; padding: 0 8px; }
+    .logo i { width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(var(--acc) 0 33%, #ff9a6b 33% 66%, #ffd2bd 66%); }
+    .side h5 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6d6c75; padding: 0 10px; margin: 0 0 -14px; }
+    .menu { display: grid; gap: 2px; }
+    .menu button { display: flex; align-items: center; gap: 11px; padding: 10px; border-radius: 10px; font-weight: 600; text-align: start; transition: .3s var(--ease); }
+    .menu button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    .menu button:hover { background: rgba(255,255,255,.06); color: #fff; }
+    .menu button.on { background: rgba(255,255,255,.1); color: #fff; }
+    .menu em { margin-inline-start: auto; font-style: normal; font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--acc); color: #fff; }
+    .team { margin-top: auto; display: flex; padding: 0 8px; }
+    .team span { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--ink); margin-inline-end: -8px; display: grid; place-items: center; font-weight: 800; font-size: 12px; color: #fff; }
+
+    .main { min-width: 0; display: flex; flex-direction: column; }
+    .top { display: flex; align-items: center; gap: 14px; padding: 14px clamp(16px, 2.6vw, 32px); background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+    .crumbs { color: var(--muted); font-weight: 500; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .crumbs b { color: var(--ink); }
+    .status { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 20px; background: #fff6d8; color: #a07400; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .status.pub { background: #e1f6ee; color: var(--ok); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 11px; font-weight: 700; transition: .3s var(--ease); white-space: nowrap; }
+    .btn-l { border: 1px solid var(--line); }
+    .btn-l:hover { border-color: var(--ink); }
+    .btn-a { background: var(--acc); color: #fff; box-shadow: 0 8px 20px rgba(255,91,46,.3); }
+    .btn-a:hover { transform: translateY(-2px); }
+
+    .work { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 0; flex: 1; }
+    .editor { padding: 26px clamp(16px, 2.6vw, 32px) 110px; border-inline-end: 1px solid var(--line); min-width: 0; }
+    .tabs { display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: #ebe9e3; width: max-content; margin-bottom: 22px; }
+    .tabs button { padding: 7px 14px; border-radius: 9px; font-weight: 600; color: var(--muted); }
+    .tabs button.on { background: var(--white); color: var(--ink); box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+    label.f { display: grid; gap: 6px; margin-bottom: 16px; font-weight: 600; font-size: 12px; color: var(--muted); }
+    .f input, .f textarea, .f select { font: 500 15px "Manrope"; color: var(--ink); padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--white); outline: none; resize: vertical; transition: border-color .3s, box-shadow .3s; }
+    .f input:focus, .f textarea:focus { border-color: var(--acc); box-shadow: 0 0 0 4px var(--acc2); }
+    .blocks { display: grid; gap: 10px; margin: 6px 0 16px; }
+    .blk { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--white); border: 1px solid var(--line); cursor: grab; transition: box-shadow .3s, transform .3s, opacity .3s; user-select: none; }
+    .blk:hover { box-shadow: 0 8px 20px rgba(0,0,0,.06); }
+    .blk.drag { opacity: .4; }
+    .blk .h { color: #c2c0b8; font-size: 16px; letter-spacing: -2px; }
+    .blk .ic { width: 34px; height: 34px; border-radius: 10px; background: var(--acc2); color: var(--acc); display: grid; place-items: center; font-weight: 800; font-size: 13px; flex-shrink: 0; }
+    .blk span:not(.h):not(.ic) { flex: 1; font-weight: 700; }
+    .blk small { color: var(--muted); }
+    .sw { width: 38px; height: 22px; border-radius: 20px; background: #d8d6cf; position: relative; transition: background .3s; flex-shrink: 0; }
+    .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .3s var(--ease); }
+    .sw.on { background: var(--ok); }
+    .sw.on::after { transform: translateX(16px); }
+    .add { width: 100%; padding: 13px; border-radius: 14px; border: 1.5px dashed #d2d0c8; color: var(--muted); font-weight: 700; transition: .3s; }
+    .add:hover { border-color: var(--acc); color: var(--acc); }
+
+    /* Предпросмотр */
+    .preview { padding: 26px clamp(16px, 2.6vw, 32px) 110px; background: #ecebe6; min-width: 0; }
+    .preview h5 { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .devs { display: flex; gap: 4px; }
+    .devs button { width: 30px; height: 26px; border-radius: 7px; color: var(--muted); font-size: 13px; }
+    .devs button.on { background: var(--white); color: var(--ink); }
+    .site { margin-inline: auto; max-width: 100%; border-radius: 16px; overflow: hidden; background: #0f1412; color: #f3efe6; box-shadow: 0 30px 60px rgba(0,0,0,.18); transition: max-width .6s var(--ease); }
+    .site.mob { max-width: 340px; }
+    .s-nav { display: flex; justify-content: space-between; padding: 16px 22px; font-size: 12px; opacity: .8; }
+    .s-sec { padding: 0 22px 26px; transition: opacity .4s; }
+    .s-hero { padding-top: 26px; padding-bottom: 34px; background: radial-gradient(circle at 80% 0, #2d4a3b, transparent 60%); }
+    .s-hero h2 { font: 800 clamp(26px, 3.2vw, 42px)/1.04 "Manrope"; letter-spacing: -.04em; max-width: 90%; }
+    .s-hero p { margin-top: 12px; opacity: .65; max-width: 80%; }
+    .s-hero .cta { display: inline-block; margin-top: 18px; padding: 10px 18px; border-radius: 30px; background: #c8f169; color: #0f1412; font-weight: 800; font-size: 13px; }
+    .s-feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .site.mob .s-feat { grid-template-columns: 1fr; }
+    .s-feat div { padding: 16px; border-radius: 12px; background: rgba(255,255,255,.06); font-size: 12px; }
+    .s-feat b { display: block; font-size: 22px; color: #c8f169; }
+    .s-quote { font-size: 16px; font-style: italic; opacity: .85; border-inline-start: 3px solid #c8f169; padding-inline-start: 14px; }
+    .s-gal { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; }
+    .s-gal i { height: 110px; border-radius: 12px; background: linear-gradient(135deg, #3c5e4b, #1b2a22); }
+    .s-gal i + i { background: linear-gradient(135deg, #c8f169, #6c8f2e); }
+    .s-off { display: none; }
+
+    /* Нижняя часть: журнал и роли */
+    .low { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 0 clamp(16px, 2.6vw, 32px) 120px; margin-top: -80px; }
+    .card { background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 20px; min-width: 0; }
+    .card h4 { font-size: 14px; margin-bottom: 14px; }
+    .log li { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .log li:first-child { border: 0; }
+    .log i { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; color: #fff; font-style: normal; font-weight: 800; font-size: 11px; }
+    .log small { display: block; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    td, th { padding: 10px 6px; text-align: start; border-top: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; font-size: 12px; border: 0; }
+    .tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: #eeedea; }
+    .tag.a { background: var(--acc2); color: var(--acc); }
+    .tick { color: var(--ok); font-weight: 800; }
+
+    .toast { position: fixed; z-index: 60; right: 24px; top: 74px; padding: 13px 18px; border-radius: 14px; background: var(--ink); color: #fff; font-weight: 600; box-shadow: 0 20px 40px rgba(0,0,0,.25); transform: translateY(-20px); opacity: 0; pointer-events: none; transition: .5s var(--ease); }
+    .toast.on { transform: none; opacity: 1; }
+
+    @media (max-width: 1100px) { .work { grid-template-columns: 1fr; } .editor { border: 0; padding-bottom: 20px; } .low { grid-template-columns: 1fr; margin-top: 0; } }
+    @media (max-width: 800px) {
+      .app { grid-template-columns: 1fr; }
+      .side { position: static; height: auto; flex-direction: row; justify-content: space-between; align-items: center; padding: 14px 16px; }
+      .side h5, .menu, .team { display: none; }
+      .top .btn-l, .crumbs { display: none; }
+      .top { justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="logo"><i></i>Strata</div>
+      <h5>Контент</h5>
+      <nav class="menu">
+        <button class="on"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5"/></svg>Страницы<em>14</em></button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Статьи</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 15l5-5 5 5 2-2 4 4"/></svg>Медиатека</button>
+        <button><svg viewBox="0 0 24 24"><path d="M5 7h14l-1 13H6zM9 7V4h6v3"/></svg>Каталог</button>
+      </nav>
+      <h5>Система</h5>
+      <nav class="menu">
+        <button><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 10-8 0M4 21a8 8 0 0116 0"/></svg>Пользователи и роли</button>
+        <button><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg>История изменений</button>
+        <button><svg viewBox="0 0 24 24"><path d="M12 9a3 3 0 100 6 3 3 0 000-6zM4 12h2M18 12h2M12 4v2M12 18v2"/></svg>Настройки</button>
+      </nav>
+      <div class="team"><span style="background:#ff5b2e">М</span><span style="background:#3b6cf6">И</span><span style="background:#1fa87a">О</span></div>
+    </aside>
+
+    <div class="main">
+      <header class="top">
+        <div class="crumbs">Страницы / <b>Главная — весенняя коллекция</b></div>
+        <span class="status" id="status">Черновик</span>
+        <button class="btn btn-l" id="save">Сохранить</button>
+        <button class="btn btn-a" id="publish">Опубликовать</button>
+      </header>
+
+      <div class="work">
+        <section class="editor">
+          <div class="tabs"><button class="on">Контент</button><button>SEO</button><button>Доступ</button></div>
+          <label class="f">Заголовок<input id="iTitle" value="Сад, который растёт вместе с вами"></label>
+          <label class="f">Подзаголовок<textarea id="iSub" rows="2">Ландшафтный дизайн и уход за садом под ключ — от эскиза до первой клубники.</textarea></label>
+          <label class="f">Текст кнопки<input id="iCta" value="Записаться на выезд"></label>
+          <label class="f" style="margin-bottom:6px">Блоки страницы · перетаскивайте, чтобы менять порядок</label>
+          <div class="blocks" id="blocks">
+            <div class="blk" draggable="true" data-b="feat"><span class="h">⋮⋮</span><span class="ic">#</span><span>Цифры</span><small>3 карточки</small><button class="sw on" aria-label="Показывать блок"></button></div>
+            <div class="blk" draggable="true" data-b="quote"><span class="h">⋮⋮</span><span class="ic">“</span><span>Отзыв клиента</span><small>цитата</small><button class="sw on" aria-label="Показывать блок"></button></div>
+            <div class="blk" draggable="true" data-b="gal"><span class="h">⋮⋮</span><span class="ic">▦</span><span>Галерея</span><small>2 фото</small><button class="sw on" aria-label="Показывать блок"></button></div>
+          </div>
+          <button class="add">+ Добавить блок</button>
+        </section>
+
+        <section class="preview">
+          <h5>Предпросмотр — изменения видны сразу <span class="devs"><button class="on" data-d="">▭</button><button data-d="mob">▯</button></span></h5>
+          <div class="site" id="site">
+            <div class="s-nav"><b>VERDE</b><span>Услуги · Проекты · Контакты</span></div>
+            <div class="s-sec s-hero"><h2 id="pTitle"></h2><p id="pSub"></p><span class="cta" id="pCta"></span></div>
+            <div id="pBlocks">
+              <div class="s-sec" data-b="feat"><div class="s-feat"><div><b>320+</b>садов</div><div><b>12 лет</b>опыта</div><div><b>5 лет</b>гарантии</div></div></div>
+              <div class="s-sec" data-b="quote"><p class="s-quote">«Через год сад выглядит лучше, чем на эскизе» — Мария, Подмосковье</p></div>
+              <div class="s-sec" data-b="gal"><div class="s-gal"><i></i><i></i></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="low">
+        <section class="card" data-reveal>
+          <h4>История изменений</h4>
+          <ul class="log" id="log">
+            <li><i style="background:#3b6cf6">И</i><div>Илья заменил фото в галерее<small>12 минут назад</small></div></li>
+            <li><i style="background:#1fa87a">О</i><div>Ольга обновила SEO-описание<small>сегодня, 10:14</small></div></li>
+            <li><i style="background:#ff5b2e">М</i><div>Мария создала страницу<small>вчера, 18:02</small></div></li>
+          </ul>
+        </section>
+        <section class="card" data-reveal=".1">
+          <h4>Роли и права доступа</h4>
+          <table>
+            <tr><th>Сотрудник</th><th>Роль</th><th>Публикация</th></tr>
+            <tr><td>Мария</td><td><span class="tag a">Администратор</span></td><td class="tick">✓</td></tr>
+            <tr><td>Ольга</td><td><span class="tag">Редактор</span></td><td class="tick">✓</td></tr>
+            <tr><td>Илья</td><td><span class="tag">Автор</span></td><td style="color:var(--muted)">на проверке</td></tr>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=4"></script>
+  <script>
+  (function () {
+    const { reduced, reveals } = window.DEMO;
+    const $ = (s) => document.querySelector(s);
+
+    // Поля редактора сразу отражаются в предпросмотре
+    const bind = (i, p) => { const f = () => { $(p).textContent = $(i).value; draft(); }; $(i).addEventListener("input", f); $(p).textContent = $(i).value; };
+    let ready = false;
+    function draft() { if (!ready) return; $("#status").className = "status"; $("#status").textContent = "Черновик"; }
+    bind("#iTitle", "#pTitle"); bind("#iSub", "#pSub"); bind("#iCta", "#pCta");
+    ready = true;
+
+    // Блоки: показать/скрыть и порядок перетаскиванием
+    const blocks = $("#blocks"), pb = $("#pBlocks");
+    function sync() {
+      [...blocks.children].forEach((b) => {
+        const s = pb.querySelector(`[data-b="${b.dataset.b}"]`);
+        pb.append(s);
+        s.classList.toggle("s-off", !b.querySelector(".sw").classList.contains("on"));
+      });
+      draft();
+    }
+    blocks.querySelectorAll(".sw").forEach((s) => s.addEventListener("click", () => { s.classList.toggle("on"); sync(); }));
+    let dragEl = null;
+    blocks.addEventListener("dragstart", (e) => { dragEl = e.target.closest(".blk"); dragEl.classList.add("drag"); });
+    blocks.addEventListener("dragend", () => { if (dragEl) dragEl.classList.remove("drag"); dragEl = null; sync(); });
+    blocks.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      const after = [...blocks.querySelectorAll(".blk:not(.drag)")].find((b) => e.clientY < b.getBoundingClientRect().top + b.offsetHeight / 2);
+      if (dragEl) after ? blocks.insertBefore(dragEl, after) : blocks.append(dragEl);
+    });
+    // На телефоне перетаскивания нет — кнопка «Добавить блок» возвращает скрытые блоки
+    $(".add").addEventListener("click", () => { blocks.querySelectorAll(".sw:not(.on)").forEach((s) => s.classList.add("on")); sync(); toast("Все блоки снова видны"); });
+
+    document.querySelectorAll(".devs button").forEach((b) => b.addEventListener("click", () => {
+      document.querySelectorAll(".devs button").forEach((x) => x.classList.toggle("on", x === b));
+      $("#site").classList.toggle("mob", b.dataset.d === "mob");
+    }));
+    document.querySelectorAll(".tabs button, .menu button").forEach((b) => b.addEventListener("click", () => { [...b.parentNode.children].forEach((x) => x.classList.toggle("on", x === b)); }));
+
+    let tt;
+    function toast(t) { $("#toast").textContent = t; $("#toast").classList.add("on"); clearTimeout(tt); tt = setTimeout(() => $("#toast").classList.remove("on"), 2200); }
+    function logIt(t) {
+      const li = document.createElement("li");
+      li.innerHTML = '<i style="background:#ff5b2e">М</i><div><span></span><small>только что</small></div>';
+      li.querySelector("span").textContent = t;
+      $("#log").prepend(li);
+      if (!reduced && window.gsap) gsap.from(li, { y: -14, opacity: 0, duration: .6, ease: "power3.out" });
+    }
+    $("#save").addEventListener("click", () => { toast("Черновик сохранён"); logIt("Мария сохранила черновик"); });
+    $("#publish").addEventListener("click", () => {
+      $("#status").className = "status pub"; $("#status").textContent = "Опубликовано";
+      toast("Страница опубликована на сайте"); logIt("Мария опубликовала страницу");
+    });
+
+    if (reduced || !window.gsap) return;
+    gsap.timeline()
+      .from(".side > *", { x: -24, opacity: 0, duration: .8, stagger: .06, ease: "expo.out" })
+      .from(".top > *", { y: -14, opacity: 0, duration: .7, stagger: .06, ease: "power3.out" }, .1)
+      .from(".editor > *", { y: 24, opacity: 0, duration: .8, stagger: .05, ease: "power3.out", clearProps: "transform,opacity" }, .2)
+      .from(".site", { y: 50, opacity: 0, scale: .97, duration: 1.2, ease: "expo.out" }, .3)
+      .from(".s-sec", { y: 20, opacity: 0, duration: .8, stagger: .1, ease: "power3.out", clearProps: "transform,opacity" }, .6);
+    reveals();
+  })();
+  </script>
+</body>
+</html>

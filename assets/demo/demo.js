@@ -15,10 +15,8 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches && !params.has("motion");
   const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   const home = "../../index.html?lang=" + lang;
-  // «Хочу такой сайт» открывает на главной окно заявки с названием концепта
-  const brand = (document.querySelector("meta[name=sc-brand]") || {}).content || document.title.split(" — ")[0];
-  const leadUrl = home + "&brief=" + encodeURIComponent(brand);
-
+  // В версии для показа нет формы заявки — кнопка ведёт в Telegram студии
+  const leadUrl = "https://t.me/shalecode";
   // Панель студии
   const bar = document.createElement("div");
   bar.className = "sc-bar";
@@ -27,7 +25,7 @@
     <a class="sc-back" href="${home}#work"><svg class="sc-arrow" viewBox="0 0 24 24" style="width:14px;fill:none;stroke:currentColor;stroke-width:2"><path d="M19 12H5M11 6l-6 6 6 6" style="fill:none"/></svg>
       <svg viewBox="0 0 246 208"><path d="M0 208 L32 24 L92 0 L88 108 L137 128 L152 151 L239 180 L246 208 Z"/><path d="M91 0 L158 38 L173 66 L215 89 L227 123 L153 98 L139 75 L87 53 Z"/><path d="M87 64 L132 84 L146 107 L231 136 L242 170 L159 142 L144 119 L85 98 Z"/></svg>${T.back}</a>
     <span class="sc-note">${T.note}</span>
-    <a class="sc-cta" href="${leadUrl}">${T.cta}</a>`;
+    <a class="sc-cta" href="${leadUrl}" target="_blank" rel="noopener">${T.cta}</a>`;
   document.body.appendChild(bar);
 
   // Разбивка: по словам (по умолчанию) или по буквам (только для латиницы)

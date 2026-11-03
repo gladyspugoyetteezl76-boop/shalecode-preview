@@ -251,6 +251,34 @@
         "en": "Clinic · Online booking service",
         "ar": "عيادة · خدمة الحجز الإلكتروني"
       }
+    },
+    {
+      "id": "w6",
+      "visible": true,
+      "name": "Lumen",
+      "kind": "concept",
+      "link": "work/lumen/index.html",
+      "mock": "lumen",
+      "image": "",
+      "type": {
+        "ru": "Онлайн-обучение · LMS-платформа",
+        "en": "Online learning · LMS platform",
+        "ar": "التعلم عبر الإنترنت · منصة LMS"
+      }
+    },
+    {
+      "id": "w7",
+      "visible": true,
+      "name": "Strata",
+      "kind": "concept",
+      "link": "work/strata/index.html",
+      "mock": "strata",
+      "image": "",
+      "type": {
+        "ru": "Управление контентом · CMS-система",
+        "en": "Content management · CMS",
+        "ar": "إدارة المحتوى · نظام CMS"
+      }
     }
   ],
   "reviews": []

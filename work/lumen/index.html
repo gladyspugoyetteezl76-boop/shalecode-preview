@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumen — LMS-платформа для онлайн-обучения · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Lumen LMS">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_graphite.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=2">
+  <style>
+    :root { --bg: #0d0f1a; --panel: #151829; --panel2: #1c2036; --line: rgba(255,255,255,.07); --ink: #eef0fb; --muted: #8a90ad; --acc: #7c6cff; --acc2: #39d6c0; --warm: #ffb547; --ease: cubic-bezier(.22,1,.36,1); }
+    body { background: var(--bg); color: var(--ink); font: 400 15px/1.55 "Manrope", sans-serif; }
+    .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+    /* Боковое меню */
+    .side { position: sticky; top: 0; height: 100vh; padding: 26px 18px; border-inline-end: 1px solid var(--line); display: flex; flex-direction: column; gap: 28px; background: #0b0d17; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+    .logo i { width: 28px; height: 28px; border-radius: 9px; background: conic-gradient(from 200deg, var(--acc), var(--acc2), var(--acc)); box-shadow: 0 0 24px rgba(124,108,255,.5); }
+    .menu { display: grid; gap: 4px; }
+    .menu button { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; color: var(--muted); font-weight: 600; text-align: start; transition: .3s var(--ease); }
+    .menu button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    .menu button:hover { color: var(--ink); background: var(--panel); }
+    .menu button.on { color: var(--ink); background: linear-gradient(90deg, rgba(124,108,255,.22), rgba(124,108,255,.04)); box-shadow: inset 2px 0 0 var(--acc); }
+    .pro { margin-top: auto; padding: 18px; border-radius: 18px; background: linear-gradient(150deg, #2a2260, #15182b); border: 1px solid rgba(124,108,255,.3); font-size: 13px; color: var(--muted); }
+    .pro b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+
+    /* Основная область */
+    .main { padding: 26px clamp(18px, 3vw, 40px) 110px; min-width: 0; }
+    .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .top h1 { font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; letter-spacing: -.03em; }
+    .top h1 span { color: var(--muted); font-weight: 500; }
+    .user { display: flex; align-items: center; gap: 12px; }
+    .streak { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 30px; background: rgba(255,181,71,.12); color: var(--warm); font-weight: 700; font-size: 13px; }
+    .ava { width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(135deg, #ff8fb1, #7c6cff); display: grid; place-items: center; font-weight: 800; }
+
+    .grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 22px; min-width: 0; }
+    .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .card h3 small { color: var(--muted); font-weight: 500; font-size: 13px; }
+
+    /* Текущий урок */
+    .player { position: relative; aspect-ratio: 16/8; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 30% 30%, #3b2f9a, #12142a 70%); display: grid; place-items: center; }
+    .player::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.03) 46px 47px), repeating-linear-gradient(0deg, transparent 0 46px, rgba(255,255,255,.03) 46px 47px); }
+    .orb { position: absolute; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(57,214,192,.55), transparent 60%); filter: blur(10px); right: 8%; top: -10%; }
+    .play { position: relative; width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,.12); backdrop-filter: blur(8px); display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); transition: .4s var(--ease); }
+    .play:hover { transform: scale(1.08); background: var(--acc); }
+    .play svg { width: 24px; fill: #fff; margin-inline-start: 4px; }
+    .player .cap { position: absolute; left: 20px; bottom: 18px; right: 20px; display: flex; justify-content: space-between; align-items: end; gap: 10px; }
+    .player .cap b { font-size: clamp(16px, 1.8vw, 22px); letter-spacing: -.02em; }
+    .player .cap small { display: block; color: rgba(255,255,255,.6); font-size: 12px; }
+    .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.1); }
+    .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--acc), var(--acc2)); transition: width .3s linear; }
+
+    .lessons { margin-top: 18px; display: grid; gap: 6px; }
+    .lesson { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px; text-align: start; width: 100%; transition: background .3s; }
+    .lesson:hover { background: var(--panel2); }
+    .lesson.cur { background: var(--panel2); box-shadow: inset 0 0 0 1px rgba(124,108,255,.4); }
+    .chk { width: 26px; height: 26px; border-radius: 9px; flex-shrink: 0; border: 1.5px solid rgba(255,255,255,.18); display: grid; place-items: center; transition: .4s var(--ease); }
+    .chk svg { width: 14px; fill: none; stroke: #0d0f1a; stroke-width: 3; opacity: 0; transform: scale(.4); transition: .4s var(--ease); }
+    .lesson.done .chk { background: var(--acc2); border-color: var(--acc2); }
+    .lesson.done .chk svg { opacity: 1; transform: none; }
+    .lesson span:not(.chk) { flex: 1; font-weight: 600; font-size: 14px; }
+    .lesson small { color: var(--muted); font-size: 12px; }
+
+    /* Прогресс */
+    .ring { position: relative; width: 170px; margin: 4px auto 18px; }
+    .ring svg { width: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 12; }
+    .ring .bg { stroke: var(--panel2); }
+    .ring .fg { stroke: url(#rg); stroke-linecap: round; transition: stroke-dashoffset 1s var(--ease); }
+    .ring .val { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+    .ring .val b { font-size: 38px; font-weight: 800; letter-spacing: -.04em; }
+    .ring .val small { color: var(--muted); font-size: 12px; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+    .kpis div { padding: 12px 4px; border-radius: 14px; background: var(--panel2); }
+    .kpis b { display: block; font-size: 20px; }
+    .kpis small { color: var(--muted); font-size: 11px; }
+
+    /* Активность */
+    .heat { display: grid; grid-template-columns: repeat(18, 1fr); gap: 4px; }
+    .heat i { aspect-ratio: 1; border-radius: 4px; background: var(--panel2); }
+    .heat i.l1 { background: rgba(124,108,255,.3); } .heat i.l2 { background: rgba(124,108,255,.6); } .heat i.l3 { background: var(--acc); }
+
+    /* Тест */
+    .quiz .q { font-size: 17px; font-weight: 700; margin-bottom: 14px; letter-spacing: -.01em; }
+    .opts { display: grid; gap: 8px; }
+    .opt { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 14px; background: var(--panel2); text-align: start; font-weight: 600; font-size: 14px; border: 1px solid transparent; transition: .3s var(--ease); }
+    .opt:hover { border-color: rgba(124,108,255,.5); }
+    .opt i { width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,.06); display: grid; place-items: center; font-style: normal; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+    .opt.ok { border-color: var(--acc2); background: rgba(57,214,192,.12); }
+    .opt.ok i { background: var(--acc2); color: #0d0f1a; }
+    .opt.bad { border-color: #ff6b81; background: rgba(255,107,129,.1); animation: shake .4s; }
+    @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    .fb { margin-top: 12px; min-height: 22px; font-size: 13px; color: var(--muted); }
+    .fb.ok { color: var(--acc2); }
+
+    /* Курсы */
+    .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+    .course { position: relative; border-radius: 22px; padding: 20px; min-height: 190px; display: flex; flex-direction: column; justify-content: end; overflow: hidden; background: var(--panel); border: 1px solid var(--line); transition: transform .5s var(--ease), border-color .4s; }
+    .course:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.18); }
+    .course::before { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; top: -60px; right: -50px; background: var(--c); opacity: .5; filter: blur(30px); transition: .6s var(--ease); }
+    .course:hover::before { transform: scale(1.3); opacity: .7; }
+    .course small { position: relative; color: var(--muted); font-size: 12px; }
+    .course b { position: relative; font-size: 18px; letter-spacing: -.02em; margin: 4px 0 14px; }
+    .course .pb { position: relative; height: 6px; border-radius: 6px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .course .pb i { display: block; height: 100%; border-radius: 6px; background: var(--c); }
+
+    .toast { position: fixed; z-index: 60; right: 24px; top: 24px; padding: 14px 18px; border-radius: 16px; background: var(--panel2); border: 1px solid rgba(57,214,192,.4); box-shadow: 0 20px 40px rgba(0,0,0,.4); font-weight: 600; font-size: 14px; transform: translateY(-140%); transition: transform .6s var(--ease); }
+    .toast.on { transform: none; }
+
+    @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } .courses { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 800px) {
+      .app { grid-template-columns: 1fr; }
+      .side { position: static; height: auto; flex-direction: row; align-items: center; justify-content: space-between; padding: 16px; border: 0; border-bottom: 1px solid var(--line); }
+      .menu, .pro { display: none; }
+      .courses { grid-template-columns: 1fr; }
+      .top .streak { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="logo"><i></i>Lumen</div>
+      <nav class="menu" id="menu">
+        <button class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Главная</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 9h16"/></svg>Мои курсы</button>
+        <button><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4M5 4h14v16H5z"/></svg>Тесты</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Прогресс</button>
+        <button><svg viewBox="0 0 24 24"><path d="M12 15a6 6 0 100-12 6 6 0 000 12zM8 14l-2 7 6-3 6 3-2-7"/></svg>Сертификаты</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Куратор</button>
+      </nav>
+      <div class="pro"><b>Сертификат близко</b>Осталось 3 урока до сертификата курса «UX-исследования».</div>
+    </aside>
+
+    <main class="main">
+      <div class="top">
+        <h1 id="hello">Привет, Анна <span>— продолжим?</span></h1>
+        <div class="user"><span class="streak">🔥 12 дней подряд</span><span class="ava">А</span></div>
+      </div>
+
+      <div class="grid">
+        <section class="card" data-reveal>
+          <h3>UX-исследования · Модуль 3 <small id="lessonCount"></small></h3>
+          <div class="player">
+            <div class="orb"></div>
+            <button class="play" id="play" aria-label="Смотреть урок"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></button>
+            <div class="cap"><div><small>Урок 4 · 18 мин</small><b id="curTitle">Глубинное интервью</b></div><small id="time">00:00</small></div>
+            <div class="bar"><i id="bar"></i></div>
+          </div>
+          <div class="lessons" id="lessons"></div>
+        </section>
+
+        <div style="display:grid;gap:20px;min-width:0">
+          <section class="card" data-reveal=".1">
+            <h3>Прогресс курса <small>цель — 1 урок в день</small></h3>
+            <div class="ring">
+              <svg viewBox="0 0 120 120"><defs><linearGradient id="rg"><stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#39d6c0"/></linearGradient></defs>
+                <circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ringFg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+              <div class="val"><b id="pct">0%</b><small>пройдено</small></div>
+            </div>
+            <div class="kpis"><div><b>4,8</b><small>средний балл</small></div><div><b>27 ч</b><small>обучения</small></div><div><b>#6</b><small>в группе</small></div></div>
+          </section>
+          <section class="card" data-reveal=".2">
+            <h3>Активность <small>последние 18 недель</small></h3>
+            <div class="heat" id="heat"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:20px">
+        <section class="card quiz" data-reveal>
+          <h3>Быстрый тест по уроку <small>1 из 3</small></h3>
+          <p class="q" id="q"></p>
+          <div class="opts" id="opts"></div>
+          <p class="fb" id="fb">Выберите ответ — проверка мгновенная.</p>
+        </section>
+        <section class="card" data-reveal=".1">
+          <h3>Ближайшие события</h3>
+          <div class="lessons">
+            <div class="lesson"><span class="chk" style="border-color:var(--warm)"></span><span>Вебинар с куратором</span><small>сегодня, 19:00</small></div>
+            <div class="lesson"><span class="chk" style="border-color:var(--acc)"></span><span>Дедлайн: карта пути клиента</span><small>пт, 23:59</small></div>
+            <div class="lesson"><span class="chk" style="border-color:var(--acc2)"></span><span>Разбор домашних работ</span><small>сб, 12:00</small></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="courses">
+        <a class="course" style="--c:#7c6cff" data-reveal><small>12 уроков · 68%</small><b>UX-исследования</b><span class="pb"><i style="width:68%"></i></span></a>
+        <a class="course" style="--c:#39d6c0" data-reveal=".1"><small>20 уроков · 35%</small><b>Продуктовая аналитика</b><span class="pb"><i style="width:35%"></i></span></a>
+        <a class="course" style="--c:#ffb547" data-reveal=".2"><small>8 уроков · 0%</small><b>Презентации, которые продают</b><span class="pb"><i style="width:2%"></i></span></a>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast">Урок пройден — +20 XP</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=4"></script>
+  <script>
+  (function () {
+    const { reduced, reveals } = window.DEMO;
+    const $ = (s) => document.querySelector(s);
+
+    // Уроки модуля: клик отмечает урок пройденным и двигает прогресс
+    const data = [["Цели исследования", "9 мин", 1], ["Кого и как рекрутировать", "14 мин", 1], ["Сценарий интервью", "12 мин", 1], ["Глубинное интервью", "18 мин", 0], ["Анализ и инсайты", "16 мин", 0], ["Карта пути клиента", "22 мин", 0]];
+    const box = $("#lessons");
+    data.forEach(([t, d, done], i) => {
+      const b = document.createElement("button");
+      b.className = "lesson" + (done ? " done" : "") + (i === 3 ? " cur" : "");
+      b.innerHTML = `<span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span></span><small>${d}</small>`;
+      b.children[1].textContent = (i + 1) + ". " + t;
+      b.addEventListener("click", () => {
+        const was = b.classList.contains("done");
+        b.classList.toggle("done");
+        document.querySelectorAll(".lesson.cur").forEach((x) => x.classList.remove("cur"));
+        b.classList.add("cur");
+        $("#curTitle").textContent = t;
+        if (!was) toast();
+        update();
+      });
+      box.append(b);
+    });
+    const base = 6; // уроки прошлых модулей
+    function update() {
+      const done = box.querySelectorAll(".done").length + base, total = 12;
+      const p = Math.round(done / total * 100);
+      $("#lessonCount").textContent = box.querySelectorAll(".done").length + " из " + data.length;
+      $("#ringFg").style.strokeDashoffset = 326.7 * (1 - p / 100);
+      $("#pct").textContent = p + "%";
+    }
+    let tt;
+    function toast() { $("#toast").classList.add("on"); clearTimeout(tt); tt = setTimeout(() => $("#toast").classList.remove("on"), 2200); }
+
+    // Плеер: имитация просмотра
+    let playing = false, sec = 0, iv;
+    $("#play").addEventListener("click", () => {
+      playing = !playing;
+      $("#play").innerHTML = playing ? '<svg viewBox="0 0 24 24" style="margin:0"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg>';
+      clearInterval(iv);
+      if (playing) iv = setInterval(() => {
+        sec = (sec + 9) % 1080;
+        $("#bar").style.width = (sec / 1080 * 100) + "%";
+        $("#time").textContent = String(Math.floor(sec / 60)).padStart(2, "0") + ":" + String(sec % 60).padStart(2, "0") + " / 18:00";
+      }, 200);
+    });
+
+    // Тепловая карта активности
+    const heat = $("#heat");
+    for (let i = 0; i < 126; i++) { const r = Math.sin(i * 12.9898) * 43758.5453 % 1; const v = Math.abs(r) + i / 260; heat.append(Object.assign(document.createElement("i"), { className: v > 1 ? "l3" : v > .75 ? "l2" : v > .45 ? "l1" : "" })); }
+
+    // Тест
+    const qs = [
+      ["Какой вопрос лучше задать на глубинном интервью?", ["Вам бы понравилась такая функция?", "Расскажите, как вы делали это в последний раз", "Сколько бы вы заплатили?"], 1],
+      ["Сколько интервью обычно хватает, чтобы увидеть повторяющиеся паттерны?", ["2–3", "5–8", "50+"], 1],
+      ["Что делать с инсайтом, который подтвердил один респондент?", ["Сразу внедрять", "Проверить на следующих интервью", "Игнорировать"], 1]
+    ];
+    let qi = 0;
+    function renderQ() {
+      const [q, opts, ok] = qs[qi];
+      $("#q").textContent = q;
+      $(".quiz h3 small").textContent = (qi + 1) + " из " + qs.length;
+      const o = $("#opts"); o.innerHTML = "";
+      opts.forEach((t, i) => {
+        const b = document.createElement("button"); b.className = "opt";
+        b.innerHTML = `<i>${"ABC"[i]}</i><span></span>`; b.lastChild.textContent = t;
+        b.addEventListener("click", () => {
+          if (i === ok) {
+            b.classList.add("ok"); $("#fb").className = "fb ok"; $("#fb").textContent = "Верно! Следующий вопрос…";
+            setTimeout(() => { qi = (qi + 1) % qs.length; $("#fb").className = "fb"; $("#fb").textContent = "Выберите ответ — проверка мгновенная."; renderQ(); }, 1300);
+          } else { b.classList.remove("bad"); void b.offsetWidth; b.classList.add("bad"); $("#fb").className = "fb"; $("#fb").textContent = "Почти. Подсказка — в 4-м уроке, 06:40."; }
+        });
+        o.append(b);
+      });
+    }
+    renderQ();
+
+    document.querySelectorAll("#menu button").forEach((b) => b.addEventListener("click", () => { document.querySelectorAll("#menu button").forEach((x) => x.classList.remove("on")); b.classList.add("on"); }));
+
+    if (reduced || !window.gsap) { update(); return; }
+    gsap.timeline({ onStart: () => setTimeout(update, 500) })
+      .from(".side > *", { x: -30, opacity: 0, duration: .9, stagger: .08, ease: "expo.out" })
+      .from(".top > *", { y: 20, opacity: 0, duration: .9, stagger: .1, ease: "expo.out" }, .1)
+      .from(".lesson", { x: 20, opacity: 0, duration: .7, stagger: .05, ease: "power3.out", clearProps: "transform,opacity" }, .5)
+      .from(".heat i", { scale: 0, duration: .4, stagger: { each: .004, from: "start" }, ease: "back.out(2)" }, .6);
+    gsap.to(".orb", { x: -40, y: 30, duration: 6, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    reveals();
+  })();
+  </script>
+</body>
+</html>

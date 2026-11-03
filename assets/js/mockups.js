@@ -14,7 +14,9 @@
       <div class="menu">${"<span>" + sk(2) + "</span>"}${"<span>" + sk(2) + "</span>"}${"<span>" + sk(2) + "</span>"}</div>`,
     atlas: `${nav("ATLAS")}<h4>Забота в удобное для вас время</h4><div class="txt">${sk(2)}</div><div class="btn"></div>
       <div class="cal">${Array.from({ length: 28 }, (_, i) => `<i class="${i === 17 ? "on" : i < 3 ? "off" : ""}"></i>`).join("")}</div>
-      <div class="doc">${sk(1)}</div>`
+      <div class="doc">${sk(1)}</div>`,
+    lumen: `<div class="side">${sk(5)}</div><h4>Привет, Анна</h4><div class="player"><b></b></div><div class="ring"></div><div class="heat">${Array.from({ length: 40 }, (_, i) => `<i class="${[3, 7, 8, 12, 15, 19, 22, 23, 27, 30, 33, 34, 36, 38, 39].includes(i) ? "on" : ""}"></i>`).join("")}</div>`,
+    strata: `<div class="side">${sk(6)}</div><div class="ed"><h4>Страница</h4>${sk(3)}<div class="blk"></div><div class="blk"></div><div class="blk"></div></div><div class="pv"><b></b><span></span>${sk(2)}<div class="pv-row"><i></i><i></i><i></i></div></div>`
   };
   function render(root) {
     (root || document).querySelectorAll("[data-mock]").forEach((el) => {
