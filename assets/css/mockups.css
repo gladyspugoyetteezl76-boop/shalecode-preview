@@ -112,18 +112,27 @@
 }
 
 /* LUMEN — LMS-платформа */
-.mock--lumen { background: #0d0f1a; color: #eef0fb; }
-.mock--lumen .side { position: absolute; left: 0; top: 0; bottom: 0; width: 16cqw; padding: 4cqw 2cqw; display: grid; align-content: start; gap: 2cqw; background: #0b0d17; border-right: 1px solid rgba(255,255,255,.06); }
-.mock--lumen .side .sk { height: 1.4cqw; background: rgba(255,255,255,.1); }
-.mock--lumen .side .sk:first-child { background: linear-gradient(90deg, #7c6cff, #39d6c0); }
-.mock--lumen h4 { position: absolute; left: 20cqw; top: 3.5cqw; margin: 0; font: 800 3cqw/1 "Manrope", sans-serif; letter-spacing: -.1cqw; }
-.mock--lumen .player { position: absolute; left: 20cqw; top: 10cqw; width: 44cqw; height: 25cqw; border-radius: 2cqw; background: radial-gradient(circle at 30% 30%, #3b2f9a, #15182b 70%); display: grid; place-items: center; }
-.mock--lumen .player b { width: 7cqw; height: 7cqw; border-radius: 50%; background: rgba(255,255,255,.15); box-shadow: 0 0 0 1.4cqw rgba(124,108,255,.15); animation: mock-pulse 2.4s ease-in-out infinite; }
-.mock--lumen .ring { position: absolute; right: 5cqw; top: 9cqw; width: 22cqw; aspect-ratio: 1; border-radius: 50%; background: conic-gradient(#7c6cff, #39d6c0 68%, #1c2036 0); -webkit-mask: radial-gradient(circle, transparent 58%, #000 59%); mask: radial-gradient(circle, transparent 58%, #000 59%); }
-.mock--lumen .heat { position: absolute; left: 20cqw; right: 5cqw; bottom: 3.5cqw; display: grid; grid-template-columns: repeat(20, 1fr); gap: .6cqw; }
-.mock--lumen .heat i { aspect-ratio: 1; border-radius: .4cqw; background: #1c2036; }
-.mock--lumen .heat i.on { background: #7c6cff; }
-
+.mock--lumen { background: #f3f5f8; color: #1a2433; }
+.mock--lumen .hd { position: absolute; inset: 0 0 auto 0; height: 5cqw; display: flex; align-items: center; gap: 3cqw; padding: 0 2.4cqw; background: #1d3557; }
+.mock--lumen .hd b { font: 700 1.6cqw/1 "IBM Plex Sans", sans-serif; color: #fff; letter-spacing: .1cqw; }
+.mock--lumen .hd .sk { width: 26cqw; height: 2.2cqw; background: rgba(255,255,255,.14); }
+.mock--lumen .side { position: absolute; left: 0; top: 5cqw; bottom: 0; width: 15cqw; padding: 2.4cqw 1.6cqw; display: grid; align-content: start; gap: 1.8cqw; background: #fff; border-right: 1px solid #dde2ea; }
+.mock--lumen .side .sk { height: 1.3cqw; background: #e3e7ee; }
+.mock--lumen .side .sk:nth-child(2) { background: #1d3557; }
+.mock--lumen .crs { position: absolute; left: 17.5cqw; right: 2.5cqw; top: 7.5cqw; padding: 2cqw 2.4cqw; background: #fff; border: 1px solid #dde2ea; border-radius: .6cqw; }
+.mock--lumen .crs .sk { width: 30%; height: 1cqw; background: #dde2ea; }
+.mock--lumen h4 { margin: 1cqw 0 1.6cqw; font: 600 2.6cqw/1.1 "IBM Plex Sans", sans-serif; }
+.mock--lumen .pb { height: 1cqw; border-radius: .5cqw; background: #e8edf5; overflow: hidden; }
+.mock--lumen .pb i { display: block; width: 62%; height: 100%; background: #1d3557; }
+.mock--lumen .mods { position: absolute; left: 17.5cqw; width: 44cqw; top: 22cqw; background: #fff; border: 1px solid #dde2ea; border-radius: .6cqw; }
+.mock--lumen .mods div { display: flex; align-items: center; justify-content: space-between; padding: 1.6cqw 2cqw; border-top: 1px solid #e8ebf0; }
+.mock--lumen .mods div:first-child { border: 0; }
+.mock--lumen .mods .sk { width: 60%; height: 1.2cqw; background: #cfd6e0; }
+.mock--lumen .mods em { width: 7cqw; height: 1.8cqw; border-radius: .3cqw; background: #fbf1dc; }
+.mock--lumen .mods .ok em { background: #e6f2ea; }
+.mock--lumen .tbl { position: absolute; right: 2.5cqw; width: 30cqw; top: 22cqw; padding: 2cqw; display: grid; gap: 1.8cqw; background: #fff; border: 1px solid #dde2ea; border-radius: .6cqw; }
+.mock--lumen .tbl .sk { height: 1.2cqw; background: #e3e7ee; }
+.mock--lumen .tbl .sk:first-child { width: 50%; background: #1d3557; }
 /* STRATA — CMS */
 .mock--strata { background: #f5f4f0; color: #17171a; }
 .mock--strata .side { position: absolute; left: 0; top: 0; bottom: 0; width: 15cqw; padding: 4cqw 2cqw; display: grid; align-content: start; gap: 2cqw; background: #17171a; }
