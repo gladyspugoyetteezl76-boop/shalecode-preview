@@ -137,10 +137,137 @@
     .note { position: fixed; z-index: 60; right: 24px; top: 76px; padding: 12px 16px; border-radius: 4px; background: var(--white); border: 1px solid var(--line); border-inline-start: 4px solid var(--ok); box-shadow: 0 10px 30px rgba(26,36,51,.12); font-size: 13px; transform: translateY(-10px); opacity: 0; pointer-events: none; transition: .4s var(--ease); }
     .note.on { transform: none; opacity: 1; }
 
-    @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
+    /* Разделы */
+    .view { display: none; }
+    .view.on { display: block; }
+    .lnk { color: var(--blue); font-size: 13px; }
+    .lnk:hover { text-decoration: underline; }
+    .vt { font-size: clamp(20px, 2vw, 26px); font-weight: 600; margin-bottom: 4px; }
+    .vs { color: var(--muted); font-size: 13px; }
+    .vhead { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .vhead .vt { margin: 0; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 18px 0; }
+    .stat { padding: 16px 18px; }
+    .stat small { color: var(--muted); font-size: 12px; }
+    .stat b { display: block; font-size: 24px; font-weight: 600; margin-top: 4px; }
+    .hc { display: flex; align-items: center; gap: 16px; width: 100%; padding: 14px 18px; border-bottom: 1px solid var(--line); text-align: start; }
+    .hc:last-child { border: 0; }
+    .hc:hover { background: #fafbfc; }
+    .hc div { flex: 1; min-width: 0; }
+    .hc b { display: block; font-weight: 600; }
+    .hc small { color: var(--muted); font-size: 12px; }
+    .hc .pbar { width: 120px; margin: 0; flex-shrink: 0; }
+    .ctabs { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; }
+    .ctabs button, .seg button { padding: 7px 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--white); font-size: 13px; font-weight: 500; white-space: nowrap; }
+    .ctabs button.on, .seg button.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+    .sel { height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--white); font: 400 14px "IBM Plex Sans"; color: var(--ink); }
+
+    /* Уведомления */
+    .hr { position: relative; }
+    .drop { position: absolute; right: 0; top: 46px; width: 340px; background: var(--white); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 16px 40px rgba(26,36,51,.16); display: none; white-space: normal; }
+    .drop.on { display: block; }
+    .drop-h { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .drop-h button { color: var(--blue); font-size: 12px; }
+    .dn { display: block; width: 100%; text-align: start; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    .dn:last-child { border: 0; }
+    .dn:hover { background: var(--bg); }
+    .dn b { display: block; color: var(--ink); font-weight: 600; }
+    .dn.un { box-shadow: inset 3px 0 0 var(--blue); background: #f7f9fd; }
+
+    /* Расписание */
+    .wk { display: flex; align-items: center; gap: 10px; }
+    .wk button { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 4px; background: var(--white); font-size: 18px; }
+    .wk b { font-weight: 600; min-width: 150px; text-align: center; }
+    .sched-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; align-items: start; }
+    .sched { display: grid; grid-template-columns: 56px repeat(6, minmax(110px, 1fr)); min-width: 720px; }
+    .sched .dh { padding: 10px; font-size: 12px; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--line); background: #fafbfc; }
+    .sched .dh.today { color: var(--navy); box-shadow: inset 0 -2px 0 var(--navy); }
+    .sched .tm { font-size: 11px; color: var(--muted); padding: 6px; border-bottom: 1px solid var(--line); height: 68px; }
+    .sched .cell { border-bottom: 1px solid var(--line); border-inline-start: 1px solid var(--line); padding: 3px; height: 68px; }
+    .evb { width: 100%; height: 100%; text-align: start; padding: 5px 8px; border-radius: 3px; font-size: 12px; line-height: 1.3; overflow: hidden; border-inline-start: 3px solid; }
+    .evb.lec { background: var(--navy2); border-color: var(--navy); }
+    .evb.web { background: var(--okbg); border-color: var(--ok); }
+    .evb.exm { background: var(--warnbg); border-color: var(--warn); }
+    .evb.on { outline: 2px solid var(--blue); }
+    .evb small { display: block; color: var(--muted); }
+    .ev .card-b b { display: block; font-size: 16px; font-weight: 600; margin: 6px 0 10px; }
+    .ev dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 13px; margin: 0 0 14px; }
+    .ev dt { color: var(--muted); }
+    .ev dd { margin: 0; }
+
+    /* Задания */
+    .up { margin-top: 18px; }
+    .drop-zone { display: grid; gap: 4px; place-items: center; text-align: center; padding: 26px; border: 1.5px dashed #b9c3d2; border-radius: 6px; margin: 14px 0; cursor: pointer; transition: border-color .2s, background .2s; }
+    .drop-zone:hover, .drop-zone.over { border-color: var(--navy); background: var(--navy2); }
+    .drop-zone small { color: var(--muted); font-size: 12px; }
+    .drop-zone.has { border-style: solid; border-color: var(--ok); background: var(--okbg); }
+    label.f { display: grid; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 500; }
+    .f textarea, .f input { font: 400 14px "IBM Plex Sans"; padding: 9px 12px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); resize: vertical; }
+    tr.hl td { background: #f7f9fd; }
+
+    /* Успеваемость */
+    .bars { display: grid; gap: 12px; }
+    .bars div { display: grid; grid-template-columns: 170px 1fr 54px; gap: 12px; align-items: center; font-size: 13px; }
+    .bars span { height: 12px; border-radius: 2px; background: var(--navy2); overflow: hidden; }
+    .bars i { display: block; height: 100%; background: var(--navy); transition: width .7s var(--ease); }
+    .bars em { font-style: normal; font-weight: 600; text-align: end; }
+
+    /* Сообщения */
+    .chat { display: grid; grid-template-columns: 260px 1fr; height: 520px; overflow: hidden; }
+    .dlg { border-inline-end: 1px solid var(--line); overflow-y: auto; }
+    .dlg button { display: flex; gap: 10px; width: 100%; padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: start; }
+    .dlg button.on { background: var(--navy2); }
+    .dlg .av { width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+    .dlg div { min-width: 0; flex: 1; }
+    .dlg b { display: block; font-weight: 600; font-size: 13px; }
+    .dlg small { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dlg em { font-style: normal; font-size: 10px; min-width: 18px; height: 18px; border-radius: 9px; background: var(--blue); color: #fff; display: grid; place-items: center; align-self: center; }
+    .conv { display: flex; flex-direction: column; min-width: 0; }
+    .msgs { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; background: #fafbfc; }
+    .msg { max-width: 75%; padding: 9px 12px; border-radius: 6px; background: var(--white); border: 1px solid var(--line); font-size: 13px; }
+    .msg small { display: block; font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .msg.me { align-self: flex-end; background: var(--navy); color: #fff; border-color: var(--navy); }
+    .msg.me small { color: rgba(255,255,255,.6); }
+    .msg.typing { color: var(--muted); font-style: italic; }
+    .send { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); }
+    .send input { flex: 1; min-width: 0; height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 4px; font: 400 14px "IBM Plex Sans"; }
+
+    /* Документы и сертификаты */
+    .order { display: flex; flex-wrap: wrap; align-items: end; gap: 14px; border-bottom: 1px solid var(--line); }
+    .order .f { flex: 1; min-width: 180px; }
+    .certs { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+    .cert { position: relative; padding: 34px 34px 28px; background: #fffdf7; border: 1px solid #e4dcc4; outline: 6px double #d9cfae; outline-offset: -14px; text-align: center; border-radius: 4px; }
+    .cert small { font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+    .cert .cn { display: block; font-size: 12px; color: var(--muted); margin: 4px 0 18px; font-weight: 500; }
+    .cert p { font-size: 13px; color: var(--muted); }
+    .cert h3 { font-size: 22px; font-weight: 600; margin: 4px 0 8px; color: var(--navy); }
+    .cert h4 { font-size: 16px; font-weight: 600; margin: 4px 0 8px; }
+    .sig { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; font-size: 12px; color: var(--muted); text-align: start; }
+    .sig i { color: var(--ink); }
+    .seal { width: 58px; height: 58px; border-radius: 50%; border: 2px solid var(--navy); color: var(--navy); display: grid; place-items: center; font-weight: 700; font-size: 20px; opacity: .7; }
+
+    @media (max-width: 1100px) { .grid, .sched-wrap, .certs { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) {
+      .chat { grid-template-columns: 1fr; height: auto; }
+      .dlg { display: flex; overflow-x: auto; border: 0; border-bottom: 1px solid var(--line); }
+      .dlg button { flex: 0 0 auto; width: auto; border: 0; }
+      .dlg small { display: none; }
+      .msgs { height: 360px; flex: none; }
+      .bars div { grid-template-columns: 1fr 54px; }
+      .bars span { grid-column: 1 / -1; grid-row: 2; }
+      .hc .pbar { width: 70px; }
+      .drop { position: fixed; left: 12px; right: 12px; top: 64px; width: auto; }
+      .cert { padding: 28px 20px 22px; }
+      #tTable td:nth-child(2), #tTable th:nth-child(2) { display: none; }
+    }
     @media (max-width: 860px) {
       .app { grid-template-columns: 1fr; }
-      .side { display: none; }
+      /* На телефоне меню — горизонтальная лента под шапкой */
+      .side { position: sticky; top: 60px; z-index: 15; display: flex; gap: 4px; overflow-x: auto; padding: 8px 10px; border: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+      .side h6 { display: none; }
+      .side button { width: auto; flex: 0 0 auto; white-space: nowrap; padding: 8px 12px; }
+      .side button.on { box-shadow: inset 0 -2px 0 var(--navy); }
       .search, .me div { display: none; }
       .course { grid-template-columns: 1fr; }
       .brand small { display: none; }
@@ -158,36 +285,69 @@
     <div class="brand"><i>L</i><div><b>LUMEN</b><small>Система дистанционного обучения</small></div></div>
     <input class="search" placeholder="Поиск по курсам и материалам">
     <div class="hr">
-      <span class="bwrap"><svg class="bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"/></svg><em>3</em></span>
+      <button class="bwrap" id="bell" aria-label="Уведомления"><svg class="bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4zM10 20a2 2 0 004 0"/></svg><em id="bellN">3</em></button>
       <div class="me"><span>АС</span><div>Анна Смирнова<small>Слушатель · группа ПМ-24</small></div></div>
+      <div class="drop" id="drop">
+        <div class="drop-h"><b>Уведомления</b><button id="readAll">Отметить прочитанными</button></div>
+        <button class="dn un" data-go="tasks"><b>Срок сдачи через 7 дней</b>Сетевой график проекта — до 10.11</button>
+        <button class="dn un" data-go="messages"><b>Новое сообщение</b>Королёв Д. А.: «Посмотрел ваш устав проекта…»</button>
+        <button class="dn un" data-go="grades"><b>Выставлена оценка</b>Иерархическая структура работ — 22 из 25</button>
+      </div>
     </div>
   </header>
 
   <div class="app">
     <aside class="side" id="side">
       <h6>Обучение</h6>
-      <button><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Главная</button>
-      <button class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 9h16"/></svg>Мои курсы</button>
-      <button><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM8 3v5M16 3v5M4 11h16"/></svg>Расписание</button>
-      <button><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4M5 4h14v16H5z"/></svg>Задания<em>2</em></button>
-      <button><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Успеваемость</button>
+      <button data-v="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Главная</button>
+      <button data-v="course"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 9h16"/></svg>Мои курсы</button>
+      <button data-v="schedule"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM8 3v5M16 3v5M4 11h16"/></svg>Расписание</button>
+      <button data-v="tasks"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4M5 4h14v16H5z"/></svg>Задания<em id="taskN">2</em></button>
+      <button data-v="grades"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Успеваемость</button>
       <h6>Сервисы</h6>
-      <button><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Сообщения</button>
-      <button><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5"/></svg>Документы</button>
-      <button><svg viewBox="0 0 24 24"><path d="M12 15a6 6 0 100-12 6 6 0 000 12zM8 14l-2 7 6-3 6 3-2-7"/></svg>Сертификаты</button>
+      <button data-v="messages"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Сообщения<em id="msgN">1</em></button>
+      <button data-v="docs"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5"/></svg>Документы</button>
+      <button data-v="certs"><svg viewBox="0 0 24 24"><path d="M12 15a6 6 0 100-12 6 6 0 000 12zM8 14l-2 7 6-3 6 3-2-7"/></svg>Сертификаты</button>
     </aside>
 
     <main class="main">
-      <div class="crumbs"><a href="#">Мои курсы</a> / Управление проектами</div>
+     <!-- ГЛАВНАЯ -->
+     <div class="view" data-view="home">
+      <div class="crumbs">Главная</div>
+      <h2 class="vt">Добрый день, Анна Сергеевна</h2>
+      <p class="vs">Среда, 4 ноября 2026 · 10-я неделя обучения</p>
+      <div class="stats">
+        <div class="card stat"><small>Активных курсов</small><b>3</b></div>
+        <div class="card stat"><small>Заданий к сдаче</small><b id="statTasks">2</b></div>
+        <div class="card stat"><small>Рейтинг по программе</small><b>81 / 90</b></div>
+        <div class="card stat"><small>Посещаемость вебинаров</small><b>92%</b></div>
+      </div>
+      <div class="grid">
+        <section class="card">
+          <div class="card-h"><h3>Мои курсы</h3><button class="lnk" data-go="course">Перейти к курсам</button></div>
+          <div id="homeCourses"></div>
+        </section>
+        <section class="card">
+          <div class="card-h"><h3>Сегодня</h3><button class="lnk" data-go="schedule">Расписание</button></div>
+          <div class="ann"><b>18:00 — Вебинар «Критический путь на практике»</b><p>Королёв Д. А. · онлайн, Zoom</p></div>
+          <div class="ann"><b>23:59 — Самостоятельная работа</b><p>Лекция 3.3. Бюджет проекта</p></div>
+        </section>
+      </div>
+     </div>
 
-      <section class="card course" data-reveal>
+     <!-- КУРС -->
+     <div class="view" data-view="course">
+      <div class="crumbs"><button class="lnk" data-go="home">Главная</button> / <span id="crumbCourse">Управление проектами</span></div>
+      <div class="ctabs" id="ctabs"></div>
+
+      <section class="card course">
         <div>
-          <span class="code">ПРОГРАММА ПОВЫШЕНИЯ КВАЛИФИКАЦИИ · ПК-118 · 72 академических часа</span>
-          <h1>Управление проектами: методы и инструменты</h1>
+          <span class="code" id="cCode"></span>
+          <h1 id="cTitle"></h1>
           <div class="meta">
-            <span>Преподаватель: <b>Королёв Д. А., к. э. н.</b></span>
-            <span>Период: <b>15.09 — 15.12.2026</b></span>
-            <span>Форма итоговой аттестации: <b>экзамен</b></span>
+            <span>Преподаватель: <b id="cTeacher"></b></span>
+            <span>Период: <b id="cPeriod"></b></span>
+            <span>Форма итоговой аттестации: <b id="cExam"></b></span>
           </div>
         </div>
         <div class="prog">
@@ -199,11 +359,11 @@
 
       <div class="grid">
         <div class="col">
-          <section class="card" data-reveal>
-            <div class="card-h"><h3>Лекция 3.2. Планирование сроков и критический путь</h3><small>42 мин</small></div>
+          <section class="card">
+            <div class="card-h"><h3 id="lecTitle"></h3><small>42 мин</small></div>
             <div class="card-b">
               <div class="video">
-                <div class="slide"><small>Модуль 3 · Планирование</small><p>Метод критического пути: как найти задачи, которые определяют срок проекта</p></div>
+                <div class="slide"><small id="lecMod"></small><p id="lecText"></p></div>
                 <div class="chart"><i style="height:40%"></i><i style="height:65%"></i><i style="height:100%"></i><i style="height:55%"></i></div>
                 <button class="play" id="play" aria-label="Воспроизвести"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></button>
                 <div class="ctrl"><span id="time">00:00</span><span class="track"><i id="track"></i></span><span>42:00</span></div>
@@ -215,12 +375,12 @@
             </div>
           </section>
 
-          <section class="card" data-reveal>
+          <section class="card">
             <div class="card-h"><h3>Содержание курса</h3><small>отметьте пройденные материалы</small></div>
             <div id="mods"></div>
           </section>
 
-          <section class="card" data-reveal>
+          <section class="card" id="quizCard">
             <div class="card-h"><h3>Контрольный тест к лекции 3.2</h3><small id="qn"></small></div>
             <div class="card-b">
               <p class="q" id="q"></p>
@@ -231,7 +391,7 @@
         </div>
 
         <div class="col">
-          <section class="card" data-reveal=".1">
+          <section class="card">
             <div class="card-h"><h3>Задания и сроки сдачи</h3><a href="#">Все задания</a></div>
             <div class="tw"><table>
               <tr><th>Задание</th><th>Срок</th><th>Статус</th></tr>
@@ -242,13 +402,13 @@
             </table></div>
           </section>
 
-          <section class="card" data-reveal=".15">
+          <section class="card">
             <div class="card-h"><h3>Объявления</h3><small>от преподавателя</small></div>
             <div class="ann"><b>Консультация перед экзаменом</b><p>Онлайн-консультация пройдёт 12 декабря в 18:00. Ссылка появится в расписании.</p><small>Королёв Д. А. · 01.11.2026</small></div>
             <div class="ann"><b>Обновлены материалы модуля 3</b><p>Добавлен шаблон сетевого графика и разбор типовых ошибок.</p><small>Королёв Д. А. · 28.10.2026</small></div>
           </section>
 
-          <section class="card" data-reveal=".2">
+          <section class="card">
             <div class="card-h"><h3>Ведомость успеваемости</h3><small>текущий семестр</small></div>
             <div class="tw"><table>
               <tr><th>Контрольная точка</th><th class="n">Балл</th></tr>
@@ -261,6 +421,107 @@
           </section>
         </div>
       </div>
+     </div>
+
+     <!-- РАСПИСАНИЕ -->
+     <div class="view" data-view="schedule">
+      <div class="crumbs">Расписание</div>
+      <div class="vhead"><h2 class="vt">Расписание занятий</h2>
+        <div class="wk"><button id="wPrev" aria-label="Предыдущая неделя">‹</button><b id="wLbl"></b><button id="wNext" aria-label="Следующая неделя">›</button></div></div>
+      <div class="sched-wrap">
+        <div class="card"><div class="tw"><div class="sched" id="sched"></div></div></div>
+        <div class="card ev" id="evInfo"><div class="card-b"><p class="vs">Выберите занятие в расписании, чтобы увидеть подробности.</p></div></div>
+      </div>
+     </div>
+
+     <!-- ЗАДАНИЯ -->
+     <div class="view" data-view="tasks">
+      <div class="crumbs">Задания</div>
+      <div class="vhead"><h2 class="vt">Задания</h2><div class="seg" id="tFilter"><button class="on" data-f="all">Все</button><button data-f="todo">К сдаче</button><button data-f="check">На проверке</button><button data-f="done">Принято</button></div></div>
+      <section class="card"><div class="tw"><table id="tTable"></table></div></section>
+      <section class="card up" id="upBox" hidden>
+        <div class="card-h"><h3 id="upTitle"></h3><button class="lnk" id="upClose">Закрыть</button></div>
+        <div class="card-b">
+          <p class="vs" id="upDesc"></p>
+          <label class="drop-zone" id="dz"><input type="file" hidden id="upFile"><b>Перетащите файл сюда или нажмите, чтобы выбрать</b><small>PDF, DOCX, XLSX · до 20 МБ</small></label>
+          <label class="f">Комментарий преподавателю<textarea rows="2" id="upCom" placeholder="Необязательно"></textarea></label>
+          <div class="qfoot"><p id="upFb"></p><button class="btn" id="upSend" disabled>Отправить на проверку</button></div>
+        </div>
+      </section>
+     </div>
+
+     <!-- УСПЕВАЕМОСТЬ -->
+     <div class="view" data-view="grades">
+      <div class="crumbs">Успеваемость</div>
+      <div class="vhead"><h2 class="vt">Успеваемость</h2><select class="sel" id="gSel"></select></div>
+      <div class="grid">
+        <section class="card"><div class="card-h"><h3>Баллы по контрольным точкам</h3><small id="gSum"></small></div><div class="card-b"><div class="bars" id="gBars"></div></div></section>
+        <section class="card"><div class="card-h"><h3>Шкала оценивания</h3></div><div class="tw"><table>
+          <tr><th>Баллы</th><th>Оценка</th></tr>
+          <tr><td>85–100</td><td>Отлично</td></tr><tr><td>70–84</td><td>Хорошо</td></tr><tr><td>55–69</td><td>Удовлетворительно</td></tr><tr><td>менее 55</td><td>Неудовлетворительно</td></tr>
+        </table></div></section>
+      </div>
+      <section class="card" style="margin-top:18px"><div class="tw"><table id="gTable"></table></div></section>
+     </div>
+
+     <!-- СООБЩЕНИЯ -->
+     <div class="view" data-view="messages">
+      <div class="crumbs">Сообщения</div>
+      <h2 class="vt">Сообщения</h2>
+      <section class="card chat">
+        <div class="dlg" id="dlgs"></div>
+        <div class="conv">
+          <div class="card-h"><h3 id="cName"></h3><small id="cRole"></small></div>
+          <div class="msgs" id="msgs"></div>
+          <form class="send" id="sendF"><input id="sendI" placeholder="Напишите сообщение…" autocomplete="off"><button class="btn">Отправить</button></form>
+        </div>
+      </section>
+     </div>
+
+     <!-- ДОКУМЕНТЫ -->
+     <div class="view" data-view="docs">
+      <div class="crumbs">Документы</div>
+      <h2 class="vt">Документы</h2>
+      <section class="card"><div class="tw"><table>
+        <tr><th>Документ</th><th>Дата</th><th>Статус</th><th></th></tr>
+        <tr><td>Договор об оказании образовательных услуг № 118/26</td><td>01.09.2026</td><td><span class="badge b-ok">Подписан</span></td><td><button class="lnk dl">Скачать</button></td></tr>
+        <tr><td>Приказ о зачислении № 412-у</td><td>10.09.2026</td><td><span class="badge b-ok">Действует</span></td><td><button class="lnk dl">Скачать</button></td></tr>
+        <tr><td>Акт об оказании услуг</td><td>—</td><td><span class="badge b-gray">После окончания</span></td><td></td></tr>
+      </table></div></section>
+      <section class="card" style="margin-top:18px">
+        <div class="card-h"><h3>Заказать справку</h3><small>готовится 1–3 рабочих дня</small></div>
+        <div class="card-b order">
+          <label class="f">Вид справки<select class="sel" id="refType"><option>Справка об обучении</option><option>Справка для работодателя</option><option>Справка для налогового вычета</option></select></label>
+          <label class="f">Количество экземпляров<input type="number" min="1" max="5" value="1" id="refN"></label>
+          <button class="btn" id="refBtn">Заказать</button>
+        </div>
+        <div class="tw"><table id="refT"></table></div>
+      </section>
+     </div>
+
+     <!-- СЕРТИФИКАТЫ -->
+     <div class="view" data-view="certs">
+      <div class="crumbs">Сертификаты</div>
+      <h2 class="vt">Сертификаты и удостоверения</h2>
+      <div class="certs">
+        <div class="cert" id="cert">
+          <small>УДОСТОВЕРЕНИЕ О ПОВЫШЕНИИ КВАЛИФИКАЦИИ</small>
+          <b class="cn">№ 772416-0381</b>
+          <p>Настоящее удостоверение выдано</p>
+          <h3>Смирновой Анне Сергеевне</h3>
+          <p>в том, что она прошла обучение по программе</p>
+          <h4>«Деловая коммуникация и переговоры»</h4>
+          <p>в объёме 36 академических часов</p>
+          <div class="sig"><span>Ректор<br><i>И. В. Лаптев</i></span><span class="seal">L</span><span>Дата выдачи<br><i>30.06.2026</i></span></div>
+        </div>
+        <div class="col">
+          <section class="card"><div class="card-h"><h3>Деловая коммуникация и переговоры</h3><span class="badge b-ok">Выдан</span></div>
+            <div class="card-b"><p class="vs">Документ установленного образца. Сведения внесены в ФИС ФРДО.</p><div class="files" style="margin-top:12px"><button class="file dl"><i>PDF</i>Скачать удостоверение</button><button class="file" id="verify"><i class="d">QR</i>Проверить подлинность</button></div><p class="vs" id="verRes" style="margin-top:10px"></p></div></section>
+          <section class="card"><div class="card-h"><h3>Управление проектами</h3><span class="badge b-warn">В процессе</span></div>
+            <div class="card-b"><p class="vs">Удостоверение будет выдано после итогового экзамена. Освоено <b id="certPct">—</b> программы.</p></div></section>
+        </div>
+      </div>
+     </div>
     </main>
   </div>
   <div class="note" id="note"></div>
@@ -271,57 +532,111 @@
   <script src="../../assets/demo/demo.js?v=4"></script>
   <script>
   (function () {
-    const { reduced, reveals } = window.DEMO;
+    const { reduced } = window.DEMO;
     const $ = (s) => document.querySelector(s);
+    const $$ = (s) => [...document.querySelectorAll(s)];
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    let nt;
+    function note(t) { $("#note").textContent = t; $("#note").classList.add("on"); clearTimeout(nt); nt = setTimeout(() => $("#note").classList.remove("on"), 2400); }
 
-    // Программа курса: [модуль, [[тема, длительность, состояние]]]; 1 — пройдено, 0 — доступно, -1 — откроется позже
-    const mods = [
-      ["Модуль 1. Основы проектного управления", [["1.1. Проект и его жизненный цикл", "35 мин", 1], ["1.2. Стандарты ГОСТ Р 54869 и PMBOK", "40 мин", 1], ["Тест по модулю 1", "20 мин", 1]]],
-      ["Модуль 2. Инициация проекта", [["2.1. Цели, рамки и заинтересованные стороны", "38 мин", 1], ["2.2. Устав проекта", "30 мин", 1], ["Тест по модулю 2", "20 мин", 1]]],
-      ["Модуль 3. Планирование", [["3.1. Иерархическая структура работ", "36 мин", 1], ["3.2. Планирование сроков и критический путь", "42 мин", 0], ["3.3. Бюджет проекта", "34 мин", 0], ["Практическая работа: сетевой график", "—", 0]]],
-      ["Модуль 4. Управление рисками и контроль", [["4.1. Идентификация и оценка рисков", "40 мин", -1], ["4.2. Контроль исполнения", "35 мин", -1], ["Итоговый экзамен", "90 мин", -1]]]
+    // ---------- Разделы: переключение по меню и по адресу (#tasks и т. п.) ----------
+    const views = $$(".view").map((v) => v.dataset.view);
+    function show(v, push) {
+      if (!views.includes(v)) v = "home";
+      $$(".view").forEach((x) => x.classList.toggle("on", x.dataset.view === v));
+      $$("#side button").forEach((b) => b.classList.toggle("on", b.dataset.v === v));
+      const sb = $(`#side button[data-v="${v}"]`); if (sb && sb.scrollIntoView && innerWidth < 860) sb.scrollIntoView({ inline: "center", block: "nearest" });
+      if (push) history.replaceState(null, "", "#" + v);
+      window.scrollTo(0, 0);
+      if (v === "messages") { openDlg(curDlg); }
+      if (!reduced && window.gsap) gsap.fromTo(`.view[data-view="${v}"] > *`, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .04, ease: "power3.out", clearProps: "transform,opacity" });
+    }
+    $$("#side button").forEach((b) => b.addEventListener("click", () => show(b.dataset.v, true)));
+    document.addEventListener("click", (e) => { const g = e.target.closest("[data-go]"); if (g) { $("#drop").classList.remove("on"); show(g.dataset.go, true); } });
+
+    // ---------- Уведомления ----------
+    $("#bell").addEventListener("click", (e) => { e.stopPropagation(); $("#drop").classList.toggle("on"); });
+    document.addEventListener("click", (e) => { if (!e.target.closest("#drop")) $("#drop").classList.remove("on"); });
+    function bellCount() { const n = $$(".dn.un").length; $("#bellN").textContent = n; $("#bellN").style.display = n ? "" : "none"; }
+    $$(".dn").forEach((d) => d.addEventListener("click", () => { d.classList.remove("un"); bellCount(); }));
+    $("#readAll").addEventListener("click", (e) => { e.stopPropagation(); $$(".dn").forEach((d) => d.classList.remove("un")); bellCount(); });
+
+    // ---------- Курсы ----------
+    // Состояние материала: 1 — изучен, 0 — доступен, -1 — откроется позже
+    const courses = [
+      { id: "pm", short: "Управление проектами", title: "Управление проектами: методы и инструменты", code: "ПРОГРАММА ПОВЫШЕНИЯ КВАЛИФИКАЦИИ · ПК-118 · 72 академических часа", teacher: "Королёв Д. А., к. э. н.", period: "15.09 — 15.12.2026", exam: "экзамен",
+        lec: ["Лекция 3.2. Планирование сроков и критический путь", "Модуль 3 · Планирование", "Метод критического пути: как найти задачи, которые определяют срок проекта"], quiz: true,
+        mods: [
+          ["Модуль 1. Основы проектного управления", [["1.1. Проект и его жизненный цикл", "35 мин", 1], ["1.2. Стандарты ГОСТ Р 54869 и PMBOK", "40 мин", 1], ["Тест по модулю 1", "20 мин", 1]]],
+          ["Модуль 2. Инициация проекта", [["2.1. Цели, рамки и заинтересованные стороны", "38 мин", 1], ["2.2. Устав проекта", "30 мин", 1], ["Тест по модулю 2", "20 мин", 1]]],
+          ["Модуль 3. Планирование", [["3.1. Иерархическая структура работ", "36 мин", 1], ["3.2. Планирование сроков и критический путь", "42 мин", 0], ["3.3. Бюджет проекта", "34 мин", 0], ["Практическая работа: сетевой график", "—", 0]]],
+          ["Модуль 4. Управление рисками и контроль", [["4.1. Идентификация и оценка рисков", "40 мин", -1], ["4.2. Контроль исполнения", "35 мин", -1], ["Итоговый экзамен", "90 мин", -1]]]
+        ] },
+      { id: "fin", short: "Финансовый менеджмент", title: "Финансовый менеджмент для руководителей", code: "ПРОГРАММА ПОВЫШЕНИЯ КВАЛИФИКАЦИИ · ПК-121 · 48 академических часов", teacher: "Белова Е. Н., к. э. н.", period: "01.11 — 20.12.2026", exam: "зачёт",
+        lec: ["Лекция 1.1. Финансовая отчётность компании", "Модуль 1 · Основы", "Три формы отчётности: что смотрит руководитель в первую очередь"],
+        mods: [
+          ["Модуль 1. Финансовая отчётность", [["1.1. Финансовая отчётность компании", "40 мин", 0], ["1.2. Анализ рентабельности", "35 мин", 0], ["Тест по модулю 1", "20 мин", 0]]],
+          ["Модуль 2. Бюджетирование", [["2.1. Операционный бюджет", "38 мин", -1], ["2.2. Бюджет движения денежных средств", "42 мин", -1]]],
+          ["Модуль 3. Инвестиционные решения", [["3.1. NPV и срок окупаемости", "45 мин", -1], ["Зачёт", "60 мин", -1]]]
+        ] },
+      { id: "com", short: "Деловая коммуникация", title: "Деловая коммуникация и переговоры", code: "ПРОГРАММА ПОВЫШЕНИЯ КВАЛИФИКАЦИИ · ПК-097 · 36 академических часов", teacher: "Орлова М. В.", period: "01.04 — 30.06.2026", exam: "зачёт (сдан)",
+        lec: ["Лекция 3.1. Подготовка к переговорам", "Модуль 3 · Переговоры", "Позиции и интересы: как готовиться к сложному разговору"],
+        mods: [
+          ["Модуль 1. Деловая переписка", [["1.1. Структура делового письма", "30 мин", 1], ["1.2. Тон и стиль", "25 мин", 1]]],
+          ["Модуль 2. Публичные выступления", [["2.1. Структура выступления", "35 мин", 1], ["2.2. Работа с вопросами аудитории", "30 мин", 1]]],
+          ["Модуль 3. Переговоры", [["3.1. Подготовка к переговорам", "40 мин", 1], ["3.2. Тактики и уступки", "38 мин", 1], ["Зачёт", "60 мин", 1]]]
+        ] }
     ];
-    const box = $("#mods");
-    mods.forEach(([title, items], mi) => {
-      const done = items.filter((x) => x[2] === 1).length;
-      const m = document.createElement("div");
-      m.className = "mod" + (mi === 2 ? " open" : "");
-      m.innerHTML = `<button class="mod-h"><svg class="arr" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg><b></b><small></small></button><div class="mod-b"><div></div></div>`;
-      m.querySelector("b").textContent = title;
-      const st = m.querySelector("small");
-      const list = m.querySelector(".mod-b > div");
-      items.forEach(([t, d, s], li) => {
-        const row = document.createElement("div");
-        row.className = "les" + (s === -1 ? " lock" : "") + (mi === 2 && li === 1 ? " cur" : "");
-        row.innerHTML = `<label><input type="checkbox"${s === 1 ? " checked" : ""}${s === -1 ? " disabled" : ""}><span></span></label><span class="t">${d}</span>`;
-        row.querySelector("label span").textContent = t;
-        if (s === -1) row.insertAdjacentHTML("beforeend", '<span class="badge b-gray">с 17.11</span>');
-        row.querySelector("input").addEventListener("change", (e) => { if (e.target.checked) note("Материал отмечен как изученный"); update(); });
-        list.append(row);
+    // Отметки слушателя хранятся в состоянии курса, чтобы сохранялись при переключении
+    courses.forEach((c) => c.mods.forEach((m) => m[1].forEach((l) => (l.done = l[2] === 1))));
+    const pctOf = (c) => { const all = c.mods.flatMap((m) => m[1]); return Math.round(all.filter((l) => l.done).length / all.length * 100); };
+    let cur = courses[0];
+
+    $("#ctabs").innerHTML = courses.map((c, i) => `<button data-c="${i}"${i ? "" : ' class="on"'}>${esc(c.short)}</button>`).join("");
+    $$("#ctabs button").forEach((b) => b.addEventListener("click", () => { $$("#ctabs button").forEach((x) => x.classList.toggle("on", x === b)); renderCourse(courses[+b.dataset.c]); }));
+
+    function renderCourse(c) {
+      cur = c;
+      $("#crumbCourse").textContent = c.short;
+      $("#cCode").textContent = c.code; $("#cTitle").textContent = c.title; $("#cTeacher").textContent = c.teacher; $("#cPeriod").textContent = c.period; $("#cExam").textContent = c.exam;
+      [$("#lecTitle").textContent, $("#lecMod").textContent, $("#lecText").textContent] = c.lec;
+      $("#quizCard").hidden = !c.quiz;
+      const box = $("#mods"); box.innerHTML = "";
+      c.mods.forEach(([title, items], mi) => {
+        const m = document.createElement("div");
+        const firstOpen = items.some((l) => !l.done && l[2] !== -1);
+        m.className = "mod" + (firstOpen && !box.querySelector(".open") ? " open" : "");
+        m.innerHTML = `<button class="mod-h"><svg class="arr" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg><b>${esc(title)}</b><small></small></button><div class="mod-b"><div></div></div>`;
+        const list = m.querySelector(".mod-b > div");
+        items.forEach((l) => {
+          const row = document.createElement("div");
+          row.className = "les" + (l[2] === -1 ? " lock" : "");
+          row.innerHTML = `<label><input type="checkbox"${l.done ? " checked" : ""}${l[2] === -1 ? " disabled" : ""}><span>${esc(l[0])}</span></label><span class="t">${l[1]}</span>` + (l[2] === -1 ? '<span class="badge b-gray">позже</span>' : "");
+          row.querySelector("input").addEventListener("change", (e) => { l.done = e.target.checked; if (l.done) note("Материал отмечен как изученный"); update(); });
+          list.append(row);
+        });
+        m.querySelector(".mod-h").addEventListener("click", () => m.classList.toggle("open"));
+        m.upd = () => {
+          const c2 = items.filter((l) => l.done).length, locked = items[0][2] === -1;
+          m.querySelector("small").innerHTML = c2 === items.length ? '<span class="badge b-ok">Завершён</span>' : locked ? '<span class="badge b-gray">Откроется позже</span>' : `<span class="badge b-warn">${c2} из ${items.length}</span>`;
+        };
+        box.append(m);
       });
-      m.querySelector(".mod-h").addEventListener("click", () => m.classList.toggle("open"));
-      m.updateStatus = () => {
-        const c = list.querySelectorAll("input:checked").length, all = items.length;
-        st.innerHTML = "";
-        const b = document.createElement("span");
-        b.className = "badge " + (c === all ? "b-ok" : items[0][2] === -1 ? "b-gray" : "b-warn");
-        b.textContent = c === all ? "Завершён" : items[0][2] === -1 ? "Откроется 17.11" : c + " из " + all;
-        st.append(b);
-      };
-      box.append(m);
-    });
-    const total = mods.reduce((a, m) => a + m[1].length, 0);
+      update();
+    }
     function update() {
-      const c = box.querySelectorAll("input:checked").length;
-      const p = Math.round(c / total * 100);
+      const all = cur.mods.flatMap((m) => m[1]), c = all.filter((l) => l.done).length, p = pctOf(cur);
       $("#pct").textContent = p + "%";
       $("#pbar").style.width = p + "%";
-      $("#pnote").textContent = "Изучено " + c + " из " + total + " материалов. До итогового экзамена — " + (total - c) + ".";
-      box.querySelectorAll(".mod").forEach((m) => m.updateStatus());
+      $("#pnote").textContent = p === 100 ? "Программа освоена полностью." : "Изучено " + c + " из " + all.length + " материалов. До итоговой аттестации — " + (all.length - c) + ".";
+      $$("#mods .mod").forEach((m) => m.upd());
+      $("#certPct").textContent = pctOf(courses[0]) + "%";
+      renderHome();
     }
-
-    let nt;
-    function note(t) { $("#note").textContent = t; $("#note").classList.add("on"); clearTimeout(nt); nt = setTimeout(() => $("#note").classList.remove("on"), 2200); }
+    function renderHome() {
+      $("#homeCourses").innerHTML = courses.map((c, i) => `<button class="hc" data-hc="${i}"><div><b>${esc(c.short)}</b><small>${esc(c.teacher)} · ${c.period}</small></div><span class="pbar"><i style="width:${pctOf(c)}%"></i></span><small>${pctOf(c)}%</small></button>`).join("");
+      $$("[data-hc]").forEach((b) => b.addEventListener("click", () => { $$("#ctabs button")[+b.dataset.hc].click(); show("course", true); }));
+    }
 
     // Видеоплеер: имитация просмотра лекции
     let playing = false, sec = 0, iv;
@@ -365,15 +680,163 @@
     });
     renderQ();
 
-    document.querySelectorAll("#side button").forEach((b) => b.addEventListener("click", () => { document.querySelectorAll("#side button").forEach((x) => x.classList.toggle("on", x === b)); }));
+    // ---------- Расписание ----------
+    const DAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб"], TIMES = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"];
+    // [неделя, день, слот, тип, название, преподаватель, формат]
+    const EV = [
+      [0, 0, 4, "lec", "Лекция 3.1. Иерархическая структура работ", "Королёв Д. А.", "Запись + конспект"],
+      [0, 1, 1, "lec", "Лекция 1.1. Финансовая отчётность", "Белова Е. Н.", "Онлайн, видеолекция"],
+      [0, 2, 4, "web", "Вебинар «Критический путь на практике»", "Королёв Д. А.", "Онлайн, Zoom"],
+      [0, 3, 2, "lec", "Лекция 1.2. Анализ рентабельности", "Белова Е. Н.", "Онлайн, видеолекция"],
+      [0, 4, 3, "exm", "Тест по модулю 3", "Королёв Д. А.", "В системе, 20 минут"],
+      [0, 5, 0, "web", "Разбор домашних работ", "Белова Е. Н.", "Онлайн, Zoom"],
+      [1, 0, 4, "lec", "Лекция 3.3. Бюджет проекта", "Королёв Д. А.", "Запись + конспект"],
+      [1, 2, 4, "web", "Вебинар «Бюджет и контроль затрат»", "Королёв Д. А.", "Онлайн, Zoom"],
+      [1, 3, 1, "lec", "Лекция 2.1. Операционный бюджет", "Белова Е. Н.", "Онлайн, видеолекция"],
+      [1, 5, 1, "exm", "Сдача: сетевой график проекта", "Королёв Д. А.", "Загрузка в разделе «Задания»"],
+      [-1, 1, 4, "web", "Вебинар «Устав проекта: разбор»", "Королёв Д. А.", "Онлайн, Zoom"],
+      [-1, 3, 2, "lec", "Лекция 2.2. Устав проекта", "Королёв Д. А.", "Запись + конспект"]
+    ];
+    const KIND = { lec: "Лекция", web: "Вебинар", exm: "Контроль" };
+    let week = 0;
+    function renderSched() {
+      const start = new Date(2026, 10, 2 + week * 7), fmt = (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
+      const end = new Date(start); end.setDate(start.getDate() + 5);
+      $("#wLbl").textContent = fmt(start) + " — " + fmt(end);
+      let h = '<div class="dh"></div>';
+      DAYS.forEach((d, i) => { const dt = new Date(start); dt.setDate(start.getDate() + i); h += `<div class="dh${week === 0 && i === 2 ? " today" : ""}">${d}, ${dt.getDate()}</div>`; });
+      TIMES.forEach((t, si) => {
+        h += `<div class="tm">${t}</div>`;
+        DAYS.forEach((_, di) => {
+          const e = EV.findIndex((x) => x[0] === week && x[1] === di && x[2] === si);
+          h += '<div class="cell">' + (e >= 0 ? `<button class="evb ${EV[e][3]}" data-e="${e}">${esc(EV[e][4])}<small>${KIND[EV[e][3]]}</small></button>` : "") + "</div>";
+        });
+      });
+      $("#sched").innerHTML = h;
+      $$(".evb").forEach((b) => b.addEventListener("click", () => {
+        $$(".evb").forEach((x) => x.classList.toggle("on", x === b));
+        const [, d, s, k, name, who, fmtx] = EV[+b.dataset.e];
+        $("#evInfo").innerHTML = `<div class="card-b"><span class="badge ${k === "web" ? "b-ok" : k === "exm" ? "b-warn" : "b-gray"}">${KIND[k]}</span><b>${esc(name)}</b>
+          <dl><dt>Когда</dt><dd>${DAYS[d]}, ${TIMES[s]}</dd><dt>Преподаватель</dt><dd>${esc(who)}</dd><dt>Формат</dt><dd>${esc(fmtx)}</dd></dl>
+          <button class="btn" id="evAct">${k === "web" ? "Добавить в календарь" : k === "exm" ? "Перейти к заданию" : "Открыть материалы"}</button></div>`;
+        $("#evAct").addEventListener("click", () => { if (k === "exm") show("tasks", true); else if (k === "lec") show("course", true); else note("Событие добавлено в ваш календарь"); });
+      }));
+    }
+    $("#wPrev").addEventListener("click", () => { week = Math.max(-1, week - 1); renderSched(); });
+    $("#wNext").addEventListener("click", () => { week = Math.min(1, week + 1); renderSched(); });
+    renderSched();
 
-    if (reduced || !window.gsap) { update(); return; }
-    setTimeout(update, 600);
-    gsap.timeline()
-      .from(".head > *", { y: -12, opacity: 0, duration: .7, stagger: .06, ease: "power3.out" })
-      .from(".side button, .side h6", { x: -14, opacity: 0, duration: .6, stagger: .03, ease: "power3.out", clearProps: "transform,opacity" }, .1)
-      .from(".crumbs", { opacity: 0, duration: .6 }, .2);
-    reveals();
+    // ---------- Задания ----------
+    const tasks = [
+      { n: "Устав проекта", c: "Управление проектами", d: "01.10", s: "done", g: "24 / 25", desc: "" },
+      { n: "Иерархическая структура работ", c: "Управление проектами", d: "20.10", s: "done", g: "22 / 25", desc: "" },
+      { n: "Сетевой график проекта", c: "Управление проектами", d: "10.11", s: "todo", desc: "Постройте сетевой график для своего проекта, найдите критический путь и резервы времени. Используйте шаблон из лекции 3.2." },
+      { n: "Анализ отчётности компании", c: "Финансовый менеджмент", d: "18.11", s: "todo", desc: "Проанализируйте отчётность выбранной компании за 2 года: рентабельность, ликвидность, оборачиваемость." },
+      { n: "Реестр рисков", c: "Управление проектами", d: "24.11", s: "lock", desc: "" }
+    ];
+    const ST = { done: ["b-ok", "Принято"], todo: ["b-warn", "К сдаче"], check: ["b-gray", "На проверке"], lock: ["b-gray", "Откроется позже"] };
+    let filt = "all", upI = -1, file = null;
+    function renderTasks() {
+      let h = "<tr><th>Задание</th><th>Курс</th><th>Срок</th><th>Статус</th><th class='n'>Оценка</th><th></th></tr>";
+      tasks.forEach((t, i) => {
+        if (filt !== "all" && t.s !== filt) return;
+        h += `<tr${i === upI ? ' class="hl"' : ""}><td>${esc(t.n)}</td><td>${esc(t.c)}</td><td>${t.d}</td><td><span class="badge ${ST[t.s][0]}">${ST[t.s][1]}</span></td><td class="n">${t.g || "—"}</td><td>${t.s === "todo" ? `<button class="btn" data-up="${i}">Сдать</button>` : ""}</td></tr>`;
+      });
+      $("#tTable").innerHTML = h;
+      $$("[data-up]").forEach((b) => b.addEventListener("click", () => openUp(+b.dataset.up)));
+      const left = tasks.filter((t) => t.s === "todo").length;
+      $("#taskN").textContent = left; $("#taskN").style.display = left ? "" : "none"; $("#statTasks").textContent = left;
+    }
+    function openUp(i) {
+      upI = i; file = null;
+      $("#upBox").hidden = false; $("#upTitle").textContent = "Сдача работы: " + tasks[i].n; $("#upDesc").textContent = tasks[i].desc;
+      $("#dz").classList.remove("has"); $("#dz b").textContent = "Перетащите файл сюда или нажмите, чтобы выбрать"; $("#upSend").disabled = true; $("#upFb").textContent = ""; $("#upCom").value = "";
+      renderTasks(); $("#upBox").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    function setFile(f) { file = f; $("#dz").classList.add("has"); $("#dz b").textContent = f.name + " · " + Math.max(1, Math.round(f.size / 1024)) + " КБ"; $("#upSend").disabled = false; }
+    $("#upFile").addEventListener("change", (e) => e.target.files[0] && setFile(e.target.files[0]));
+    // В демо файл не выбран — подставляем пример, чтобы сценарий можно было пройти полностью
+    $("#dz").addEventListener("click", (e) => { if (!file && e.target.tagName !== "INPUT") { e.preventDefault(); setFile({ name: "Сетевой_график_Смирнова.xlsx", size: 48200 }); } });
+    $("#dz").addEventListener("dragover", (e) => { e.preventDefault(); $("#dz").classList.add("over"); });
+    $("#dz").addEventListener("dragleave", () => $("#dz").classList.remove("over"));
+    $("#dz").addEventListener("drop", (e) => { e.preventDefault(); $("#dz").classList.remove("over"); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+    $("#upClose").addEventListener("click", () => { $("#upBox").hidden = true; upI = -1; renderTasks(); });
+    $("#upSend").addEventListener("click", () => {
+      tasks[upI].s = "check"; $("#upBox").hidden = true; upI = -1; renderTasks();
+      note("Работа отправлена на проверку преподавателю");
+    });
+    $$("#tFilter button").forEach((b) => b.addEventListener("click", () => { filt = b.dataset.f; $$("#tFilter button").forEach((x) => x.classList.toggle("on", x === b)); renderTasks(); }));
+    renderTasks();
+
+    // ---------- Успеваемость ----------
+    const grades = {
+      "Управление проектами": [["Тест · Модуль 1", 18, 20], ["Устав проекта", 24, 25], ["Тест · Модуль 2", 17, 20], ["Иерархическая структура работ", 22, 25], ["Сетевой график проекта", 0, 25], ["Итоговый экзамен", 0, 40]],
+      "Финансовый менеджмент": [["Тест · Модуль 1", 0, 20], ["Анализ отчётности", 0, 30], ["Зачёт", 0, 50]],
+      "Деловая коммуникация": [["Деловое письмо", 19, 20], ["Выступление", 27, 30], ["Зачёт", 46, 50]]
+    };
+    $("#gSel").innerHTML = Object.keys(grades).map((k) => `<option>${esc(k)}</option>`).join("");
+    function renderGrades() {
+      const g = grades[$("#gSel").value], got = g.reduce((a, x) => a + x[1], 0), max = g.reduce((a, x) => a + x[2], 0);
+      const passed = g.filter((x) => x[1] > 0), pmax = passed.reduce((a, x) => a + x[2], 0);
+      const p = pmax ? Math.round(got / pmax * 100) : 0;
+      $("#gSum").textContent = "набрано " + got + " из " + max;
+      $("#gBars").innerHTML = g.map((x) => `<div>${esc(x[0])}<span><i style="width:0"></i></span><em>${x[1] ? x[1] + " / " + x[2] : "—"}</em></div>`).join("");
+      requestAnimationFrame(() => $$("#gBars i").forEach((i, k) => (i.style.width = (g[k][1] / g[k][2] * 100) + "%")));
+      $("#gTable").innerHTML = "<tr><th>Контрольная точка</th><th class='n'>Максимум</th><th class='n'>Балл</th><th>Статус</th></tr>" +
+        g.map((x) => `<tr><td>${esc(x[0])}</td><td class="n">${x[2]}</td><td class="n">${x[1] || "—"}</td><td>${x[1] ? '<span class="badge b-ok">Оценено</span>' : '<span class="badge b-gray">Ожидается</span>'}</td></tr>`).join("") +
+        `<tr><td><b>Текущая успеваемость</b></td><td></td><td class="n">${p}%</td><td>${p >= 85 ? "Отлично" : p >= 70 ? "Хорошо" : p >= 55 ? "Удовлетворительно" : p ? "Ниже порога" : "—"}</td></tr>`;
+    }
+    $("#gSel").addEventListener("change", renderGrades);
+    renderGrades();
+
+    // ---------- Сообщения ----------
+    const dlgs = [
+      { n: "Королёв Д. А.", r: "Преподаватель · Управление проектами", a: "КД", un: 1, m: [["Добрый день! Посмотрел ваш устав проекта — хорошая работа. Обратите внимание на раздел с ограничениями, его стоит расширить.", 0, "вчера, 16:20"]],
+        rep: ["Да, в шаблоне это можно сделать. Если останутся вопросы — обсудим на вебинаре в среду.", "Хорошо, жду работу до 10 ноября."] },
+      { n: "Учебный отдел", r: "Организационные вопросы", a: "УО", m: [["Напоминаем: справку об обучении можно заказать в разделе «Документы».", 0, "28.10"]], rep: ["Спасибо за обращение! Ответим в течение рабочего дня."] },
+      { n: "Группа ПМ-24", r: "24 участника", a: "ПМ", m: [["Коллеги, кто уже начал сетевой график? Делимся шаблонами", 0, "Иван П., 09:12"], ["Я начала, шаблон из лекции очень помогает", 1, "09:40"]], rep: ["+1, тоже пользуюсь шаблоном"] }
+    ];
+    let curDlg = 0;
+    function renderDlgs() {
+      $("#dlgs").innerHTML = dlgs.map((d, i) => `<button data-d="${i}"${i === curDlg ? ' class="on"' : ""}><span class="av">${d.a}</span><div><b>${esc(d.n)}</b><small>${esc(d.m[d.m.length - 1][0])}</small></div>${d.un ? `<em>${d.un}</em>` : ""}</button>`).join("");
+      $$("[data-d]").forEach((b) => b.addEventListener("click", () => openDlg(+b.dataset.d)));
+      const un = dlgs.reduce((a, d) => a + (d.un || 0), 0); $("#msgN").textContent = un; $("#msgN").style.display = un ? "" : "none";
+    }
+    function renderMsgs() {
+      const d = dlgs[curDlg];
+      $("#cName").textContent = d.n; $("#cRole").textContent = d.r;
+      $("#msgs").innerHTML = d.m.map((m) => `<div class="msg${m[1] ? " me" : ""}${m[3] ? " typing" : ""}">${esc(m[0])}<small>${m[2]}</small></div>`).join("");
+      $("#msgs").scrollTop = 1e6;
+    }
+    function openDlg(i) { curDlg = i; dlgs[i].un = 0; renderDlgs(); renderMsgs(); }
+    $("#sendF").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const t = $("#sendI").value.trim(); if (!t) return;
+      const d = dlgs[curDlg], now = new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+      d.m.push([t, 1, now]); $("#sendI").value = ""; renderMsgs(); renderDlgs();
+      const typing = [d.n.split(" ")[0] + " печатает…", 0, "", 1];
+      setTimeout(() => { d.m.push(typing); renderMsgs(); }, 600);
+      setTimeout(() => { d.m.splice(d.m.indexOf(typing), 1); d.m.push([d.rep[(d.ri = ((d.ri ?? -1) + 1) % d.rep.length)], 0, now]); renderMsgs(); renderDlgs(); }, 2000);
+    });
+    renderDlgs();
+
+    // ---------- Документы и сертификаты ----------
+    const refs = [];
+    $("#refBtn").addEventListener("click", () => {
+      refs.unshift([$("#refType").value, $("#refN").value || 1]);
+      $("#refT").innerHTML = "<tr><th>Заявка</th><th>Экз.</th><th>Статус</th></tr>" + refs.map((r, i) => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td><span class="badge ${i ? "b-ok" : "b-warn"}">${i ? "Готова к выдаче" : "Принята в работу"}</span></td></tr>`).join("");
+      note("Заявка на справку принята");
+    });
+    $$(".dl").forEach((b) => b.addEventListener("click", () => note("Документ подготовлен к скачиванию (демо)")));
+    $("#verify").addEventListener("click", () => { $("#verRes").innerHTML = '<span class="badge b-ok">Подлинность подтверждена</span> Номер 772416-0381 найден в реестре.'; });
+
+    renderCourse(courses[0]);
+    show(location.hash.slice(1) || "home", false);
+    window.addEventListener("hashchange", () => show(location.hash.slice(1), false));
+
+    if (reduced || !window.gsap) return;
+    gsap.from(".head > *", { y: -12, opacity: 0, duration: .7, stagger: .06, ease: "power3.out", clearProps: "transform,opacity" });
+    gsap.from(".side button, .side h6", { x: -14, opacity: 0, duration: .6, stagger: .03, ease: "power3.out", clearProps: "transform,opacity" });
   })();
   </script>
 </body>
