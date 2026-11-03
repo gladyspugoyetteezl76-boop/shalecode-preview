@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas Clinic — запись к врачу онлайн · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Atlas Clinic">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_graphite.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=2">
+  <style>
+    :root { --bg: #f4f7fb; --white: #fff; --ink: #13233d; --muted: #66748b; --blue: #1f5fe0; --blue2: #e8effd; --mint: #20b996; --line: #e2e8f1; --ease: cubic-bezier(.22, 1, .36, 1); --pad: clamp(18px, 4vw, 64px); --sh: 0 20px 50px rgba(19, 35, 61, .08); }
+    body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 "Manrope", sans-serif; }
+    .container { max-width: 1280px; margin-inline: auto; padding-inline: var(--pad); }
+
+    .nav { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--pad); transition: background .4s, box-shadow .4s; }
+    .nav.solid { background: rgba(255, 255, 255, .9); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--blue); }
+    .logo i { width: 26px; height: 26px; background: linear-gradient(var(--blue) 0 0) center / 32% 100% no-repeat, linear-gradient(var(--blue) 0 0) center / 100% 32% no-repeat; border-radius: 4px; }
+    .nav nav { display: flex; gap: 32px; font-size: 15px; color: var(--muted); font-weight: 500; }
+    .nav nav a:hover { color: var(--blue); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding: 0 26px; border-radius: 14px; font-weight: 700; font-size: 15px; transition: .4s var(--ease); }
+    .btn-b { background: var(--blue); color: #fff; box-shadow: 0 12px 26px rgba(31, 95, 224, .3); }
+    .btn-b:hover { transform: translateY(-2px); box-shadow: 0 18px 34px rgba(31, 95, 224, .4); }
+    .btn-l { background: var(--white); border: 1px solid var(--line); }
+    .btn-l:hover { border-color: var(--blue); color: var(--blue); }
+    .btn:disabled { opacity: .4; pointer-events: none; }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 50px; align-items: center; min-height: 100vh; padding-top: 110px; padding-bottom: 60px; }
+    .tagline { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 30px; background: var(--white); box-shadow: var(--sh); font-size: 13px; font-weight: 600; }
+    .tagline i { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(32, 185, 150, .2); }
+    .hero h1 { font: 800 clamp(44px, 5.6vw, 88px)/1.02 "Manrope"; letter-spacing: -.045em; margin: 24px 0 20px; }
+    .hero h1 span { color: var(--blue); }
+    .hero p { color: var(--muted); font-size: 18px; max-width: 480px; }
+    .search { position: relative; margin-top: 34px; max-width: 520px; }
+    .search input { width: 100%; height: 64px; border-radius: 18px; border: 1px solid var(--line); background: var(--white); padding: 0 140px 0 54px; font: 500 16px "Manrope"; color: var(--ink); outline: none; box-shadow: var(--sh); transition: border-color .3s; }
+    .search input:focus { border-color: var(--blue); }
+    .search svg { position: absolute; left: 20px; top: 22px; width: 20px; height: 20px; fill: none; stroke: var(--muted); stroke-width: 2; }
+    .search .btn { position: absolute; right: 8px; top: 8px; height: 48px; }
+    .sugg { position: absolute; z-index: 5; left: 0; right: 0; top: 72px; background: var(--white); border-radius: 18px; box-shadow: 0 30px 60px rgba(19, 35, 61, .14); padding: 8px; display: none; }
+    .sugg.open { display: block; }
+    .sugg button { display: flex; width: 100%; justify-content: space-between; padding: 12px 14px; border-radius: 12px; text-align: left; font-weight: 500; }
+    .sugg button:hover { background: var(--blue2); }
+    .sugg small { color: var(--muted); }
+    .trust { display: flex; gap: 30px; margin-top: 36px; color: var(--muted); font-size: 14px; }
+    .trust b { display: block; font-size: 26px; color: var(--ink); letter-spacing: -.03em; }
+
+    .art { position: relative; height: 560px; }
+    .blob { position: absolute; inset: 6% 4%; border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%; background: linear-gradient(140deg, #dbe6fd, #c9f1e6); animation: morph 12s ease-in-out infinite; }
+    @keyframes morph { 50% { border-radius: 58% 42% 40% 60% / 40% 60% 40% 60%; } }
+    .fcard { position: absolute; background: var(--white); border-radius: 22px; box-shadow: 0 30px 60px rgba(19, 35, 61, .12); padding: 20px; }
+    .ecg { left: 6%; top: 10%; width: 62%; }
+    .ecg h4 { font-size: 13px; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; }
+    .ecg h4 b { color: #e0485a; font-size: 22px; }
+    .ecg svg { width: 100%; height: 80px; margin-top: 8px; }
+    .ecg path { fill: none; stroke: #e0485a; stroke-width: 2.5; stroke-linejoin: round; }
+    .doc { right: 2%; top: 38%; width: 58%; display: flex; gap: 14px; align-items: center; }
+    .ava { width: 58px; height: 58px; border-radius: 18px; flex-shrink: 0; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 20px; }
+    .doc small { display: block; color: var(--muted); font-size: 13px; }
+    .stars { color: #f5a524; font-size: 13px; }
+    .next { left: 12%; bottom: 8%; width: 60%; }
+    .next h4 { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .next .row { display: flex; gap: 8px; margin-top: 12px; }
+    .next .row span { flex: 1; padding: 10px 0; text-align: center; border-radius: 12px; background: var(--blue2); color: var(--blue); font-weight: 700; font-size: 14px; }
+    .next .row span.on { background: var(--blue); color: #fff; }
+
+    section { position: relative; }
+    .sec { padding-block: clamp(80px, 10vw, 140px); }
+    .h2 { font: 800 clamp(34px, 4vw, 60px)/1.05 "Manrope"; letter-spacing: -.04em; }
+    .h2 span { color: var(--blue); }
+    .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+    .head p { color: var(--muted); max-width: 420px; }
+
+    .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .spec { background: var(--white); border-radius: 22px; padding: 26px; border: 1px solid var(--line); transition: .5s var(--ease); text-align: left; }
+    .spec:hover { border-color: transparent; box-shadow: var(--sh); transform: translateY(-6px); }
+    .spec .ic { width: 52px; height: 52px; border-radius: 16px; background: var(--blue2); display: grid; place-items: center; margin-bottom: 40px; transition: .5s var(--ease); }
+    .spec:hover .ic { background: var(--blue); }
+    .spec .ic svg { width: 26px; height: 26px; fill: none; stroke: var(--blue); stroke-width: 1.8; transition: stroke .4s; }
+    .spec:hover .ic svg { stroke: #fff; }
+    .spec h3 { font-size: 18px; font-weight: 700; }
+    .spec small { color: var(--muted); }
+
+    /* Запись */
+    .booking { background: var(--white); border-radius: 32px; box-shadow: var(--sh); overflow: hidden; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); position: relative; }
+    .steps .prog { position: absolute; left: 0; bottom: -1px; height: 3px; background: var(--blue); width: 25%; transition: width .8s var(--ease); }
+    .stp { display: flex; align-items: center; gap: 12px; padding: 22px 26px; font-weight: 600; color: var(--muted); font-size: 15px; transition: color .4s; }
+    .stp i { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 13px; background: var(--bg); transition: .4s; }
+    .stp.on { color: var(--ink); }
+    .stp.on i { background: var(--blue); color: #fff; }
+    .stp.done i { background: var(--mint); color: #fff; }
+    .viewport { overflow: hidden; }
+    .track { display: flex; width: 400%; transition: transform .9s var(--ease); }
+    .pane { width: 25%; padding: clamp(22px, 3.5vw, 48px); min-height: 460px; display: flex; flex-direction: column; }
+    .pane h3 { font-size: 24px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 24px; }
+    .opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .opt { padding: 18px; border-radius: 16px; border: 1.5px solid var(--line); text-align: left; transition: .3s; font-weight: 600; }
+    .opt small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+    .opt:hover { border-color: var(--blue); }
+    .opt.on { border-color: var(--blue); background: var(--blue2); }
+    .docs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .docs .opt { display: flex; gap: 14px; align-items: center; }
+    .cal-wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
+    .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    .cal .dow { text-align: center; font-size: 12px; color: var(--muted); font-weight: 600; }
+    .cal button { aspect-ratio: 1; border-radius: 12px; font-weight: 600; transition: .3s; }
+    .cal button:hover:not(:disabled) { background: var(--blue2); }
+    .cal button.on { background: var(--blue); color: #fff; }
+    .cal button:disabled { color: #c3cbd8; cursor: not-allowed; }
+    .times { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-content: start; }
+    .times button { padding: 12px 0; border-radius: 12px; border: 1.5px solid var(--line); font-weight: 600; transition: .3s; }
+    .times button:hover:not(:disabled) { border-color: var(--blue); }
+    .times button.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .times button:disabled { opacity: .35; text-decoration: line-through; }
+    .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .sum-card { background: var(--bg); border-radius: 20px; padding: 24px; display: grid; gap: 14px; }
+    .sum-card div { display: flex; justify-content: space-between; gap: 10px; font-size: 15px; }
+    .sum-card span { color: var(--muted); }
+    .fields { display: grid; gap: 12px; }
+    .fields input { height: 54px; border-radius: 14px; border: 1.5px solid var(--line); padding: 0 18px; font: 500 15px "Manrope"; color: var(--ink); outline: none; transition: border-color .3s; }
+    .fields input:focus { border-color: var(--blue); }
+    .pane-foot { margin-top: auto; padding-top: 30px; display: flex; justify-content: space-between; }
+    .done-view { display: none; text-align: center; padding: 70px 30px; }
+    .done-view svg { width: 110px; height: 110px; margin: 0 auto 24px; }
+    .done-view circle { fill: none; stroke: var(--mint); stroke-width: 4; }
+    .done-view path { fill: none; stroke: var(--mint); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .done-view h3 { font-size: 32px; font-weight: 800; letter-spacing: -.03em; }
+    .done-view p { color: var(--muted); margin-top: 8px; }
+
+    .reviews { overflow: hidden; }
+    .rv-track { display: flex; gap: 16px; width: max-content; animation: rv 50s linear infinite; }
+    .reviews:hover .rv-track { animation-play-state: paused; }
+    @keyframes rv { to { transform: translateX(-50%); } }
+    .rv { width: 380px; background: var(--white); border-radius: 22px; padding: 26px; border: 1px solid var(--line); }
+    .rv p { margin: 12px 0 18px; }
+    .rv b { font-size: 14px; } .rv small { color: var(--muted); }
+    footer { padding: 36px var(--pad) 110px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+
+    @media (max-width: 960px) {
+      .nav nav { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .art { height: 460px; }
+      .specs { grid-template-columns: repeat(2, 1fr); }
+      .opts { grid-template-columns: repeat(2, 1fr); }
+      .cal-wrap, .summary, .docs { grid-template-columns: 1fr; }
+      .stp span { display: none; }
+      .stp { justify-content: center; padding: 18px 8px; }
+    }
+    @media (max-width: 560px) { .specs { grid-template-columns: 1fr; } .search input { padding-right: 20px; } .search .btn { position: static; width: 100%; margin-top: 10px; } .rv { width: 300px; } .trust { gap: 18px; } }
+  </style>
+</head>
+<body>
+  <header class="nav" id="nav"><a href="#" class="logo"><i></i>ATLAS</a><nav><a href="#specs">Направления</a><a href="#book">Запись онлайн</a><a href="#reviews">Отзывы</a></nav><a href="#book" class="btn btn-b" style="height:44px">Записаться</a></header>
+
+  <section class="container hero">
+    <div>
+      <span class="tagline"><i></i>Запись в день обращения</span>
+      <h1 id="heroTitle">Забота в удобное <span>для вас время</span></h1>
+      <p class="hero-p">Запишитесь к специалисту меньше чем за минуту. 40 врачей, одна клиника и никаких очередей на телефоне.</p>
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" placeholder="Врач, направление или симптом" autocomplete="off">
+        <a href="#book" class="btn btn-b">Найти</a>
+        <div class="sugg" id="sugg"></div>
+      </div>
+      <div class="trust"><div><b data-count="40">0</b>Специалистов</div><div><b><span data-count="4.9" data-dec="1">0</span>★</b>Оценка пациентов</div><div><b data-count="15" data-suf=" мин">0</b>Среднее ожидание</div></div>
+    </div>
+    <div class="art">
+      <div class="blob"></div>
+      <div class="fcard ecg"><h4>Пульс <b><span id="bpm">72</span> уд/мин</b></h4><svg viewBox="0 0 300 80" preserveAspectRatio="none"><path id="ecgPath" d=""/></svg></div>
+      <div class="fcard doc"><div class="ava" style="background:linear-gradient(135deg,#6f9cff,#1f5fe0)">АЛ</div><div><b>Анна Лаврова</b><small>Кардиолог · стаж 14 лет</small><span class="stars">★★★★★ 4,9</span></div></div>
+      <div class="fcard next"><h4>Ближайшая запись · сегодня</h4><div class="row"><span>10:30</span><span class="on">11:15</span><span>14:00</span></div></div>
+    </div>
+  </section>
+
+  <section class="sec container" id="specs" style="padding-top:20px">
+    <div class="head"><h2 class="h2" data-split-up>Найдите <span>своего врача</span></h2><p>От планового осмотра до сложной диагностики — всё в одном месте.</p></div>
+    <div class="specs" id="specList"></div>
+  </section>
+
+  <section class="sec container" id="book" style="padding-top:0">
+    <div class="head"><h2 class="h2" data-split-up>Запись в <span>четыре шага</span></h2><p>Выберите направление, врача и время. Накануне пришлём напоминание.</p></div>
+    <div class="booking" data-reveal>
+      <div class="steps" id="steps"><div class="stp on"><i>1</i><span>Направление</span></div><div class="stp"><i>2</i><span>Врач</span></div><div class="stp"><i>3</i><span>Дата и время</span></div><div class="stp"><i>4</i><span>Подтверждение</span></div><span class="prog" id="prog"></span></div>
+      <div class="viewport" id="vp">
+        <div class="track" id="track">
+          <div class="pane"><h3>С чем нужна помощь?</h3><div class="opts" id="o1"></div><div class="pane-foot"><span></span><button class="btn btn-b" data-next disabled>Далее →</button></div></div>
+          <div class="pane"><h3>Выберите врача</h3><div class="docs" id="o2"></div><div class="pane-foot"><button class="btn btn-l" data-back>← Назад</button><button class="btn btn-b" data-next disabled>Далее →</button></div></div>
+          <div class="pane"><h3>Выберите дату и время</h3><div class="cal-wrap"><div><div class="cal" id="cal"></div></div><div class="times" id="times"><p style="grid-column:1/-1;color:var(--muted)">Сначала выберите дату.</p></div></div><div class="pane-foot"><button class="btn btn-l" data-back>← Назад</button><button class="btn btn-b" data-next disabled>Далее →</button></div></div>
+          <div class="pane"><h3>Подтвердите запись</h3><div class="summary"><div class="sum-card" id="sum"></div><form class="fields" id="pf"><input placeholder="Фамилия и имя" required><input placeholder="Телефон" type="tel" required><input placeholder="E-mail" type="email"></form></div><div class="pane-foot"><button class="btn btn-l" data-back>← Назад</button><button class="btn btn-b" id="confirmBtn">Записаться</button></div></div>
+        </div>
+      </div>
+      <div class="done-view" id="done"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="50"/><path d="M32 57 l15 15 l31 -33"/></svg><h3>Вы записаны!</h3><p id="doneTxt"></p><button class="btn btn-l" style="margin-top:26px" id="again">Записаться ещё раз</button></div>
+    </div>
+  </section>
+
+  <section class="sec reviews" id="reviews" style="padding-top:0">
+    <div class="container head"><h2 class="h2" data-split-up>Пациенты <span>нам доверяют</span></h2></div>
+    <div class="rv-track" id="rvTrack"></div>
+  </section>
+
+  <footer><span>© 2026 Atlas Clinic, Москва</span><span>Концепт студии ShaleCode</span></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=3"></script>
+  <script>
+  (function () {
+    const { reduced, split, reveals } = window.DEMO;
+    const $ = (s) => document.querySelector(s);
+    const ICON = {
+      heart: '<path d="M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z"/>',
+      tooth: '<path d="M7 3c-2 0-3 2-3 4 0 3 1 5 2 8s1 6 3 6 1-5 3-5 1 5 3 5 2-3 3-6 2-5 2-8c0-2-1-4-3-4-2 0-3 1-5 1S9 3 7 3z"/>',
+      eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+      brain: '<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V4zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V4z"/>',
+      bone: '<path d="M6 3a3 3 0 0 0-1 5l11 11a3 3 0 1 0 4-1 3 3 0 1 0-1-4L8 3a3 3 0 0 0-2 0z"/>',
+      baby: '<circle cx="12" cy="8" r="5"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/>',
+      skin: '<circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="14" r="1"/><circle cx="15" cy="9" r="1"/>',
+      lab: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/>'
+    };
+    const SPECS = [
+      ["Кардиология", "heart", 6], ["Стоматология", "tooth", 8], ["Офтальмология", "eye", 4], ["Неврология", "brain", 5],
+      ["Ортопедия", "bone", 5], ["Педиатрия", "baby", 7], ["Дерматология", "skin", 3], ["Анализы", "lab", 2]
+    ];
+    const NAMES = ["Анна Лаврова", "Лев Морозов", "София Романова", "Даниил Ким", "Амина Хадиева", "Ян Берг", "Клара Вайс", "Омар Насыров", "Инесса Дуарте", "Тимофей Мартынов"];
+    const docs = (n) => n + " " + (n % 10 === 1 && n % 100 !== 11 ? "врач" : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? "врача" : "врачей");
+    const COLORS = ["#6f9cff,#1f5fe0", "#5fe0c0,#20b996", "#ffb27a,#f2733a", "#c49bff,#7d4be0", "#ff8fa8,#e0485a"];
+    const icon = (k) => `<svg viewBox="0 0 24 24">${ICON[k]}</svg>`;
+
+    $("#specList").innerHTML = SPECS.map((s, i) => `<button class="spec" data-i="${i}"><div class="ic">${icon(s[1])}</div><h3>${s[0]}</h3><small>${docs(s[2])}</small></button>`).join("");
+
+    // ---------- Поиск с подсказками ----------
+    const q = $("#q"), sugg = $("#sugg");
+    q.addEventListener("input", () => {
+      const v = q.value.trim().toLowerCase();
+      const hits = v ? SPECS.map((s, i) => [s, i]).filter(([s]) => s[0].toLowerCase().includes(v)).slice(0, 4) : [];
+      const docs = v ? NAMES.filter((n) => n.toLowerCase().includes(v)).slice(0, 3) : [];
+      sugg.innerHTML = hits.map(([s, i]) => `<button data-i="${i}">${s[0]}<small>${docs(s[2])}</small></button>`).join("") + docs.map((n) => `<button data-i="${NAMES.indexOf(n) % SPECS.length}">${n}<small>Врач</small></button>`).join("");
+      sugg.classList.toggle("open", !!(hits.length || docs.length));
+    });
+    document.addEventListener("click", (e) => { if (!e.target.closest(".search")) sugg.classList.remove("open"); });
+
+    // ---------- Запись: 4 шага ----------
+    const st = { step: 0, spec: null, doc: null, date: null, time: null };
+    const track = $("#track"), stps = document.querySelectorAll(".stp"), panes = document.querySelectorAll(".pane");
+    function go(n) {
+      st.step = n;
+      track.style.transform = `translateX(${-25 * n}%)`;
+      stps.forEach((s, i) => { s.classList.toggle("on", i === n); s.classList.toggle("done", i < n); s.querySelector("i").textContent = i < n ? "✓" : i + 1; });
+      $("#prog").style.width = (n + 1) * 25 + "%";
+      if (!reduced) gsap.from(panes[n].querySelectorAll("h3, .opt, .cal, .times, .sum-card, .fields"), { y: 24, opacity: 0, duration: .7, stagger: .03, delay: .25, ease: "power3.out" });
+      if (n === 3) renderSummary();
+    }
+    const nextBtn = (n) => panes[n].querySelector("[data-next]");
+    document.querySelectorAll("[data-next]").forEach((b) => b.addEventListener("click", () => go(st.step + 1)));
+    document.querySelectorAll("[data-back]").forEach((b) => b.addEventListener("click", () => go(st.step - 1)));
+
+    $("#o1").innerHTML = SPECS.map((s, i) => `<button class="opt" data-i="${i}">${s[0]}<small>${docs(s[2])}</small></button>`).join("");
+    function pickSpec(i) {
+      st.spec = i; st.doc = null;
+      document.querySelectorAll("#o1 .opt").forEach((o) => o.classList.toggle("on", +o.dataset.i === i));
+      nextBtn(0).disabled = false;
+      const n = Math.min(4, SPECS[i][2]);
+      $("#o2").innerHTML = Array.from({ length: n }, (_, k) => {
+        const name = NAMES[(i * 3 + k) % NAMES.length], init = name.split(" ").map((w) => w[0]).join("");
+        return `<button class="opt" data-k="${k}" data-n="${name}"><div class="ava" style="background:linear-gradient(135deg,${COLORS[(i + k) % COLORS.length]})">${init}</div><div>${name}<small>${SPECS[i][0]} · стаж ${6 + ((i + k * 3) % 15)} лет · ★ ${(4.6 + ((i + k) % 4) / 10).toFixed(1).replace(".", ",")}</small></div></button>`;
+      }).join("");
+      nextBtn(1).disabled = true;
+    }
+    $("#o1").addEventListener("click", (e) => { const o = e.target.closest(".opt"); if (o) pickSpec(+o.dataset.i); });
+    $("#o2").addEventListener("click", (e) => { const o = e.target.closest(".opt"); if (!o) return; document.querySelectorAll("#o2 .opt").forEach((x) => x.classList.toggle("on", x === o)); st.doc = o.dataset.n; nextBtn(1).disabled = false; });
+    // Переход из каталога специальностей и из поиска сразу в шаг 2
+    const jump = (i) => { pickSpec(i); go(1); window.DEMO.lenis ? window.DEMO.lenis.scrollTo("#book", { offset: -80, duration: 1.4 }) : $("#book").scrollIntoView(); };
+    $("#specList").addEventListener("click", (e) => { const s = e.target.closest(".spec"); if (s) jump(+s.dataset.i); });
+    sugg.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { sugg.classList.remove("open"); jump(+b.dataset.i); } });
+
+    // Календарь на 3 недели вперёд
+    const cal = $("#cal"), today = new Date();
+    cal.innerHTML = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"].map((d) => `<span class="dow">${d}</span>`).join("");
+    const start = new Date(today); start.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+    for (let i = 0; i < 21; i++) {
+      const d = new Date(start); d.setDate(start.getDate() + i);
+      // запись открыта со следующего дня, воскресенье — выходной
+      const off = d <= today || d.getDay() === 0;
+      cal.insertAdjacentHTML("beforeend", `<button ${off ? "disabled" : ""} data-d="${d.toDateString()}">${d.getDate()}</button>`);
+    }
+    cal.addEventListener("click", (e) => {
+      const b = e.target.closest("button:not(:disabled)"); if (!b) return;
+      cal.querySelectorAll(".on").forEach((x) => x.classList.remove("on")); b.classList.add("on");
+      st.date = b.dataset.d; st.time = null; nextBtn(2).disabled = true;
+      const seed = new Date(st.date).getDate();
+      $("#times").innerHTML = ["09:00", "09:30", "10:15", "11:00", "11:45", "13:30", "14:15", "15:00", "16:30"].map((t, i) => `<button ${(i * 5 + seed) % 4 === 0 ? "disabled" : ""}>${t}</button>`).join("");
+      if (!reduced) gsap.from("#times button", { scale: .8, opacity: 0, stagger: .03, duration: .4, ease: "back.out(2)" });
+    });
+    $("#times").addEventListener("click", (e) => { const b = e.target.closest("button:not(:disabled)"); if (!b) return; $("#times").querySelectorAll(".on").forEach((x) => x.classList.remove("on")); b.classList.add("on"); st.time = b.textContent; nextBtn(2).disabled = false; });
+
+    function renderSummary() {
+      $("#sum").innerHTML = `<div><span>Направление</span><b>${SPECS[st.spec][0]}</b></div><div><span>Врач</span><b>${st.doc}</b></div><div><span>Дата</span><b>${new Date(st.date).toLocaleDateString("ru-RU", { weekday: "short", day: "numeric", month: "long" })}</b></div><div><span>Время</span><b>${st.time}</b></div><div><span>Стоимость приёма</span><b>3 500 ₽</b></div>`;
+    }
+    $("#confirmBtn").addEventListener("click", () => {
+      if (!$("#pf").reportValidity()) return;
+      $("#doneTxt").textContent = `${st.doc} · ${new Date(st.date).toLocaleDateString("ru-RU", { day: "numeric", month: "long" })} в ${st.time}. Подтверждение уже отправлено.`;
+      gsap.to("#vp, #steps", { height: 0, opacity: 0, duration: .6, ease: "power3.inOut", onComplete: () => {
+        $("#done").style.display = "block";
+        const c = $("#done circle"), p = $("#done path");
+        [c, p].forEach((el) => { const l = el.getTotalLength(); el.style.strokeDasharray = l; el.style.strokeDashoffset = l; });
+        gsap.timeline().to(c, { strokeDashoffset: 0, duration: .8, ease: "power2.out" }).to(p, { strokeDashoffset: 0, duration: .5, ease: "power2.out" }).from("#done h3, #done p, #done .btn", { y: 20, opacity: 0, stagger: .1 }, "-=.2");
+        ScrollTrigger.refresh();
+      } });
+    });
+    $("#again").addEventListener("click", () => { $("#done").style.display = "none"; gsap.set("#vp, #steps", { clearProps: "height,opacity" }); $("#pf").reset(); go(0); ScrollTrigger.refresh(); });
+
+    // ---------- Отзывы ----------
+    const RV = [["Записалась к кардиологу на тот же день. Всё заняло 40 секунд.", "Мария Д."], ["Наконец-то сайт клиники, где не нужно никуда звонить.", "Тимур Р."], ["Напоминания, понятные цены, внимательные врачи. Десять из десяти.", "Лейла А."], ["Записал сына к педиатру в 23:00 — приняли в 9 утра.", "Павел Г."], ["В календаре реальные окна. Никаких сюрпризов.", "Анна К."]];
+    $("#rvTrack").innerHTML = [...RV, ...RV].map((r) => `<div class="rv"><span class="stars">★★★★★</span><p>“${r[0]}”</p><b>${r[1]}</b> <small>· пациент клиники</small></div>`).join("");
+
+    // ---------- ЭКГ ----------
+    const path = $("#ecgPath"); let off = 0;
+    function ecg() {
+      let d = "M0 40";
+      for (let x = 0; x <= 300; x += 3) {
+        const t = ((x + off) % 100) / 100;
+        let y = 40;
+        if (t > .30 && t < .34) y = 34; else if (t > .40 && t < .43) y = 46; else if (t > .43 && t < .47) y = 6; else if (t > .47 && t < .51) y = 64; else if (t > .60 && t < .68) y = 32;
+        d += ` L${x} ${y}`;
+      }
+      path.setAttribute("d", d);
+    }
+    ecg();
+    if (!reduced) {
+      gsap.ticker.add(() => { off = (off + 1.2) % 100; ecg(); });
+      setInterval(() => ($("#bpm").textContent = 70 + Math.round(Math.random() * 5)), 1500);
+    }
+
+    // ---------- Скролл ----------
+    const nav = $("#nav");
+    window.addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 30), { passive: true });
+    if (reduced) { document.querySelectorAll("[data-count]").forEach((el) => (el.textContent = el.dataset.count + (el.dataset.suf || ""))); return; }
+    gsap.timeline()
+      .from(".tagline", { y: 20, opacity: 0, duration: .8 })
+      .from(split($("#heroTitle")), { yPercent: 110, duration: 1.2, stagger: .06, ease: "expo.out" }, .1)
+      .from(".hero-p, .search, .trust", { y: 30, opacity: 0, duration: 1, stagger: .1, ease: "power3.out" }, .4)
+      .from(".blob", { scale: .6, opacity: 0, duration: 1.6, ease: "expo.out" }, .2)
+      .from(".fcard", { y: 60, opacity: 0, duration: 1.2, stagger: .15, ease: "back.out(1.4)" }, .6);
+    gsap.to(".ecg", { y: -10, duration: 3, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".doc", { y: 12, duration: 3.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".next", { y: -8, duration: 3.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    document.querySelectorAll("[data-count]").forEach((el) => {
+      const o = { v: 0 }, d = +(el.dataset.dec || 0);
+      gsap.to(o, { v: +el.dataset.count, duration: 2, delay: .6, ease: "power2.out", onUpdate: () => (el.textContent = o.v.toFixed(d).replace(".", ",") + (el.dataset.suf || "")) });
+    });
+    gsap.from(".spec", { y: 50, opacity: 0, duration: 1, stagger: .06, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: "#specList", start: "top 85%" } });
+    reveals();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+/* Мини-макеты концепт-проектов. Масштабируются от ширины карточки (cqw). */
+.mock-frame {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 1.4cqw;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, .35);
+  direction: ltr;
+}
+.mock-bar {
+  position: absolute; inset: 0 0 auto 0; height: 4.2cqw; z-index: 3;
+  display: flex; align-items: center; gap: .9cqw; padding: 0 1.8cqw;
+  background: rgba(255, 255, 255, .06); backdrop-filter: blur(6px);
+}
+.mock-bar i { width: 1.1cqw; height: 1.1cqw; border-radius: 50%; background: rgba(255, 255, 255, .28); }
+.mock-bar b { margin-inline-start: 2cqw; height: 1.8cqw; width: 34cqw; border-radius: 1cqw; background: rgba(255, 255, 255, .1); }
+.mock { position: absolute; inset: 4.2cqw 0 0 0; overflow: hidden; }
+.mock * { box-sizing: border-box; }
+.sk { display: block; height: 1cqw; border-radius: 1cqw; background: currentColor; opacity: .25; }
+.mock-nav { position: absolute; inset: 2.4cqw 4cqw auto 4cqw; display: flex; align-items: center; justify-content: space-between; z-index: 2; }
+.mock-nav .links { display: flex; gap: 2cqw; }
+.mock-nav .links .sk { width: 5cqw; }
+
+/* AURUM — ювелирный бутик */
+.mock--aurum { background: radial-gradient(60% 80% at 50% 45%, #2a2116 0%, #0c0a07 70%); color: #d9b979; }
+.mock--aurum .logo { font: 500 1.8cqw/1 "Cormorant Garamond", serif; letter-spacing: .6cqw; }
+.mock--aurum .ring {
+  position: absolute; left: 50%; top: 42%; width: 24cqw; height: 24cqw; transform: translate(-50%, -50%) rotateX(62deg);
+  border-radius: 50%; border: 2.2cqw solid transparent;
+  background: conic-gradient(from 0deg, #f6e2b0, #8a6a34, #fff3cf, #9a7638, #f6e2b0) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0);
+  animation: mock-spin 9s linear infinite;
+}
+.mock--aurum .gem {
+  position: absolute; left: 50%; top: 27%; width: 6cqw; height: 6cqw; transform: translate(-50%, -50%) rotate(45deg);
+  background: linear-gradient(135deg, #fff 0%, #bfe6ff 35%, #6aa9d8 60%, #e8f6ff 100%);
+  box-shadow: 0 0 4cqw rgba(190, 230, 255, .55);
+}
+.mock--aurum .glow { position: absolute; left: 50%; top: 45%; width: 50cqw; height: 20cqw; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(217, 185, 121, .25), transparent); }
+.mock--aurum h4 { position: absolute; left: 0; right: 0; bottom: 13cqw; margin: 0; text-align: center; font: italic 400 5.4cqw/1 "Cormorant Garamond", serif; color: #f3e3bd; }
+.mock--aurum .row { position: absolute; left: 50%; bottom: 4cqw; transform: translateX(-50%); display: flex; gap: 1.6cqw; }
+.mock--aurum .row span { width: 13cqw; height: 6cqw; border: 1px solid rgba(217, 185, 121, .3); border-radius: .6cqw; background: radial-gradient(circle at 50% 60%, rgba(217, 185, 121, .35), transparent 60%); }
+@keyframes mock-spin { to { transform: translate(-50%, -50%) rotateX(62deg) rotateZ(360deg); } }
+
+/* NORDHAUS — недвижимость */
+.mock--nord { background: linear-gradient(180deg, #16202d 0%, #3a4558 40%, #c98e6b 78%, #e9b98d 100%); color: #fff; }
+.mock--nord .logo { font: 700 1.6cqw/1 "Manrope", sans-serif; letter-spacing: .3cqw; }
+.mock--nord .sun { position: absolute; left: 66%; top: 52%; width: 12cqw; height: 12cqw; border-radius: 50%; background: radial-gradient(circle, #ffe2b8, #f2a774 60%, transparent 70%); filter: blur(.3cqw); }
+.mock--nord .city { position: absolute; inset: auto 0 0 0; height: 40%; display: flex; align-items: flex-end; gap: .5cqw; padding: 0 2cqw; }
+.mock--nord .city i { flex: 1; background: linear-gradient(180deg, #1d2430, #0c1017); border-radius: .3cqw .3cqw 0 0; position: relative; }
+.mock--nord .city i::after { content: ""; position: absolute; inset: 1cqw .8cqw auto .8cqw; height: 60%; background: repeating-linear-gradient(180deg, rgba(255, 210, 150, .45) 0 .35cqw, transparent .35cqw 1.4cqw); opacity: .5; }
+.mock--nord h4 { position: absolute; left: 4cqw; top: 12cqw; margin: 0; max-width: 46cqw; font: 300 5cqw/1.05 "Manrope", sans-serif; letter-spacing: -.2cqw; }
+.mock--nord .search { position: absolute; left: 4cqw; top: 26cqw; display: flex; gap: 1cqw; padding: 1cqw; border-radius: 4cqw; background: rgba(255, 255, 255, .14); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, .25); }
+.mock--nord .search .sk { width: 8cqw; height: 2.4cqw; opacity: .3; }
+.mock--nord .search b { width: 9cqw; height: 2.4cqw; border-radius: 2cqw; background: #fff; }
+
+/* QALAM — онлайн-школа арабского */
+.mock--qalam { background: radial-gradient(80% 90% at 75% 40%, #155a4e 0%, #0c3a32 55%, #082a24 100%); color: #f4ecdc; }
+.mock--qalam .ar { font-family: "Amiri", serif; direction: rtl; }
+.mock--qalam .logo { display: flex; align-items: center; gap: 1cqw; font: 600 1.9cqw/1 "Playfair Display", "Cormorant Garamond", serif; }
+.mock--qalam .logo b { font-size: 2.6cqw; color: #d4a64a; font-weight: 400; }
+.mock--qalam .pat { position: absolute; inset: 0; opacity: .1; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%23f0d58c' stroke-width='1'%3E%3Cpolygon points='30,8 37,23 52,30 37,37 30,52 23,37 8,30 23,23'/%3E%3Crect x='16' y='16' width='28' height='28' transform='rotate(45 30 30)'/%3E%3C/g%3E%3C/svg%3E"); background-size: 7cqw 7cqw; }
+.mock--qalam h4 { position: absolute; left: 4cqw; top: 13cqw; margin: 0; max-width: 40cqw; font: 500 4.6cqw/1.05 "Playfair Display", "Cormorant Garamond", serif; }
+.mock--qalam h4 em { color: #f0d58c; }
+.mock--qalam .prog { position: absolute; left: 4cqw; top: 29cqw; width: 26cqw; height: 1cqw; border-radius: 1cqw; background: rgba(244, 236, 220, .15); overflow: hidden; }
+.mock--qalam .prog i { display: block; width: 68%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #d4a64a, #c8643b); animation: mock-prog 4s ease-in-out infinite; }
+.mock--qalam .btn { position: absolute; left: 4cqw; top: 33cqw; width: 17cqw; height: 4cqw; border-radius: 3cqw; background: #d4a64a; }
+.mock--qalam .medal { position: absolute; right: 8cqw; top: 9cqw; width: 30cqw; height: 30cqw; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 40% 35%, #1b6b5c, #0a2c26 70%); box-shadow: 0 2cqw 5cqw rgba(0, 0, 0, .45), inset 0 0 0 .25cqw rgba(240, 213, 140, .4), 0 0 0 1.6cqw rgba(212, 166, 74, .12), 0 0 0 3.2cqw rgba(212, 166, 74, .06); animation: mock-float2 6s ease-in-out infinite; }
+.mock--qalam .medal span { font-size: 15cqw; line-height: 1; background: linear-gradient(160deg, #fff3cf, #d4a64a 45%, #8a6424); -webkit-background-clip: text; background-clip: text; color: transparent; padding: 2cqw 1cqw; }
+.mock--qalam .tiles { position: absolute; left: 4cqw; bottom: 3.5cqw; display: flex; gap: 1.2cqw; direction: rtl; }
+.mock--qalam .tiles span { width: 6.4cqw; height: 6.4cqw; border-radius: 1.2cqw; display: grid; place-items: center; background: #fbf7ef; color: #0c3a32; font-size: 3.6cqw; }
+.mock--qalam .tiles span:first-child { background: #d4a64a; }
+@keyframes mock-prog { 50% { width: 82%; } }
+@keyframes mock-float2 { 50% { transform: translateY(-1.5cqw); } }
+/* MAISON OMBRE — ресторан */
+.mock--ombre { background: radial-gradient(80% 100% at 70% 60%, #4a1a1f 0%, #1a090b 70%); color: #f0d9c4; }
+.mock--ombre .logo { font: italic 500 2cqw/1 "Cormorant Garamond", serif; }
+.mock--ombre h4 { position: absolute; left: 4cqw; top: 12cqw; margin: 0; font: italic 400 7.2cqw/.95 "Cormorant Garamond", serif; color: #f6e6d4; }
+.mock--ombre .plate { position: absolute; right: 4cqw; top: 8cqw; width: 30cqw; height: 30cqw; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #c95d3a 0 14%, #7a2f22 15% 22%, #efe6da 23% 52%, #d9cfc1 53% 58%, transparent 59%);
+  box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, .5); animation: mock-rot 20s linear infinite; }
+.mock--ombre .plate::after { content: ""; position: absolute; left: 38%; top: 30%; width: 8%; height: 8%; border-radius: 50%; background: #6d8b3a; box-shadow: 5cqw 3cqw 0 -.4cqw #6d8b3a, 2cqw 7cqw 0 -.2cqw #e3b04b; }
+.mock--ombre .menu { position: absolute; left: 4cqw; bottom: 5cqw; display: grid; gap: 1.4cqw; width: 36cqw; }
+.mock--ombre .menu span { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(240, 217, 196, .2); padding-bottom: .8cqw; }
+.mock--ombre .menu .sk { width: 14cqw; }
+.mock--ombre .menu .sk + .sk { width: 4cqw; }
+@keyframes mock-rot { to { transform: rotate(360deg); } }
+
+/* ATLAS CLINIC — медицина */
+.mock--atlas { background: #f3f6fb; color: #13233d; }
+.mock--atlas .logo { display: flex; align-items: center; gap: .8cqw; font: 800 1.7cqw/1 "Manrope", sans-serif; color: #1f5fe0; }
+.mock--atlas .logo::before { content: ""; width: 2cqw; height: 2cqw; background: linear-gradient(#1f5fe0 0 0) center / 30% 100% no-repeat, linear-gradient(#1f5fe0 0 0) center / 100% 30% no-repeat; }
+.mock--atlas h4 { position: absolute; left: 4cqw; top: 12cqw; margin: 0; max-width: 42cqw; font: 700 4.2cqw/1.08 "Manrope", sans-serif; letter-spacing: -.12cqw; }
+.mock--atlas .txt { position: absolute; left: 4cqw; top: 25cqw; display: grid; gap: 1cqw; width: 30cqw; }
+.mock--atlas .btn { position: absolute; left: 4cqw; top: 31cqw; width: 15cqw; height: 3.8cqw; border-radius: 1cqw; background: #1f5fe0; box-shadow: 0 1cqw 2.5cqw rgba(31, 95, 224, .35); }
+.mock--atlas .cal { position: absolute; right: 4cqw; top: 9cqw; width: 40cqw; padding: 2.4cqw; border-radius: 2cqw; background: #fff; box-shadow: 0 2cqw 5cqw rgba(19, 35, 61, .12); display: grid; grid-template-columns: repeat(7, 1fr); gap: 1cqw; }
+.mock--atlas .cal i { aspect-ratio: 1; border-radius: .8cqw; background: #eef2f8; }
+.mock--atlas .cal i.on { background: #1f5fe0; box-shadow: 0 0 0 .5cqw rgba(31, 95, 224, .2); animation: mock-pulse 2.4s ease-in-out infinite; }
+.mock--atlas .cal i.off { background: transparent; }
+.mock--atlas .doc { position: absolute; right: 22cqw; bottom: 3.5cqw; display: flex; align-items: center; gap: 1.4cqw; padding: 1.4cqw 2cqw; border-radius: 1.4cqw; background: #fff; box-shadow: 0 1.5cqw 4cqw rgba(19, 35, 61, .14); }
+.mock--atlas .doc::before { content: ""; width: 4.4cqw; height: 4.4cqw; border-radius: 50%; background: linear-gradient(135deg, #b9d0ff, #1f5fe0); }
+.mock--atlas .doc .sk { width: 12cqw; }
+@keyframes mock-pulse { 50% { box-shadow: 0 0 0 1.2cqw rgba(31, 95, 224, 0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mock-frame * { animation: none !important; }
+}

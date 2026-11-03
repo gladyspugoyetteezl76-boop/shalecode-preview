@@ -1,0 +1,257 @@
+{
+  "services": [
+    {
+      "id": "s1",
+      "visible": true,
+      "title": {
+        "ru": "Лендинги",
+        "en": "Landing pages",
+        "ar": "صفحات الهبوط"
+      },
+      "desc": {
+        "ru": "Одностраничные сайты под рекламу и запуск продукта. Каждый блок работает на конверсию.",
+        "en": "Single-page sites for campaigns and product launches. Every block is built to convert.",
+        "ar": "مواقع من صفحة واحدة للحملات الإعلانية وإطلاق المنتجات، كل قسم فيها مصمم للتحويل."
+      },
+      "icon": "landing"
+    },
+    {
+      "id": "s2",
+      "visible": true,
+      "title": {
+        "ru": "Корпоративные сайты",
+        "en": "Corporate websites",
+        "ar": "مواقع الشركات"
+      },
+      "desc": {
+        "ru": "Многостраничные сайты компаний с продуманной структурой и удобным управлением.",
+        "en": "Multi-page company sites with a clear structure and easy content management.",
+        "ar": "مواقع متعددة الصفحات ببنية مدروسة وإدارة محتوى سهلة."
+      },
+      "icon": "corporate"
+    },
+    {
+      "id": "s3",
+      "visible": true,
+      "title": {
+        "ru": "Интернет-магазины",
+        "en": "Online stores",
+        "ar": "المتاجر الإلكترونية"
+      },
+      "desc": {
+        "ru": "Каталог, корзина, оплата и интеграции — магазин, в котором приятно покупать.",
+        "en": "Catalog, cart, payments and integrations — a store people enjoy buying from.",
+        "ar": "كتالوج وسلة ودفع وتكاملات — متجر يستمتع العملاء بالشراء منه."
+      },
+      "icon": "shop"
+    },
+    {
+      "id": "s11",
+      "visible": true,
+      "title": {
+        "ru": "CMS-системы",
+        "en": "CMS development",
+        "ar": "أنظمة إدارة المحتوى (CMS)"
+      },
+      "desc": {
+        "ru": "Собственные системы управления контентом: удобная админка под ваши процессы, роли и права доступа.",
+        "en": "Custom content management systems: an admin panel built around your processes, roles and permissions.",
+        "ar": "أنظمة مخصصة لإدارة المحتوى: لوحة تحكم مصممة لعملياتك مع الأدوار والصلاحيات."
+      },
+      "icon": "cms"
+    },
+    {
+      "id": "s12",
+      "visible": true,
+      "title": {
+        "ru": "LMS-платформы",
+        "en": "LMS platforms",
+        "ar": "منصات التعليم الإلكتروني (LMS)"
+      },
+      "desc": {
+        "ru": "Платформы для онлайн-обучения: курсы, тесты, личные кабинеты, прогресс учеников и оплата.",
+        "en": "Online learning platforms: courses, quizzes, student accounts, progress tracking and payments.",
+        "ar": "منصات للتعلم عبر الإنترنت: دورات واختبارات وحسابات للطلاب وتتبع التقدم والدفع."
+      },
+      "icon": "lms"
+    },
+    {
+      "id": "s8",
+      "visible": true,
+      "title": {
+        "ru": "Мобильные приложения",
+        "en": "Mobile apps",
+        "ar": "تطبيقات الجوال"
+      },
+      "desc": {
+        "ru": "Приложения для iOS и Android — от прототипа до публикации в App Store и Google Play.",
+        "en": "iOS and Android apps — from prototype to release on the App Store and Google Play.",
+        "ar": "تطبيقات iOS وAndroid — من النموذج الأولي حتى النشر في App Store وGoogle Play."
+      },
+      "icon": "mobile"
+    },
+    {
+      "id": "s9",
+      "visible": true,
+      "title": {
+        "ru": "Приложения для ПК",
+        "en": "Desktop apps",
+        "ar": "تطبيقات الحاسوب"
+      },
+      "desc": {
+        "ru": "Программы для Windows и macOS: CRM, панели управления и рабочие инструменты для команды.",
+        "en": "Software for Windows and macOS: CRMs, dashboards and internal tools for your team.",
+        "ar": "برامج لنظامي Windows وmacOS: أنظمة CRM ولوحات تحكم وأدوات عمل لفريقك."
+      },
+      "icon": "desktop"
+    },
+    {
+      "id": "s10",
+      "visible": true,
+      "title": {
+        "ru": "Telegram-боты и мини-приложения",
+        "en": "Telegram bots & mini apps",
+        "ar": "بوتات وتطبيقات تيليغرام المصغّرة"
+      },
+      "desc": {
+        "ru": "Боты для заявок и продаж, Telegram Mini Apps с оплатой и личным кабинетом.",
+        "en": "Bots for leads and sales, Telegram Mini Apps with payments and user accounts.",
+        "ar": "بوتات لاستقبال الطلبات والمبيعات، وتطبيقات تيليغرام المصغّرة مع الدفع والحساب الشخصي."
+      },
+      "icon": "telegram"
+    },
+    {
+      "id": "s4",
+      "visible": true,
+      "title": {
+        "ru": "UI/UX-дизайн",
+        "en": "UI/UX design",
+        "ar": "تصميم UI/UX"
+      },
+      "desc": {
+        "ru": "Исследование, прототипы и визуальная концепция, которая выделит вас среди конкурентов.",
+        "en": "Research, prototypes and a visual concept that sets you apart from competitors.",
+        "ar": "بحث ونماذج أولية وهوية بصرية تميّزك عن منافسيك."
+      },
+      "icon": "design"
+    },
+    {
+      "id": "s5",
+      "visible": true,
+      "title": {
+        "ru": "Анимации и 3D",
+        "en": "Motion & 3D",
+        "ar": "الحركة والـ 3D"
+      },
+      "desc": {
+        "ru": "WebGL, интерактив и плавные переходы — эффекты, которые запоминаются.",
+        "en": "WebGL, interactivity and smooth transitions — effects people remember.",
+        "ar": "WebGL وتفاعلية وانتقالات سلسة — تأثيرات لا تُنسى."
+      },
+      "icon": "motion"
+    },
+    {
+      "id": "s7",
+      "visible": true,
+      "title": {
+        "ru": "Поддержка сайтов",
+        "en": "Website support",
+        "ar": "دعم المواقع"
+      },
+      "desc": {
+        "ru": "Обновления, резервные копии, защита и доработки — сайт всегда работает быстро и без сбоев.",
+        "en": "Updates, backups, security and improvements — your site stays fast and reliable.",
+        "ar": "تحديثات ونسخ احتياطية وحماية وتطويرات — ليبقى موقعك سريعًا ومستقرًا."
+      },
+      "icon": "support"
+    },
+    {
+      "id": "s6",
+      "visible": true,
+      "title": {
+        "ru": "SEO-продвижение",
+        "en": "SEO",
+        "ar": "تحسين محركات البحث"
+      },
+      "desc": {
+        "ru": "Техническая оптимизация, семантика и контент, чтобы клиенты находили вас в поиске.",
+        "en": "Technical optimization, keywords and content so clients find you in search.",
+        "ar": "تحسين تقني وكلمات مفتاحية ومحتوى ليجدك العملاء في محركات البحث."
+      },
+      "icon": "seo"
+    }
+  ],
+  "works": [
+    {
+      "id": "w1",
+      "visible": true,
+      "name": "Aurum",
+      "kind": "concept",
+      "link": "work/aurum/index.html",
+      "mock": "aurum",
+      "image": "",
+      "type": {
+        "ru": "Ювелирный бутик · Интернет-магазин",
+        "en": "Jewelry boutique · Online store",
+        "ar": "متجر مجوهرات · متجر إلكتروني"
+      }
+    },
+    {
+      "id": "w2",
+      "visible": true,
+      "name": "Nordhaus",
+      "kind": "concept",
+      "link": "work/nordhaus/index.html",
+      "mock": "nord",
+      "image": "",
+      "type": {
+        "ru": "Элитная недвижимость · Корпоративный сайт",
+        "en": "Luxury real estate · Corporate site",
+        "ar": "عقارات فاخرة · موقع شركة"
+      }
+    },
+    {
+      "id": "w3",
+      "visible": true,
+      "name": "Qalam",
+      "kind": "concept",
+      "link": "work/qalam/index.html",
+      "mock": "qalam",
+      "image": "",
+      "type": {
+        "ru": "Онлайн-школа арабского · Образовательная платформа",
+        "en": "Arabic online school · Learning platform",
+        "ar": "مدرسة لتعليم العربية عبر الإنترنت · منصة تعليمية"
+      }
+    },
+    {
+      "id": "w4",
+      "visible": true,
+      "name": "Maison Ombre",
+      "kind": "concept",
+      "link": "work/ombre/index.html",
+      "mock": "ombre",
+      "image": "",
+      "type": {
+        "ru": "Ресторан · Сайт-визитка",
+        "en": "Restaurant · Showcase site",
+        "ar": "مطعم · موقع تعريفي"
+      }
+    },
+    {
+      "id": "w5",
+      "visible": true,
+      "name": "Atlas Clinic",
+      "kind": "concept",
+      "link": "work/atlas/index.html",
+      "mock": "atlas",
+      "image": "",
+      "type": {
+        "ru": "Клиника · Сервис онлайн-записи",
+        "en": "Clinic · Online booking service",
+        "ar": "عيادة · خدمة الحجز الإلكتروني"
+      }
+    }
+  ],
+  "reviews": []
+}

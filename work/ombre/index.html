@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maison Ombre — ресторан · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Maison Ombre">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_light.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=2">
+  <style>
+    :root { --bg: #170809; --bg2: #210d10; --wine: #4a1a1f; --cream: #f0dcc6; --muted: #a88c80; --gold: #e3b04b; --line: rgba(240, 220, 198, .14); --ease: cubic-bezier(.22, 1, .36, 1); --pad: clamp(18px, 4vw, 64px); }
+    body { background: var(--bg); color: var(--cream); font: 300 16px/1.75 "Jost", sans-serif; }
+    .container { max-width: 1360px; margin-inline: auto; padding-inline: var(--pad); }
+    .serif { font-family: "Cormorant Garamond", serif; }
+
+    .nav { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 24px var(--pad); mix-blend-mode: difference; color: #fff; }
+    .nav .logo { font: italic 400 24px "Cormorant Garamond"; }
+    .nav nav { display: flex; gap: 34px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100svh; display: grid; place-items: center; overflow: hidden; text-align: center; background: radial-gradient(70% 70% at 50% 60%, #4a1a1f 0%, var(--bg) 70%); }
+    .plate-wrap { position: absolute; left: 50%; top: 66%; width: min(72vmin, 640px); aspect-ratio: 1; transform: translate(-50%, -50%); }
+    .plate { position: absolute; inset: 0; border-radius: 50%; background:
+      radial-gradient(circle at 50% 50%, transparent 0 57%, rgba(0, 0, 0, .25) 58%, transparent 60%),
+      radial-gradient(circle at 42% 38%, #fbf6ef 0%, #ebe1d3 52%, #d6c9b6 63%, #c4b49d 66%, transparent 67%);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, .55); }
+    .dish { position: absolute; inset: 22%; border-radius: 50%; }
+    .dish i { position: absolute; border-radius: 50%; }
+    .sauce { inset: 8%; background: radial-gradient(circle at 45% 45%, #8a2a1c 0%, #5e1a12 55%, transparent 72%); filter: blur(1px); }
+    .meat { inset: 26% 24% 28% 26%; background: radial-gradient(circle at 40% 35%, #b5603e, #7a3221 70%); border-radius: 46% 54% 50% 50% !important; box-shadow: inset -8px -10px 20px rgba(0, 0, 0, .35); }
+    .herb { width: 7%; height: 7%; background: #5f8a34; box-shadow: inset -2px -2px 4px rgba(0, 0, 0, .3); }
+    .flower { width: 5%; height: 5%; background: var(--gold); }
+    .steam { position: absolute; left: 50%; top: 4%; width: 40%; transform: translateX(-50%); opacity: .5; }
+    .steam path { fill: none; stroke: rgba(255, 255, 255, .5); stroke-width: 2; stroke-linecap: round; filter: blur(2px); }
+    .hero-txt { position: relative; z-index: 2; margin-top: -26vh; }
+    .hero h1 { font: italic 300 clamp(72px, 13vw, 230px)/.85 "Cormorant Garamond"; letter-spacing: -.02em; text-shadow: 0 10px 40px rgba(0, 0, 0, .5); }
+    .hero .tag { font-size: 13px; letter-spacing: .4em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .hero-foot { position: absolute; z-index: 2; bottom: 36px; left: var(--pad); right: var(--pad); display: flex; justify-content: space-between; align-items: flex-end; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 32px; border: 1px solid var(--gold); color: var(--cream); border-radius: 60px; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; transition: .5s var(--ease); }
+    .btn:hover { background: var(--gold); color: var(--bg); }
+
+    /* Философия */
+    .sec { padding-block: clamp(100px, 12vw, 180px); }
+    .philo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 7vw, 120px); align-items: center; }
+    .philo h2 { font: 300 clamp(44px, 5vw, 84px)/1.02 "Cormorant Garamond"; }
+    .philo h2 em { color: var(--gold); }
+    .philo p { color: var(--muted); margin-top: 26px; max-width: 480px; }
+    .philo p:first-of-type::first-letter { float: left; font: italic 400 88px/.8 "Cormorant Garamond"; color: var(--gold); margin: 8px 12px 0 0; }
+    .candle-box { position: relative; aspect-ratio: 4 / 5; border-radius: 300px 300px 0 0; overflow: hidden; background: radial-gradient(60% 50% at 50% 40%, rgba(255, 170, 80, .35), transparent 70%), linear-gradient(#2a1013, #120506); border: 1px solid var(--line); }
+    .candle { position: absolute; left: 50%; bottom: 0; width: 22%; height: 46%; transform: translateX(-50%); background: linear-gradient(90deg, #d8c7ad, #f5ead8 40%, #c9b597); border-radius: 6px 6px 0 0; }
+    .wick { position: absolute; left: 50%; top: -14px; width: 3px; height: 16px; margin-left: -1.5px; background: #2a1a10; }
+    .flame { position: absolute; left: 50%; top: -84px; width: 34px; height: 76px; margin-left: -17px; border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%; background: radial-gradient(ellipse at 50% 80%, #fff 0%, #ffe39a 25%, #ffa13d 55%, rgba(255, 90, 20, 0) 75%); filter: blur(1px); transform-origin: 50% 90%; animation: flick 2.6s ease-in-out infinite; }
+    .glow { position: absolute; left: 50%; top: -170px; width: 260px; height: 260px; margin-left: -130px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 170, 80, .45), transparent 65%); animation: glow 2.6s ease-in-out infinite; }
+    @keyframes flick { 0%, 100% { transform: scale(1) rotate(-1deg); } 25% { transform: scale(1.04, .96) rotate(2deg); } 50% { transform: scale(.97, 1.05) rotate(-2deg); } 75% { transform: scale(1.02, .98) rotate(1deg); } }
+    @keyframes glow { 50% { opacity: .75; transform: scale(.94); } }
+
+    /* Меню */
+    .menu-sec { background: var(--bg2); border-block: 1px solid var(--line); }
+    .menu-head { text-align: center; }
+    .menu-head h2 { font: italic 300 clamp(56px, 7vw, 120px)/1 "Cormorant Garamond"; }
+    .mtabs { display: flex; justify-content: center; gap: clamp(14px, 3vw, 44px); margin: 40px 0 60px; flex-wrap: wrap; }
+    .mtabs button { position: relative; font: 400 22px "Cormorant Garamond"; color: var(--muted); padding-bottom: 6px; transition: color .4s; }
+    .mtabs button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .6s var(--ease); }
+    .mtabs button.on { color: var(--cream); }
+    .mtabs button.on::after { transform: scaleX(1); }
+    .mlist { max-width: 880px; margin: 0 auto; min-height: 420px; }
+    .mi { display: grid; grid-template-columns: 1fr auto; gap: 6px 20px; padding: 22px 0; border-bottom: 1px solid var(--line); cursor: default; }
+    .mi h3 { font: 400 28px/1.1 "Cormorant Garamond"; display: flex; align-items: baseline; gap: 14px; transition: color .4s, transform .6s var(--ease); }
+    .mi h3::after { content: ""; flex: 1; border-bottom: 1px dotted rgba(240, 220, 198, .3); transform: translateY(-6px); }
+    .mi:hover h3 { color: var(--gold); transform: translateX(10px); }
+    .mi b { font: 400 26px "Cormorant Garamond"; color: var(--gold); }
+    .mi p { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+    .preview { position: fixed; z-index: 60; left: 0; top: 0; width: 200px; height: 200px; margin: -100px 0 0 -100px; pointer-events: none; border-radius: 50%; opacity: 0; transform: scale(.5); }
+    .preview .plate { box-shadow: 0 20px 40px rgba(0, 0, 0, .6); }
+
+    /* Дегустационный сет */
+    .tasting { text-align: center; }
+    .tasting h2 { font: 300 clamp(44px, 5vw, 84px)/1.05 "Cormorant Garamond"; }
+    .courses { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 60px; position: relative; }
+    .courses::before { content: ""; position: absolute; left: 7%; right: 7%; top: 34px; height: 1px; background: var(--line); }
+    .course { position: relative; display: grid; justify-items: center; gap: 14px; }
+    .course i { width: 68px; height: 68px; border-radius: 50%; border: 1px solid var(--gold); background: var(--bg); display: grid; place-items: center; font: italic 400 26px "Cormorant Garamond"; color: var(--gold); font-style: italic; }
+    .course span { font: 400 19px/1.2 "Cormorant Garamond"; }
+    .course small { color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+
+    /* Бронирование */
+    .book { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(30px, 6vw, 100px); }
+    .book h2 { font: 300 clamp(48px, 5.5vw, 92px)/1 "Cormorant Garamond"; }
+    .book h2 em { color: var(--gold); }
+    .hours { margin-top: 40px; display: grid; gap: 10px; color: var(--muted); }
+    .hours div { display: flex; justify-content: space-between; max-width: 360px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+    .hours b { color: var(--cream); font-weight: 400; }
+    .panel { position: relative; padding: clamp(24px, 3vw, 44px); border: 1px solid var(--line); border-radius: 28px; background: var(--bg2); }
+    .lbl { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin: 26px 0 12px; }
+    .lbl:first-child { margin-top: 0; }
+    .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    .day { padding: 12px 0; border: 1px solid var(--line); border-radius: 14px; text-align: center; transition: .4s var(--ease); }
+    .day small { display: block; font-size: 11px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+    .day b { font: 400 26px/1.1 "Cormorant Garamond"; }
+    .day.on, .slot.on { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+    .day.on small { color: var(--bg); }
+    .day:disabled { opacity: .3; cursor: not-allowed; }
+    .guests { display: flex; align-items: center; gap: 22px; }
+    .guests button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); font-size: 22px; transition: .3s; }
+    .guests button:hover { border-color: var(--gold); color: var(--gold); }
+    .guests b { font: 400 40px "Cormorant Garamond"; min-width: 40px; text-align: center; }
+    .slots { display: flex; flex-wrap: wrap; gap: 8px; }
+    .slot { padding: 10px 18px; border: 1px solid var(--line); border-radius: 30px; font-size: 15px; transition: .4s var(--ease); }
+    .slot:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+    .slot:not(:disabled):hover, .day:not(:disabled):hover { border-color: var(--gold); }
+    .inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 26px; }
+    .inputs input { background: transparent; border: 0; border-bottom: 1px solid var(--line); color: var(--cream); font: 300 17px "Jost"; padding: 12px 0; outline: none; transition: border-color .4s; }
+    .inputs input:focus { border-color: var(--gold); }
+    .confirm { width: 100%; margin-top: 30px; height: 60px; border-radius: 60px; background: var(--gold); color: var(--bg); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; transition: .4s; }
+    .confirm:hover { background: var(--cream); }
+    .ticket { position: absolute; inset: 0; border-radius: 28px; background: var(--cream); color: var(--bg); display: grid; place-content: center; text-align: center; padding: 30px; visibility: hidden; }
+    .ticket h3 { font: italic 400 48px/1 "Cormorant Garamond"; }
+    .ticket p { margin-top: 12px; font-size: 18px; }
+    .ticket .code { margin-top: 26px; font: 500 14px "Manrope"; letter-spacing: .3em; padding: 12px 20px; border: 1px dashed var(--bg); border-radius: 10px; }
+    footer { border-top: 1px solid var(--line); padding: 40px var(--pad) 110px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 960px) {
+      .nav nav { display: none; }
+      .philo, .book { grid-template-columns: 1fr; }
+      .courses { grid-template-columns: repeat(4, 1fr); row-gap: 30px; }
+      .courses::before { display: none; }
+      .preview { display: none; }
+    }
+    @media (max-width: 560px) { .courses { grid-template-columns: repeat(2, 1fr); } .inputs { grid-template-columns: 1fr; } .days { grid-template-columns: repeat(4, 1fr); } .hero-foot span:last-child { display: none; } }
+  </style>
+</head>
+<body>
+  <header class="nav"><a href="#" class="logo">Maison Ombre</a><nav><a href="#menu">Меню</a><a href="#tasting">Дегустация</a><a href="#book">Бронь</a></nav></header>
+
+  <section class="hero">
+    <div class="plate-wrap" id="heroPlate">
+      <div class="plate"></div>
+      <div class="dish"><i class="sauce"></i><i class="meat"></i>
+        <i class="herb" style="left:30%;top:20%"></i><i class="herb" style="left:66%;top:30%"></i><i class="herb" style="left:58%;top:70%"></i>
+        <i class="flower" style="left:24%;top:58%"></i><i class="flower" style="left:72%;top:52%"></i><i class="flower" style="left:44%;top:16%"></i></div>
+      <svg class="steam" viewBox="0 0 200 160"><path d="M60 150 C40 120 80 100 60 70 S70 20 55 0"/><path d="M100 150 C80 120 120 100 100 70 S110 20 95 0"/><path d="M140 150 C120 120 160 100 140 70 S150 20 135 0"/></svg>
+    </div>
+    <div class="hero-txt">
+      <p class="tag">Cuisine d'ombre et de lumière</p>
+      <h1 id="heroTitle">Maison Ombre</h1>
+    </div>
+    <div class="hero-foot"><span>Фонарный переулок, 12 · Москва</span><a href="#book" class="btn">Забронировать стол</a><span>С 2011 года</span></div>
+  </section>
+
+  <section class="sec container">
+    <div class="philo">
+      <div>
+        <h2 data-split-up>Кухня <em>между</em> светом и тенью</h2>
+        <p data-reveal>Наша кухня работает при свечах и живом огне. Шеф Элиза Маршан собирает меню из того, что фермеры привезли на этой неделе, — ничего замороженного и ничего второпях.</p>
+        <p data-reveal=".1">Тридцать два места. Одна посадка за вечер. Ужин, который хочется запомнить, а не сфотографировать.</p>
+      </div>
+      <div class="candle-box" data-reveal><div class="candle"><span class="glow"></span><span class="wick"></span><span class="flame"></span></div></div>
+    </div>
+  </section>
+
+  <section class="sec menu-sec" id="menu">
+    <div class="container">
+      <div class="menu-head"><p class="tag" style="color:var(--gold);letter-spacing:.4em;font-size:13px;text-transform:uppercase">La carte</p><h2 data-split-up>Меню</h2></div>
+      <div class="mtabs" id="mtabs"><button class="on" data-k="0">Закуски</button><button data-k="1">Горячее</button><button data-k="2">Десерты</button><button data-k="3">Вина</button></div>
+      <div class="mlist" id="mlist"></div>
+    </div>
+  </section>
+
+  <section class="sec container tasting" id="tasting">
+    <p class="tag" style="color:var(--gold);letter-spacing:.4em;font-size:13px;text-transform:uppercase">Дегустационный сет · 9 500 ₽</p>
+    <h2 data-split-up>Семь подач, один вечер</h2>
+    <div class="courses" id="courses">
+      <div class="course"><i>i</i><span>Устрица и дым</span><small>Комплимент</small></div>
+      <div class="course"><i>ii</i><span>Свёкла на углях</span><small>Сад</small></div>
+      <div class="course"><i>iii</i><span>Кнели из щуки</span><small>Река</small></div>
+      <div class="course"><i>iv</i><span>Бульон из сморчков</span><small>Лес</small></div>
+      <div class="course"><i>v</i><span>Утка «в тени»</span><small>Огонь</small></div>
+      <div class="course"><i>vi</i><span>Сен-Марселен</span><small>Погреб</small></div>
+      <div class="course"><i>vii</i><span>Чёрный мёд</span><small>Десерт</small></div>
+    </div>
+  </section>
+
+  <section class="sec container" id="book" style="padding-top:0">
+    <div class="book">
+      <div>
+        <h2 data-split-up>Забронируйте <em>стол</em></h2>
+        <div class="hours">
+          <div><span>Среда — суббота</span><b>19:00 — 23:30</b></div>
+          <div><span>Воскресенье</span><b>12:30 — 15:30</b></div>
+          <div><span>Понедельник — вторник</span><b>Выходной</b></div>
+        </div>
+      </div>
+      <form class="panel" id="bookForm" data-reveal>
+        <p class="lbl">Дата</p><div class="days" id="days"></div>
+        <p class="lbl">Гости</p><div class="guests"><button type="button" data-g="-1">−</button><b id="gN">2</b><button type="button" data-g="1">+</button></div>
+        <p class="lbl">Время</p><div class="slots" id="slots"></div>
+        <div class="inputs"><input placeholder="Имя" required><input placeholder="Телефон" required type="tel"></div>
+        <button class="confirm">Подтвердить бронь</button>
+        <div class="ticket" id="ticket"><h3>До встречи</h3><p id="tText"></p><div class="code" id="tCode"></div></div>
+      </form>
+    </div>
+  </section>
+
+  <footer><span>© 2026 Maison Ombre · Москва</span><span>Концепт студии ShaleCode</span></footer>
+  <div class="preview" id="preview"><div class="plate"></div><div class="dish" id="pDish"><i class="sauce"></i><i class="meat"></i></div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=3"></script>
+  <script>
+  (function () {
+    const { reduced, isTouch, split, reveals } = window.DEMO;
+    const $ = (s) => document.querySelector(s);
+
+    // ---------- Меню ----------
+    const MENU = [
+      [["Устрица, копчёное масло", "Бретонская устрица, буковый дым, щавель", 1200, ["#cfd6cf", "#8b9a92"]], ["Свёкла на углях", "Козий творог, фундук, выдержанный уксус", 950, ["#8a1f3c", "#5a0f24"]], ["Велюте из сморчков", "Дикие сморчки, вино «жон», масло шнитт-лука", 1400, ["#c49a5a", "#7e5a2a"]], ["Кнели из щуки", "Соус нантюа, раки, эстрагон", 1350, ["#f0d9b8", "#c47a4a"]]],
+      [["Утка «в тени»", "Выдержанная утка, вишнёвый соус, копчёный сельдерей", 2900, ["#b5603e", "#7a3221"]], ["Тюрбо на кости", "Ореховое масло, каперсы, морские травы", 3600, ["#efe6d6", "#b8a98a"]], ["Ягнёнок с фермы", "Чесночное конфи, анчоус, лук-порей на углях", 3200, ["#a85a4a", "#5e2a1e"]], ["Сельдерей в корочке", "Трюфель, фундук, сыр конте", 2400, ["#d8b878", "#8a6a3a"]]],
+      [["Чёрный мёд", "Гречка, сквашенные сливки, пыльца", 850, ["#3a2414", "#1a0e06"]], ["Тарт с пралине", "Розовое пралине по-лионски", 780, ["#e07a8a", "#a8364a"]], ["Шоколад и дым", "Гран крю, мороженое из жжёного сена", 900, ["#4a2a1a", "#22120a"]]],
+      [["Morgon, Jean Foillard 2019", "Божоле · гаме · бокал", 1100, ["#5e0f1e", "#2a0410"]], ["Condrieu, Vernay 2021", "Рона · вионье · бокал", 1600, ["#e8c870", "#b08a2a"]], ["Côte-Rôtie, Jamet 2017", "Рона · сира · бокал", 2200, ["#4a0a18", "#1a0208"]]]
+    ];
+    const list = $("#mlist"), prev = $("#preview"), pDish = $("#pDish");
+    function renderMenu(k, animate) {
+      const html = MENU[k].map((m, i) => `<div class="mi" data-i="${i}"><h3>${m[0]}</h3><b>${m[2].toLocaleString("ru")} ₽</b><p>${m[1]}</p></div>`).join("");
+      if (!animate || reduced) { list.innerHTML = html; return; }
+      gsap.to(list.children, { opacity: 0, y: -20, duration: .3, stagger: .04, onComplete: () => {
+        list.innerHTML = html;
+        gsap.from(list.children, { opacity: 0, y: 30, duration: .8, stagger: .07, ease: "power3.out" });
+      } });
+    }
+    let tab = 0;
+    renderMenu(0);
+    $("#mtabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; $("#mtabs .on").classList.remove("on"); b.classList.add("on"); tab = +b.dataset.k; renderMenu(tab, true); });
+    // Превью блюда следует за курсором
+    if (!isTouch) {
+      const px = gsap.quickTo(prev, "x", { duration: .6, ease: "power3" }), py = gsap.quickTo(prev, "y", { duration: .6, ease: "power3" });
+      window.addEventListener("pointermove", (e) => { px(e.clientX + 140); py(e.clientY); });
+      list.addEventListener("pointerover", (e) => {
+        const mi = e.target.closest(".mi"); if (!mi) return;
+        const c = MENU[tab][mi.dataset.i][3];
+        pDish.querySelector(".meat").style.background = `radial-gradient(circle at 40% 35%, ${c[0]}, ${c[1]} 70%)`;
+        gsap.to(prev, { opacity: 1, scale: 1, rotate: gsap.utils.random(-20, 20), duration: .5, ease: "back.out(1.6)" });
+      });
+      list.addEventListener("pointerleave", () => gsap.to(prev, { opacity: 0, scale: .5, duration: .4 }));
+    }
+
+    // ---------- Бронирование ----------
+    const days = $("#days"), now = new Date();
+    const dn = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+    const guests = (g) => g + " " + (g % 10 === 1 && g % 100 !== 11 ? "гость" : [2, 3, 4].includes(g % 10) && ![12, 13, 14].includes(g % 100) ? "гостя" : "гостей");
+    let pick = { day: null, time: null, g: 2 };
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(now); d.setDate(now.getDate() + i + 1);
+      const closed = d.getDay() === 1 || d.getDay() === 2;
+      days.insertAdjacentHTML("beforeend", `<button type="button" class="day" ${closed ? "disabled" : ""} data-d="${d.toDateString()}"><small>${dn[d.getDay()]}</small><b>${d.getDate()}</b></button>`);
+    }
+    function renderSlots(seed) {
+      const times = seed && new Date(seed).getDay() === 0 ? ["12:30", "13:00", "13:30", "14:00"] : ["19:00", "19:30", "20:00", "20:30", "21:00", "21:30"];
+      $("#slots").innerHTML = times.map((t, i) => `<button type="button" class="slot" ${seed && (i * 7 + seed.length) % 4 === 0 ? "disabled" : ""}>${t}</button>`).join("");
+      pick.time = null;
+      if (!reduced) gsap.from("#slots .slot", { y: 14, opacity: 0, stagger: .05, duration: .5 });
+    }
+    renderSlots(null);
+    days.addEventListener("click", (e) => { const b = e.target.closest(".day:not(:disabled)"); if (!b) return; days.querySelectorAll(".on").forEach((x) => x.classList.remove("on")); b.classList.add("on"); pick.day = b.dataset.d; renderSlots(pick.day); });
+    days.querySelector(".day:not(:disabled)").click();
+    $("#slots").addEventListener("click", (e) => { const b = e.target.closest(".slot:not(:disabled)"); if (!b) return; $("#slots").querySelectorAll(".on").forEach((x) => x.classList.remove("on")); b.classList.add("on"); pick.time = b.textContent; });
+    document.querySelectorAll("[data-g]").forEach((b) => b.addEventListener("click", () => {
+      pick.g = Math.min(8, Math.max(1, pick.g + +b.dataset.g)); $("#gN").textContent = pick.g;
+      gsap.fromTo("#gN", { y: +b.dataset.g * -14, opacity: 0 }, { y: 0, opacity: 1, duration: .4 });
+    }));
+    $("#bookForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!pick.time) { gsap.fromTo("#slots", { x: -8 }, { x: 0, duration: .5, ease: "elastic.out(1,.3)" }); return; }
+      $("#tText").textContent = `${guests(pick.g)} · ${new Date(pick.day).toLocaleDateString("ru-RU", { weekday: "long", day: "numeric", month: "long" })} · ${pick.time}`;
+      $("#tCode").textContent = "MO-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+      gsap.fromTo("#ticket", { autoAlpha: 0, clipPath: "circle(0% at 50% 100%)" }, { autoAlpha: 1, clipPath: "circle(150% at 50% 100%)", duration: 1.2, ease: "expo.inOut" });
+    });
+
+    if (reduced) return;
+
+    // ---------- Анимации ----------
+    const chars = split($("#heroTitle"), "chars");
+    gsap.timeline()
+      .from("#heroPlate", { scale: .6, rotate: -120, opacity: 0, duration: 2.4, ease: "expo.out" })
+      .from(chars, { yPercent: 120, rotate: 8, duration: 1.4, stagger: .04, ease: "expo.out" }, .3)
+      .from(".hero .tag, .hero-foot > *", { opacity: 0, y: 20, duration: 1, stagger: .1 }, .9)
+      .from(".nav", { opacity: 0, duration: 1 }, 1);
+    gsap.to("#heroPlate .plate, #heroPlate .dish", { rotate: 360, duration: 90, repeat: -1, ease: "none" });
+    gsap.to("#heroPlate", { yPercent: -20, scale: 1.15, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    gsap.to(".hero-txt", { yPercent: 60, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    // пар поднимается
+    document.querySelectorAll(".steam path").forEach((p, i) => {
+      const l = p.getTotalLength();
+      gsap.fromTo(p, { strokeDasharray: `${l * .35} ${l}`, strokeDashoffset: l * 1.35 }, { strokeDashoffset: 0, duration: 3.2, delay: i * .8, repeat: -1, ease: "sine.inOut" });
+    });
+    gsap.from(".course", { y: 40, opacity: 0, duration: 1, stagger: .12, ease: "power3.out", scrollTrigger: { trigger: "#courses", start: "top 80%" } });
+    gsap.from(".course i", { scale: 0, duration: 1, stagger: .12, ease: "back.out(2)", scrollTrigger: { trigger: "#courses", start: "top 80%" } });
+    gsap.from(".hours div", { x: -30, opacity: 0, stagger: .1, duration: 1, scrollTrigger: { trigger: ".hours", start: "top 85%" } });
+    reveals();
+  })();
+  </script>
+</body>
+</html>

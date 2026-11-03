@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ShaleCode</title>
+  <meta name="description" content="ShaleCode — студия разработки сайтов на заказ: дизайн, анимации, интернет-магазины.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo/ShaleCode_symbol_light.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@500&family=Amiri&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/mockups.css?v=20">
+  <link rel="stylesheet" href="assets/css/site.css?v=20">
+</head>
+<body>
+
+  <div class="cursor"><span class="cursor-label"></span></div>
+  <div class="cursor-dot"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#top" class="nav-logo" aria-label="ShaleCode">
+      <svg viewBox="0 0 246 208" class="nav-symbol"><path d="M0 208 L32 24 L92 0 L88 108 L137 128 L152 151 L239 180 L246 208 Z"/><path d="M91 0 L158 38 L173 66 L215 89 L227 123 L153 98 L139 75 L87 53 Z"/><path d="M87 64 L132 84 L146 107 L231 136 L242 170 L159 142 L144 119 L85 98 Z"/></svg>
+      <span>ShaleCode</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services" data-i18n="nav.services"></a>
+      <a href="#work" data-i18n="nav.work"></a>
+      <a href="#process" data-i18n="nav.process"></a>
+      <a href="#contact" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang">
+        <button data-lang="ru">RU</button><button data-lang="en">EN</button><button data-lang="ar">AR</button>
+      </div>
+      <a href="https://t.me/shalecode" target="_blank" rel="noopener" class="btn btn-small" data-magnetic="0.25"><span class="btn-inner" data-i18n="nav.cta"></span></a>
+      <button class="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+    </div>
+  </header>
+
+  <!-- Мобильное меню — отдельный слой вне панели: её размытие и сдвиг не влияют на его размер -->
+  <div class="m-menu" id="mMenu" hidden>
+    <nav class="m-links">
+      <a href="#services" data-i18n="nav.services"></a>
+      <a href="#work" data-i18n="nav.work"></a>
+      <a href="#process" data-i18n="nav.process"></a>
+      <a href="#contact" data-i18n="nav.contact"></a>
+    </nav>
+    <div class="m-foot">
+      <a href="https://t.me/shalecode" target="_blank" rel="noopener" class="m-cta" data-i18n="nav.cta"></a>
+      <a class="m-tg" data-contact="telegram" target="_blank" rel="noopener"></a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <canvas class="hero-gl"></canvas>
+      <div class="hero-shade"></div>
+      <div class="hero-inner container">
+        <p class="eyebrow hero-eyebrow"><span class="pulse"></span><span data-i18n="hero.eyebrow"></span></p>
+        <h1 class="hero-title">
+          <span class="line" data-split data-i18n="hero.t1"></span>
+          <span class="line accent" data-split data-i18n="hero.t2"></span>
+          <span class="line thin" data-split data-i18n="hero.t3"></span>
+        </h1>
+        <div class="hero-bottom">
+          <p class="hero-sub" data-i18n="hero.sub"></p>
+          <div class="hero-ctas">
+            <a href="https://t.me/shalecode" target="_blank" rel="noopener" class="btn btn-primary" data-magnetic><span class="btn-inner"><span data-i18n="hero.cta1"></span><svg viewBox="0 0 24 24" class="arr"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a href="#work" class="btn btn-ghost" data-magnetic><span class="btn-inner" data-i18n="hero.cta2"></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-ind"><span data-i18n="hero.scroll"></span><i></i></div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span data-i18n="m1"></span><b>✦</b><span class="o" data-i18n="m2"></span><b>✦</b><span data-i18n="m3"></span><b>✦</b><span class="o" data-i18n="m4"></span><b>✦</b><span data-i18n="m5"></span><b>✦</b><span class="o" data-i18n="m6"></span><b>✦</b>
+        </div>
+        <div class="marquee-group">
+          <span data-i18n="m1"></span><b>✦</b><span class="o" data-i18n="m2"></span><b>✦</b><span data-i18n="m3"></span><b>✦</b><span class="o" data-i18n="m4"></span><b>✦</b><span data-i18n="m5"></span><b>✦</b><span class="o" data-i18n="m6"></span><b>✦</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="about container" id="about">
+      <p class="label" data-i18n="about.label"></p>
+      <p class="about-text" data-split data-i18n="about.text"></p>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services container" id="services">
+      <div class="srv-head">
+        <div>
+          <p class="label" data-i18n="services.label"></p>
+          <h2 class="sec-title" data-split data-i18n="services.title"></h2>
+        </div>
+        <!-- сводные цифры считаются из списка услуг (content.js) -->
+        <div class="srv-stats">
+          <div class="srv-stat"><b data-srv="count">0</b><span data-i18n="services.statCount"></span></div>
+          <div class="srv-stat"><b>3</b><span data-i18n="services.statPlat"></span></div>
+        </div>
+      </div>
+      <div class="srv-grid">
+        <!-- карточки услуг подставляются из контента (assets/js/content.js) -->
+      </div>
+    </section>
+
+    <!-- WORK / SHOWCASE -->
+    <section class="work" id="work" aria-roledescription="carousel" data-i18n-aria="work.title">
+      <div class="work-pin">
+        <div class="work-head container">
+          <div>
+            <p class="label" data-i18n="work.label"></p>
+            <h2 class="sec-title" data-split data-i18n="work.title"></h2>
+          </div>
+          <div class="work-side">
+            <p class="work-note" data-i18n="work.note"></p>
+            <div class="car-ctrl">
+              <div class="car-count" aria-hidden="true"><span class="car-cur"><b>01</b></span><i></i><span class="car-total">01</span></div>
+              <button class="car-btn car-prev" data-i18n-aria="work.prev" data-magnetic="0.3"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+              <button class="car-btn car-next" data-i18n-aria="work.next" data-magnetic="0.3">
+                <svg class="car-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="work-viewport">
+          <div class="work-track">
+            <!-- карточки работ подставляются из контента (assets/js/content.js) -->
+          </div>
+        </div>
+        <div class="car-dots container" role="tablist"></div>
+        <p class="sr-only car-live" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- REVIEWS: секция показывается, когда в админке есть хотя бы один отзыв -->
+    <section class="reviews container" id="reviews" hidden>
+      <div class="sec-head">
+        <p class="label" data-i18n="reviews.label"></p>
+        <h2 class="sec-title" data-split data-i18n="reviews.title"></h2>
+      </div>
+      <div class="rev-grid"></div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process container" id="process">
+      <div class="sec-head">
+        <p class="label" data-i18n="process.label"></p>
+        <h2 class="sec-title" data-split data-i18n="process.title"></h2>
+      </div>
+      <div class="steps">
+        <div class="steps-line"><i></i></div>
+        <div class="step"><span class="step-n">01</span><div><h3 data-i18n="p1.t"></h3><p data-i18n="p1.d"></p></div></div>
+        <div class="step"><span class="step-n">02</span><div><h3 data-i18n="p2.t"></h3><p data-i18n="p2.d"></p></div></div>
+        <div class="step"><span class="step-n">03</span><div><h3 data-i18n="p3.t"></h3><p data-i18n="p3.d"></p></div></div>
+        <div class="step"><span class="step-n">04</span><div><h3 data-i18n="p4.t"></h3><p data-i18n="p4.d"></p></div></div>
+        <div class="step"><span class="step-n">05</span><div><h3 data-i18n="p5.t"></h3><p data-i18n="p5.d"></p></div></div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why container">
+      <div class="sec-head">
+        <p class="label" data-i18n="why.label"></p>
+        <h2 class="sec-title" data-split data-i18n="why.title"></h2>
+      </div>
+      <div class="why-grid">
+        <div class="vcard"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg><h3 data-i18n="v1.t"></h3><p data-i18n="v1.d"></p></div>
+        <div class="vcard"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><h3 data-i18n="v2.t"></h3><p data-i18n="v2.d"></p></div>
+        <div class="vcard"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><h3 data-i18n="v3.t"></h3><p data-i18n="v3.d"></p></div>
+        <div class="vcard"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3 data-i18n="v4.t"></h3><p data-i18n="v4.d"></p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact container" id="contact">
+      <div class="contact-left">
+        <p class="label" data-i18n="contact.label"></p>
+        <h2 class="contact-title" data-split data-i18n="contact.title"></h2>
+        <p class="contact-sub" data-i18n="contact.sub"></p>
+        <div class="contact-links">
+          <a data-contact="telegram" class="link-big" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-word" aria-hidden="true">ShaleCode</div>
+    <div class="footer-row container">
+      <span data-i18n="footer.tag"></span>
+      <span data-i18n="footer.rights"></span>
+      <a href="#top" class="to-top" data-i18n="footer.top"></a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="assets/js/config.js?v=20"></script>
+  <script src="assets/js/i18n.js?v=20"></script>
+  <script src="assets/js/mockups.js?v=20"></script>
+  <script src="assets/js/core.js?v=20"></script>
+  <script src="assets/js/icons.js?v=20"></script>
+  <script src="assets/js/content.js?v=20"></script>
+  <script src="assets/js/site.js?v=20"></script>
+</body>
+</html>

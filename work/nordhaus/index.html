@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nordhaus — резиденции · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Nordhaus">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_light.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=2">
+  <style>
+    :root { --bg: #f3f1ed; --paper: #fbfaf8; --ink: #12161c; --muted: #6b7079; --line: rgba(18, 22, 28, .12); --cu: #c98e6b; --ease: cubic-bezier(.22, 1, .36, 1); --pad: clamp(18px, 4vw, 64px); }
+    body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 "Manrope", sans-serif; }
+    .container { max-width: 1440px; margin-inline: auto; padding-inline: var(--pad); }
+
+    .nav { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 22px var(--pad); color: #fff; transition: background .5s, color .5s, padding .5s; }
+    .nav.light { background: rgba(243, 241, 237, .85); backdrop-filter: blur(12px); color: var(--ink); padding-block: 14px; border-bottom: 1px solid var(--line); }
+    .logo { font-weight: 700; letter-spacing: .28em; font-size: 15px; }
+    .nav-links { display: flex; gap: 36px; font-size: 14px; }
+    .nav-cta { padding: 10px 20px; border: 1px solid currentColor; border-radius: 40px; font-size: 13px; transition: .4s; }
+    .nav-cta:hover { background: var(--cu); border-color: var(--cu); color: #fff; }
+
+    /* Hero: город на закате */
+    .hero { position: relative; height: 180vh; }
+    .hero-stick { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+    .sky { position: absolute; inset: 0; background: linear-gradient(180deg, #16202d 0%, #3a4558 38%, #c98e6b 74%, #edbd8f 100%); }
+    .sky-night { position: absolute; inset: 0; background: linear-gradient(180deg, #05070c 0%, #0b1222 50%, #1b2440 100%); opacity: 0; }
+    .stars { position: absolute; inset: 0 0 40%; opacity: 0; background-image: radial-gradient(1px 1px at 10% 20%, #fff, transparent), radial-gradient(1px 1px at 30% 10%, #fff, transparent), radial-gradient(1.5px 1.5px at 55% 25%, #fff, transparent), radial-gradient(1px 1px at 70% 8%, #fff, transparent), radial-gradient(1px 1px at 85% 30%, #fff, transparent), radial-gradient(1px 1px at 20% 40%, #fff, transparent), radial-gradient(1.5px 1.5px at 92% 15%, #fff, transparent), radial-gradient(1px 1px at 42% 35%, #fff, transparent); }
+    .sun { position: absolute; left: 64%; top: 46%; width: 22vmin; height: 22vmin; border-radius: 50%; background: radial-gradient(circle, #fff0d6 0%, #ffc58f 45%, rgba(242, 167, 116, 0) 70%); filter: blur(2px); }
+    .city { position: absolute; inset: auto 0 0; width: 100%; }
+    .city svg { width: 100%; height: auto; display: block; }
+    .win { transition: fill 1.2s; }
+    .hero-txt { position: absolute; z-index: 3; left: var(--pad); right: var(--pad); top: 24vh; color: #fff; }
+    .hero h1 { font: 200 clamp(52px, 8.4vw, 150px)/.95 "Manrope"; letter-spacing: -.05em; max-width: 10ch; }
+    .hero h1 b { font-weight: 500; }
+    .search { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px; border-radius: 60px; max-width: 760px; background: rgba(255, 255, 255, .14); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, .28); }
+    .search label { flex: 1; min-width: 140px; padding: 6px 20px; border-inline-end: 1px solid rgba(255, 255, 255, .2); display: grid; }
+    .search small { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+    .search select { background: none; border: 0; color: #fff; font: 500 16px "Manrope"; outline: none; appearance: none; cursor: pointer; padding: 0; }
+    .search select option { color: var(--ink); }
+    .search button { height: 54px; padding: 0 30px; border-radius: 50px; background: #fff; color: var(--ink); font-weight: 600; transition: .4s; }
+    .search button:hover { background: var(--cu); color: #fff; }
+
+    /* Цифры */
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+    .fact { padding: 44px var(--pad); border-inline-end: 1px solid var(--line); }
+    .fact:last-child { border: 0; }
+    .fact b { display: block; font: 200 clamp(40px, 4.4vw, 72px)/1 "Manrope"; letter-spacing: -.04em; }
+    .fact span { color: var(--muted); font-size: 14px; }
+
+    section { position: relative; }
+    .sec { padding-block: clamp(90px, 11vw, 170px); }
+    .h2 { font: 200 clamp(40px, 5.2vw, 88px)/1 "Manrope"; letter-spacing: -.045em; }
+    .h2 b { font-weight: 500; }
+    .eyebrow { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--cu); font-weight: 600; margin-bottom: 20px; }
+
+    /* Объекты */
+    .list-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { padding: 10px 18px; border: 1px solid var(--line); border-radius: 40px; font-size: 14px; transition: .4s var(--ease); }
+    .chip:hover { border-color: var(--ink); }
+    .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .listings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card { background: var(--paper); border-radius: 22px; overflow: hidden; border: 1px solid var(--line); transition: box-shadow .6s var(--ease); }
+    .card:hover { box-shadow: 0 30px 60px rgba(18, 22, 28, .14); }
+    .card.hide { display: none; }
+    .card-img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .card-img svg { width: 100%; height: 100%; transition: transform 1.2s var(--ease); }
+    .card:hover .card-img svg { transform: scale(1.06); }
+    .badge { position: absolute; top: 14px; left: 14px; padding: 6px 12px; border-radius: 30px; background: rgba(255, 255, 255, .9); font-size: 12px; font-weight: 600; }
+    .fav { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, .9); display: grid; place-items: center; }
+    .fav svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 1.6; transition: .3s; }
+    .fav.on svg { fill: #e05a4f; stroke: #e05a4f; }
+    .card-body { padding: 22px 24px 26px; }
+    .card-body h3 { font-weight: 500; font-size: 20px; letter-spacing: -.02em; }
+    .card-body p { color: var(--muted); font-size: 14px; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .card-meta b { color: var(--ink); font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+    .no-res { display: none; padding: 60px 0; color: var(--muted); text-align: center; grid-column: 1 / -1; }
+
+    /* Планировка */
+    .plan { background: var(--ink); color: #fff; }
+    .plan-wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(30px, 6vw, 100px); align-items: center; }
+    .plan .h2 { color: #fff; }
+    .rooms { margin-top: 40px; display: grid; }
+    .room { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid rgba(255, 255, 255, .12); color: rgba(255, 255, 255, .6); transition: color .3s, padding .5s var(--ease); cursor: default; }
+    .room:hover, .room.on { color: #fff; padding-inline-start: 12px; }
+    .room b { font-weight: 500; }
+    .plan-svg { width: 100%; }
+    .plan-svg .wall { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: square; }
+    .plan-svg .thin { fill: none; stroke: rgba(255, 255, 255, .35); stroke-width: 1; }
+    .plan-svg .zone { fill: var(--cu); opacity: 0; transition: opacity .5s; }
+    .plan-svg .zone.on { opacity: .28; }
+    .plan-svg text { fill: rgba(255, 255, 255, .7); font: 500 11px "Manrope"; letter-spacing: .12em; text-transform: uppercase; }
+
+    /* Калькулятор */
+    .calc { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; background: var(--paper); border: 1px solid var(--line); border-radius: 30px; padding: clamp(24px, 4vw, 60px); }
+    .rng { margin-top: 34px; }
+    .rng-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); }
+    .rng-top b { color: var(--ink); font-size: 18px; font-weight: 600; }
+    input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; margin-top: 18px; background: linear-gradient(var(--ink), var(--ink)) 0 / var(--p, 50%) 100% no-repeat, var(--line); border-radius: 3px; outline: none; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); cursor: grab; box-shadow: 0 4px 12px rgba(0, 0, 0, .15); }
+    input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); cursor: grab; }
+    .result { display: grid; place-items: center; text-align: center; background: var(--bg); border-radius: 24px; padding: 30px; }
+    .donut { width: min(260px, 70%); }
+    .donut circle { fill: none; stroke-width: 14; }
+    .result small { color: var(--muted); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+    .result .pay { font: 300 clamp(40px, 4vw, 60px)/1 "Manrope"; letter-spacing: -.04em; margin: 8px 0 18px; }
+    .legend { display: flex; gap: 20px; font-size: 13px; color: var(--muted); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+
+    .cta { text-align: center; }
+    .cta .h2 { max-width: 14ch; margin-inline: auto; }
+    .btn { display: inline-flex; align-items: center; gap: 12px; margin-top: 40px; height: 62px; padding: 0 36px; border-radius: 60px; background: var(--ink); color: #fff; font-weight: 600; transition: .4s; }
+    .btn:hover { background: var(--cu); }
+    footer { border-top: 1px solid var(--line); padding: 36px var(--pad) 110px; display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; flex-wrap: wrap; gap: 16px; }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .listings { grid-template-columns: repeat(2, 1fr); }
+      .plan-wrap, .calc { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+      .fact:nth-child(2) { border: 0; }
+      .fact { border-bottom: 1px solid var(--line); }
+    }
+    @media (max-width: 600px) {
+      .listings { grid-template-columns: 1fr; }
+      .search { border-radius: 24px; }
+      .search label { border: 0; min-width: 45%; }
+      .search button { width: 100%; }
+      .hero-txt { top: 18vh; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <a href="#" class="logo">NORDHAUS</a>
+    <nav class="nav-links"><a href="#listings">Резиденции</a><a href="#plan">Планировки</a><a href="#calc">Ипотека</a></nav>
+    <a href="#contact" class="nav-cta">Записаться на просмотр</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-stick">
+      <div class="sky"></div><div class="sky-night"></div><div class="stars"></div><div class="sun"></div>
+      <div class="city" id="city"></div>
+      <div class="hero-txt">
+        <h1 id="heroTitle">Жизнь <b>над</b> городом</h1>
+        <form class="search" id="search">
+          <label><small>Район</small><select name="d"><option value="all">Любой район</option><option value="old">Старый город</option><option value="harbour">Набережная</option><option value="park">Парковый холм</option></select></label>
+          <label><small>Спальни</small><select name="r"><option value="0">Любое</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+          <button>Найти</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="fact"><b data-count="128">0</b><span>Резиденций в портфеле</span></div>
+    <div class="fact"><b data-count="14">0</b><span>Авторских домов</span></div>
+    <div class="fact"><b data-count="97" data-suf="%">0</b><span>Довольных клиентов</span></div>
+    <div class="fact"><b data-count="22" data-suf=" лет">0</b><span>На рынке</span></div>
+  </div>
+
+  <section class="sec container" id="listings">
+    <div class="list-head">
+      <div><p class="eyebrow">Сейчас в продаже</p><h2 class="h2" data-split-up>Избранные <b>резиденции</b></h2></div>
+      <div class="chips" id="chips">
+        <button class="chip on" data-d="all">Все</button><button class="chip" data-d="old">Старый город</button><button class="chip" data-d="harbour">Набережная</button><button class="chip" data-d="park">Парковый холм</button>
+      </div>
+    </div>
+    <div class="listings" id="grid"></div>
+  </section>
+
+  <section class="sec plan" id="plan">
+    <div class="container plan-wrap">
+      <div>
+        <p class="eyebrow">Пентхаус 14B · Набережная</p>
+        <h2 class="h2" data-split-up>Каждый метр <b>продуман</b></h2>
+        <div class="rooms" id="rooms">
+          <div class="room" data-z="living"><span>Гостиная и столовая</span><b>52 м²</b></div>
+          <div class="room" data-z="kitchen"><span>Кухня</span><b>18 м²</b></div>
+          <div class="room" data-z="master"><span>Мастер-спальня</span><b>31 м²</b></div>
+          <div class="room" data-z="bed2"><span>Спальня</span><b>16 м²</b></div>
+          <div class="room" data-z="terrace"><span>Терраса</span><b>40 м²</b></div>
+        </div>
+      </div>
+      <svg class="plan-svg" viewBox="0 0 600 440" id="planSvg">
+        <rect class="zone" data-z="living" x="20" y="20" width="300" height="220"/>
+        <rect class="zone" data-z="kitchen" x="320" y="20" width="140" height="140"/>
+        <rect class="zone" data-z="master" x="320" y="160" width="260" height="140"/>
+        <rect class="zone" data-z="bed2" x="20" y="240" width="160" height="180"/>
+        <rect class="zone" data-z="terrace" x="180" y="300" width="400" height="120"/>
+        <path class="wall" d="M20 20 H580 V300 M580 300 V420 H20 V20"/>
+        <path class="wall" d="M320 20 V120 M320 170 V300 M320 160 H400 M440 160 H580 M20 240 H120 M160 240 H320 M180 240 V420 M180 300 H260 M300 300 H580"/>
+        <path class="thin" d="M40 60 h120 v60 h-120z M60 150 h80 M200 70 a40 40 0 1 1 0.1 0 M360 40 h80 v24 h-80z M380 200 h140 v80 h-140z M40 270 h90 v70 h-90z M220 340 h60 v50 h-60z M420 330 a26 26 0 1 1 0.1 0 M500 330 a26 26 0 1 1 0.1 0"/>
+        <text x="40" y="225">Гостиная</text><text x="335" y="148">Кухня</text><text x="335" y="288">Мастер</text><text x="35" y="408">Спальня</text><text x="195" y="408">Терраса</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="sec container" id="calc">
+    <p class="eyebrow">Ипотека</p>
+    <h2 class="h2" data-split-up>Ваш ежемесячный <b>платёж</b></h2>
+    <div class="calc" style="margin-top:50px" data-reveal>
+      <div>
+        <div class="rng"><div class="rng-top"><span>Стоимость</span><b id="vPrice"></b></div><input type="range" id="price" min="10000000" max="200000000" step="500000" value="58000000"></div>
+        <div class="rng"><div class="rng-top"><span>Первый взнос</span><b id="vDown"></b></div><input type="range" id="down" min="10" max="70" step="1" value="30"></div>
+        <div class="rng"><div class="rng-top"><span>Срок</span><b id="vTerm"></b></div><input type="range" id="term" min="5" max="30" step="1" value="20"></div>
+        <div class="rng"><div class="rng-top"><span>Ставка</span><b id="vRate"></b></div><input type="range" id="rate" min="3" max="25" step=".1" value="16.5"></div>
+      </div>
+      <div class="result">
+        <svg class="donut" viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" stroke="#e7e3dc"/><circle id="arcP" cx="60" cy="60" r="48" stroke="#12161c" stroke-dasharray="0 302" transform="rotate(-90 60 60)" stroke-linecap="round"/><circle id="arcI" cx="60" cy="60" r="48" stroke="#c98e6b" stroke-dasharray="0 302" transform="rotate(-90 60 60)" stroke-linecap="round"/></svg>
+        <small style="margin-top:20px">В месяц</small>
+        <div class="pay" id="pay">0 ₽</div>
+        <div class="legend"><span><i style="background:#12161c"></i>Основной долг</span><span><i style="background:#c98e6b"></i>Проценты</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec container cta" id="contact">
+    <p class="eyebrow">Частные показы</p>
+    <h2 class="h2" data-split-up>Посмотрите в <b>золотой час</b></h2>
+    <a href="#" class="btn" onclick="this.textContent='Заявка принята ✓'; return false;">Записаться на просмотр →</a>
+  </section>
+
+  <footer><span>© 2026 Nordhaus Residences, Москва</span><span>Концепт студии ShaleCode</span></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=3"></script>
+  <script>
+  (function () {
+    const { reduced, split, reveals, lenis } = window.DEMO;
+    gsap.registerPlugin(ScrollTrigger, Flip);
+
+    // ---------- Генерация силуэта города с окнами ----------
+    let seed = 7;
+    const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+    function layer(n, minH, maxH, color, winOpacity, y0) {
+      let x = 0, out = "";
+      const W = 1600;
+      while (x < W) {
+        const w = 40 + rnd() * 90, h = minH + rnd() * (maxH - minH), top = y0 - h;
+        out += `<rect x="${x}" y="${top}" width="${w + 1}" height="${h + 40}" fill="${color}"/>`;
+        if (rnd() > .6) out += `<rect x="${x + w * .4}" y="${top - 20}" width="${w * .2}" height="20" fill="${color}"/>`;
+        if (winOpacity) for (let wy = top + 14; wy < y0 - 10; wy += 16) for (let wx = x + 8; wx < x + w - 10; wx += 13) {
+          out += `<rect class="win" x="${wx}" y="${wy}" width="6" height="8" fill="rgba(255,214,160,${rnd() > .75 ? winOpacity : 0})"/>`;
+        }
+        x += w + 4 + rnd() * 10;
+      }
+      return `<g class="ly" data-n="${n}">${out}</g>`;
+    }
+    document.getElementById("city").innerHTML = `<svg viewBox="0 0 1600 560" preserveAspectRatio="xMidYMax slice">
+      ${layer(1, 120, 300, "#4a4e5e", 0, 560)}${layer(2, 140, 380, "#262b38", .25, 560)}${layer(3, 60, 220, "#10141c", .55, 580)}</svg>`;
+    const wins = [...document.querySelectorAll(".win")];
+
+    // ---------- Объекты ----------
+    const L = [
+      { t: "Пентхаус 14B на Набережной", d: "harbour", r: 3, m: 157, p: 98000000, c: ["#c98e6b", "#2b3442"] },
+      { t: "Липовый двор", d: "park", r: 2, m: 84, p: 35600000, c: ["#9fb5a0", "#1f2a24"] },
+      { t: "Лофт в Каменном квартале", d: "old", r: 2, m: 112, p: 47200000, c: ["#b9a48a", "#2e2822"] },
+      { t: "Дом у причала", d: "harbour", r: 4, m: 196, p: 128000000, c: ["#8fa8c7", "#1a2333"] },
+      { t: "Садовые террасы", d: "park", r: 3, m: 128, p: 53600000, c: ["#d8c4a0", "#33402e"] },
+      { t: "Вид на собор", d: "old", r: 4, m: 174, p: 84800000, c: ["#c7a7a0", "#2c2027"] }
+    ];
+    const names = { old: "Старый город", harbour: "Набережная", park: "Парковый холм" };
+    const facade = (c, i) => {
+      let w = "";
+      for (let y = 0; y < 6; y++) for (let x = 0; x < 5; x++) w += `<rect x="${92 + x * 46}" y="${60 + y * 38}" width="30" height="24" fill="${(x + y + i) % 4 === 0 ? "#ffd9a8" : "rgba(255,255,255,.18)"}"/>`;
+      return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="s${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="#f6efe6"/></linearGradient></defs>
+        <rect width="400" height="300" fill="url(#s${i})"/><circle cx="${300 - i * 20}" cy="70" r="34" fill="#fff" opacity=".45"/>
+        <rect x="76" y="40" width="248" height="280" fill="${c[1]}"/><rect x="76" y="40" width="248" height="10" fill="rgba(255,255,255,.2)"/>${w}
+        <rect x="0" y="282" width="400" height="18" fill="${c[1]}" opacity=".6"/></svg>`;
+    };
+    const grid = document.getElementById("grid");
+    grid.innerHTML = L.map((l, i) => `<article class="card" data-d="${l.d}" data-r="${l.r}"><div class="card-img">${facade(l.c, i)}<span class="badge">${names[l.d]}</span><button class="fav" aria-label="В избранное"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z"/></svg></button></div>
+      <div class="card-body"><h3>${l.t}</h3><p>${l.r} спальни · ${l.m} м²</p><div class="card-meta"><span>от</span><b>${l.p.toLocaleString("ru")} ₽</b></div></div></article>`).join("") + '<p class="no-res" id="noRes">Подходящих резиденций нет — попробуйте другой район.</p>';
+    grid.addEventListener("click", (e) => { const f = e.target.closest(".fav"); if (f) { f.classList.toggle("on"); gsap.fromTo(f, { scale: .6 }, { scale: 1, duration: .7, ease: "elastic.out(1,.4)" }); } });
+
+    const filter = { d: "all", r: 0 };
+    function apply() {
+      const cards = [...grid.querySelectorAll(".card")];
+      // прерываем анимацию появления, иначе Flip запомнит промежуточный сдвиг
+      gsap.killTweensOf(cards);
+      gsap.set(cards, { clearProps: "transform,opacity" });
+      const state = Flip.getState(cards);
+      let shown = 0;
+      cards.forEach((c) => { const ok = (filter.d === "all" || c.dataset.d === filter.d) && +c.dataset.r >= filter.r; c.classList.toggle("hide", !ok); if (ok) shown++; });
+      document.getElementById("noRes").style.display = shown ? "none" : "block";
+      document.querySelectorAll(".chip").forEach((ch) => ch.classList.toggle("on", ch.dataset.d === filter.d));
+      Flip.from(state, { duration: .8, ease: "expo.inOut", scale: true, absolute: true, stagger: .03,
+        onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .7 }),
+        onLeave: (els) => gsap.to(els, { opacity: 0, scale: .9, duration: .4 }),
+        onComplete: () => ScrollTrigger.refresh() });
+    }
+    document.getElementById("chips").addEventListener("click", (e) => { const c = e.target.closest(".chip"); if (!c) return; filter.d = c.dataset.d; apply(); });
+    document.getElementById("search").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = new FormData(e.target); filter.d = f.get("d"); filter.r = +f.get("r");
+      apply();
+      if (lenis) lenis.scrollTo("#listings", { duration: 1.6, offset: -40 }); else document.getElementById("listings").scrollIntoView();
+    });
+
+    // ---------- Планировка ----------
+    const zones = document.querySelectorAll(".zone");
+    document.querySelectorAll(".room").forEach((r) => {
+      r.addEventListener("pointerenter", () => { zones.forEach((z) => z.classList.toggle("on", z.dataset.z === r.dataset.z)); r.classList.add("on"); });
+      r.addEventListener("pointerleave", () => { zones.forEach((z) => z.classList.remove("on")); r.classList.remove("on"); });
+    });
+
+    // ---------- Калькулятор ----------
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => Math.round(n).toLocaleString("ru") + " ₽";
+    const years = (y) => y + " " + (y % 10 === 1 && y % 100 !== 11 ? "год" : [2, 3, 4].includes(y % 10) && ![12, 13, 14].includes(y % 100) ? "года" : "лет");
+    let lastPay = 0;
+    function calc() {
+      const P = +$("price").value, dp = +$("down").value, n = +$("term").value * 12, r = +$("rate").value / 1200;
+      ["price", "down", "term", "rate"].forEach((id) => { const el = $(id); el.style.setProperty("--p", (el.value - el.min) / (el.max - el.min) * 100 + "%"); });
+      $("vPrice").textContent = fmt(P); $("vDown").textContent = dp + "% · " + fmt(P * dp / 100); $("vTerm").textContent = years(n / 12); $("vRate").textContent = (+$("rate").value).toFixed(1) + "%";
+      const loan = P * (1 - dp / 100);
+      const pay = r ? loan * r / (1 - Math.pow(1 + r, -n)) : loan / n;
+      const interest = pay * n - loan, share = loan / (loan + interest), C = 2 * Math.PI * 48;
+      const o = { v: lastPay };
+      gsap.to(o, { v: pay, duration: .6, ease: "power2.out", onUpdate: () => ($("pay").textContent = fmt(o.v)) });
+      lastPay = pay;
+      gsap.to("#arcP", { attr: { "stroke-dasharray": `${C * share - 4} ${C}` }, duration: .8, ease: "power3.out" });
+      gsap.to("#arcI", { attr: { "stroke-dasharray": `${C * (1 - share) - 4} ${C}`, transform: `rotate(${-90 + share * 360} 60 60)` }, duration: .8, ease: "power3.out" });
+    }
+    ["price", "down", "term", "rate"].forEach((id) => $(id).addEventListener("input", calc));
+    calc();
+
+    // ---------- Скролл ----------
+    const nav = $("nav");
+    ScrollTrigger.create({ trigger: ".facts", start: "top 80px", onEnter: () => nav.classList.add("light"), onLeaveBack: () => nav.classList.remove("light") });
+    if (reduced) { document.querySelectorAll("[data-count]").forEach((el) => (el.textContent = el.dataset.count + (el.dataset.suf || ""))); return; }
+
+    gsap.from(split($("heroTitle")), { yPercent: 120, duration: 1.6, stagger: .09, ease: "expo.out", delay: .2 });
+    gsap.from(".search", { y: 40, opacity: 0, duration: 1.2, delay: .7, ease: "power3.out" });
+    gsap.from(".ly", { yPercent: 40, duration: 2, stagger: .15, ease: "expo.out" });
+
+    // Закат → ночь: небо темнеет, солнце садится, в окнах загорается свет
+    const tl = gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom bottom", scrub: 1 } });
+    tl.to(".sun", { yPercent: 160, scale: .8, ease: "none" }, 0)
+      .to(".sky-night", { opacity: 1, ease: "none" }, 0)
+      .to(".stars", { opacity: 1, ease: "none" }, .4)
+      .to('.ly[data-n="1"]', { yPercent: 6, ease: "none" }, 0)
+      .to('.ly[data-n="2"]', { yPercent: 3, ease: "none" }, 0)
+      .to(".hero-txt", { y: -80, ease: "none" }, 0);
+    let lit = 0;
+    ScrollTrigger.create({ trigger: ".hero", start: "top top", end: "bottom bottom", onUpdate: (s) => {
+      const target = Math.floor(s.progress * wins.length * .45);
+      while (lit < target) { const w = wins[(lit * 7919) % wins.length]; w.setAttribute("fill", "rgba(255,214,160,.9)"); lit++; }
+    } });
+
+    document.querySelectorAll("[data-count]").forEach((el) => {
+      const o = { v: 0 };
+      gsap.to(o, { v: +el.dataset.count, duration: 2, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%" }, onUpdate: () => (el.textContent = Math.round(o.v) + (el.dataset.suf || "")) });
+    });
+    gsap.from(".card", { y: 80, opacity: 0, duration: 1.2, stagger: .08, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: "#grid", start: "top 85%", once: true } });
+
+    // Планировка чертится по мере скролла
+    document.querySelectorAll("#planSvg .wall, #planSvg .thin").forEach((p) => { const l = p.getTotalLength(); p.style.strokeDasharray = l; p.style.strokeDashoffset = l; });
+    gsap.to("#planSvg .wall, #planSvg .thin", { strokeDashoffset: 0, ease: "none", stagger: .1, scrollTrigger: { trigger: "#planSvg", start: "top 80%", end: "center 45%", scrub: 1 } });
+    gsap.from("#planSvg text", { opacity: 0, stagger: .1, scrollTrigger: { trigger: "#planSvg", start: "center 55%" } });
+    gsap.from(".room", { x: -30, opacity: 0, stagger: .08, duration: 1, ease: "power3.out", scrollTrigger: { trigger: "#rooms", start: "top 85%" } });
+    reveals();
+  })();
+  </script>
+</body>
+</html>

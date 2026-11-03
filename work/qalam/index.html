@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qalam — онлайн-школа арабского языка · концепт ShaleCode</title>
+  <meta name="sc-brand" content="Qalam">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/ShaleCode_symbol_light.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo/demo.css?v=3">
+  <style>
+    :root { --em: #0c3a32; --em2: #0f4a40; --ink: #0a231f; --sand: #f4ecdc; --sand2: #ebe0c9; --paper: #fbf7ef; --gold: #d4a64a; --gold2: #f0d58c; --terra: #c8643b; --muted: #6b6a5d; --line: rgba(10, 35, 31, .12); --ease: cubic-bezier(.22, 1, .36, 1); --pad: clamp(18px, 4vw, 64px); }
+    body { background: var(--sand); color: var(--ink); font: 400 16px/1.65 "Manrope", sans-serif; }
+    .container { max-width: 1320px; margin-inline: auto; padding-inline: var(--pad); }
+    .ar { font-family: "Amiri", serif; direction: rtl; unicode-bidi: isolate; }
+    .serif { font-family: "Playfair Display", serif; }
+    .h2 { font: 500 clamp(36px, 4.6vw, 72px)/1.04 "Playfair Display", serif; letter-spacing: -.02em; }
+    .h2 em { color: var(--terra); font-style: italic; }
+    .kicker { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--terra); margin-bottom: 20px; }
+    .kicker::before { content: ""; width: 9px; height: 9px; transform: rotate(45deg); border: 1.5px solid currentColor; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 58px; padding: 0 30px; border-radius: 60px; font-weight: 700; font-size: 15px; position: relative; overflow: hidden; isolation: isolate; transition: color .5s, transform .5s var(--ease); }
+    .btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; transform: translateY(101%); transition: transform .6s var(--ease); }
+    .btn:hover::before { transform: none; }
+    .btn-gold { background: var(--gold); color: var(--ink); }
+    .btn-gold::before { background: var(--gold2); }
+    .btn-line { border: 1px solid rgba(244, 236, 220, .3); color: var(--sand); }
+    .btn-line::before { background: var(--sand); }
+    .btn-line:hover { color: var(--ink); }
+    .btn-em { background: var(--em); color: var(--sand); }
+    .btn-em::before { background: var(--terra); }
+    section { position: relative; }
+    .sec { padding-block: clamp(90px, 11vw, 160px); }
+
+    /* Навигация */
+    .nav { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 20px var(--pad); color: var(--sand); transition: background .5s, color .5s, padding .5s; }
+    .nav.solid { background: rgba(244, 236, 220, .88); backdrop-filter: blur(14px); color: var(--ink); padding-block: 12px; box-shadow: 0 1px 0 var(--line); }
+    .logo { display: flex; align-items: center; gap: 12px; font: 600 22px "Playfair Display", serif; }
+    .logo .ar { font-size: 30px; line-height: 1; color: var(--gold); margin-top: -6px; }
+    .nav nav { display: flex; gap: 32px; font-size: 14px; font-weight: 600; }
+    .nav nav a { opacity: .75; transition: opacity .3s; }
+    .nav nav a:hover { opacity: 1; }
+    .nav .btn { height: 44px; padding: 0 20px; font-size: 13px; }
+
+    /* Hero */
+    .hero { background: radial-gradient(70% 80% at 75% 40%, #155a4e 0%, var(--em) 55%, #082a24 100%); color: var(--sand); overflow: hidden; }
+    .girih { position: absolute; inset: 0; opacity: .12; }
+    .hero-in { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; min-height: 100svh; padding-top: 110px; padding-bottom: 70px; }
+    .hero .kicker { color: var(--gold2); }
+    .hero h1 { font: 500 clamp(44px, 5.8vw, 92px)/1.02 "Playfair Display", serif; letter-spacing: -.02em; }
+    .hero h1 em { color: var(--gold2); }
+    .hero-p { margin-top: 24px; max-width: 470px; color: rgba(244, 236, 220, .72); font-size: 18px; }
+    .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+    .stats { display: flex; gap: clamp(20px, 4vw, 48px); margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(244, 236, 220, .14); }
+    .stats b { display: block; font: 500 34px/1 "Playfair Display", serif; color: var(--gold2); }
+    .stats div > span { font-size: 13px; color: rgba(244, 236, 220, .6); }
+    .medal { position: relative; aspect-ratio: 1; width: min(100%, 560px); justify-self: center; }
+    .medal-star { position: absolute; inset: 0; }
+    .medal-star polygon { fill: none; stroke: var(--gold); stroke-width: .6; }
+    .medal-core { position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b6b5c, #0a2c26 70%); box-shadow: 0 30px 80px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(240, 213, 140, .35), inset 0 0 60px rgba(0, 0, 0, .4); display: grid; place-items: center; }
+    .medal-core .ar { font-size: clamp(70px, 9vw, 140px); line-height: 1; background: linear-gradient(160deg, #fff3cf, var(--gold) 45%, #8a6424); -webkit-background-clip: text; background-clip: text; color: transparent; padding: .2em .1em; }
+    .chip { position: absolute; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 18px; background: rgba(251, 247, 239, .96); color: var(--ink); box-shadow: 0 20px 40px rgba(0, 0, 0, .3); font-size: 14px; font-weight: 600; }
+    .chip i { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-style: normal; font-weight: 800; }
+    .chip small { display: block; color: var(--muted); font-weight: 500; font-size: 12px; }
+    .c1 { top: 8%; left: -4%; } .c1 i { background: #fdf0d5; color: #a67618; }
+    .c2 { bottom: 12%; right: -2%; } .c2 i { background: #e2f1ec; color: var(--em); font-family: "Amiri", serif; font-size: 22px; }
+    .c3 { bottom: 2%; left: 6%; } .c3 i { background: #fbe4da; color: var(--terra); }
+
+    /* Алфавит */
+    .alpha-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+    .alpha-head p { max-width: 420px; color: var(--muted); }
+    .alpha { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+    .letters { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; direction: rtl; }
+    .lt { aspect-ratio: 1; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); display: grid; place-items: center; font: 400 clamp(26px, 2.6vw, 38px)/1 "Amiri", serif; color: var(--em); transition: background .35s, color .35s, translate .5s var(--ease), box-shadow .4s; position: relative; }
+    .lt small { position: absolute; bottom: 6px; font: 600 10px "Manrope"; color: var(--muted); letter-spacing: .04em; direction: ltr; }
+    .lt:hover { translate: 0 -4px; box-shadow: 0 14px 30px rgba(10, 35, 31, .12); }
+    .lt.on { background: var(--em); color: var(--gold2); border-color: var(--em); }
+    .lt.on small { color: rgba(244, 236, 220, .6); }
+    .card { position: sticky; top: 100px; border-radius: 28px; background: var(--em); color: var(--sand); padding: 30px; overflow: hidden; }
+    .card .girih { opacity: .08; }
+    .card-big { position: relative; text-align: center; font: 400 130px/1.2 "Amiri", serif; color: var(--gold2); }
+    .card-name { position: relative; text-align: center; font: 500 30px "Playfair Display", serif; }
+    .card-sound { position: relative; text-align: center; color: rgba(244, 236, 220, .65); margin-top: 4px; }
+    .forms { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 24px; direction: rtl; }
+    .forms div { padding: 12px 4px 10px; border-radius: 14px; background: rgba(255, 255, 255, .06); text-align: center; }
+    .forms b { display: block; font: 400 30px/1.3 "Amiri", serif; color: var(--sand); font-weight: 400; }
+    .forms span { font-size: 11px; color: rgba(244, 236, 220, .55); direction: ltr; display: block; }
+    .say { position: relative; margin-top: 18px; width: 100%; height: 50px; border-radius: 40px; border: 1px solid rgba(240, 213, 140, .4); color: var(--gold2); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background .4s, color .4s; }
+    .say:hover { background: var(--gold2); color: var(--ink); }
+    .say svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+    .say[hidden] { display: none; }
+
+    /* Тест */
+    .quiz-sec { background: var(--em); color: var(--sand); overflow: hidden; }
+    .quiz-sec .h2 em { color: var(--gold2); }
+    .quiz-sec .kicker { color: var(--gold2); }
+    .quiz-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 6vw, 90px); align-items: center; }
+    .quiz-wrap > div > p { color: rgba(244, 236, 220, .7); margin-top: 20px; max-width: 420px; }
+    .quiz { position: relative; border-radius: 30px; background: var(--paper); color: var(--ink); padding: clamp(24px, 3vw, 40px); box-shadow: 0 40px 80px rgba(0, 0, 0, .3); }
+    .q-top { display: flex; align-items: center; gap: 14px; }
+    .q-bar { flex: 1; height: 10px; border-radius: 10px; background: var(--sand2); overflow: hidden; }
+    .q-bar i { display: block; height: 100%; width: 0; border-radius: 10px; background: linear-gradient(90deg, var(--gold), var(--terra)); transition: width .8s var(--ease); }
+    .q-xp { font-weight: 800; color: #a67618; min-width: 70px; text-align: end; }
+    .q-word { text-align: center; margin: 34px 0 6px; font: 700 clamp(64px, 7vw, 96px)/1.3 "Amiri", serif; color: var(--em); }
+    .q-tr { text-align: center; color: var(--muted); font-size: 15px; margin-bottom: 26px; }
+    .q-opts { display: grid; gap: 10px; }
+    .q-opt { height: 58px; border-radius: 16px; border: 1.5px solid var(--line); font-weight: 700; font-size: 16px; transition: border-color .3s, background .3s, translate .4s var(--ease); }
+    .q-opt:hover:not(:disabled) { border-color: var(--em); translate: 0 -2px; }
+    .q-opt.ok { background: #e2f1ec; border-color: #2e8c6e; color: #1d6b52; }
+    .q-opt.no { background: #fbe4da; border-color: var(--terra); color: #9a3d1a; }
+    .q-opt:disabled { cursor: default; }
+    .q-end { text-align: center; padding: 30px 0 10px; }
+    .q-end b { display: block; font: 500 56px/1 "Playfair Display", serif; color: var(--em); }
+    .q-end p { color: var(--muted); margin: 12px 0 24px; }
+    .spark { position: absolute; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; }
+
+    /* Программа */
+    .path { position: relative; margin-top: 60px; }
+    .path svg.line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .path svg.line path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-dasharray: 6 8; }
+    .lvls { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .lvl { position: relative; padding: 28px 22px 26px; border-radius: 24px; background: var(--paper); border: 1px solid var(--line); transition: translate .6s var(--ease), box-shadow .6s; }
+    .lvl:nth-child(even) { margin-top: 70px; }
+    .lvl:hover { translate: 0 -8px; box-shadow: 0 24px 50px rgba(10, 35, 31, .12); }
+    .lvl .tag { display: inline-grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: var(--em); color: var(--gold2); font: 600 18px "Playfair Display", serif; }
+    .lvl h3 { font: 500 22px/1.15 "Playfair Display", serif; margin: 20px 0 8px; }
+    .lvl p { color: var(--muted); font-size: 14px; }
+    .lvl .meta { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+    .lvl .meta span { font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; background: var(--sand2); }
+    .lvl .ar { position: absolute; top: 20px; inset-inline-end: 22px; font-size: 28px; color: var(--gold); }
+
+    /* Преподаватели */
+    .teach { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 50px; }
+    .t { border-radius: 26px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+    .t-ph { aspect-ratio: 1 / 1.05; position: relative; display: grid; place-items: center; overflow: hidden; }
+    .t-ph .girih { opacity: .18; }
+    .t-ph b { position: relative; font: 500 64px "Playfair Display", serif; color: var(--sand); transition: transform 1s var(--ease); }
+    .t:hover .t-ph b { transform: scale(1.12); }
+    .t-ph .ar { position: absolute; bottom: 14px; inset-inline: 0; text-align: center; font-size: 22px; color: rgba(244, 236, 220, .8); }
+    .t-in { padding: 20px 22px 24px; }
+    .t-in h3 { font: 500 21px "Playfair Display", serif; }
+    .t-in p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .t-in .rt { margin-top: 12px; font-size: 13px; font-weight: 700; color: #a67618; }
+
+    /* Личный кабинет */
+    .cab { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(30px, 6vw, 90px); align-items: center; }
+    .cab > div > p { color: var(--muted); margin-top: 20px; max-width: 440px; }
+    .cab ul { margin-top: 26px; display: grid; gap: 12px; }
+    .cab li { display: flex; gap: 12px; align-items: flex-start; font-weight: 600; }
+    .cab li::before { content: ""; flex-shrink: 0; width: 10px; height: 10px; margin-top: 7px; transform: rotate(45deg); background: var(--gold); }
+    .dash { border-radius: 30px; background: var(--paper); border: 1px solid var(--line); padding: 26px; box-shadow: 0 40px 80px rgba(10, 35, 31, .12); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .tile { border-radius: 20px; background: var(--sand); padding: 20px; }
+    .tile small { display: block; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .tile b { display: block; font: 500 38px/1.1 "Playfair Display", serif; margin-top: 8px; }
+    .ring-t { grid-row: span 2; display: grid; place-items: center; text-align: center; background: var(--em); color: var(--sand); }
+    .ring-t small { color: rgba(244, 236, 220, .6); }
+    .ring { width: 150px; height: 150px; margin: 12px auto; position: relative; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+    .ring b { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font-size: 40px; color: var(--gold2); }
+    .next { grid-column: span 2; display: flex; align-items: center; gap: 16px; background: var(--sand2); }
+    .next .av { width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg, var(--terra), #8e3a1c); color: var(--sand); display: grid; place-items: center; font-weight: 800; flex-shrink: 0; }
+    .next div { flex: 1; }
+    .next b { font: 600 17px "Manrope"; margin: 2px 0 0; }
+    .next .go { height: 42px; padding: 0 18px; border-radius: 30px; background: var(--em); color: var(--sand); font-weight: 700; font-size: 13px; }
+    .bars { display: flex; align-items: flex-end; gap: 6px; height: 64px; margin-top: 12px; }
+    .bars i { flex: 1; border-radius: 6px 6px 2px 2px; background: var(--gold); opacity: .85; transform-origin: bottom; }
+
+    /* Тарифы */
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 50px; align-items: stretch; }
+    .plan { padding: 34px 30px; border-radius: 28px; background: var(--paper); border: 1px solid var(--line); display: flex; flex-direction: column; }
+    .plan.hot { background: var(--em); color: var(--sand); border-color: var(--em); transform: translateY(-14px); box-shadow: 0 40px 80px rgba(10, 35, 31, .25); }
+    .plan .badge { align-self: flex-start; padding: 6px 12px; border-radius: 20px; background: var(--gold); color: var(--ink); font-size: 12px; font-weight: 800; margin-bottom: 16px; }
+    .plan h3 { font: 500 26px "Playfair Display", serif; }
+    .plan .pr { font: 500 46px/1 "Playfair Display", serif; margin: 22px 0 4px; }
+    .plan .pr small { font: 500 15px "Manrope"; opacity: .6; }
+    .plan > p { opacity: .7; font-size: 15px; }
+    .plan ul { margin: 24px 0 30px; display: grid; gap: 10px; font-size: 15px; }
+    .plan li { display: flex; gap: 10px; }
+    .plan li::before { content: "✦"; color: var(--gold); }
+    .plan .btn { margin-top: auto; }
+
+    /* Пробный урок */
+    .trial { border-radius: 40px; background: radial-gradient(80% 120% at 85% 10%, #155a4e, var(--em) 60%); color: var(--sand); padding: clamp(36px, 6vw, 80px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 70px); overflow: hidden; position: relative; }
+    .trial .h2 em { color: var(--gold2); }
+    .trial > div > p { color: rgba(244, 236, 220, .7); margin-top: 18px; }
+    .trial form { position: relative; display: grid; gap: 14px; align-content: start; }
+    .trial input { height: 58px; border-radius: 16px; border: 1px solid rgba(244, 236, 220, .2); background: rgba(255, 255, 255, .06); color: var(--sand); padding: 0 20px; font: 500 16px "Manrope"; outline: none; transition: border-color .3s; }
+    .trial input::placeholder { color: rgba(244, 236, 220, .5); }
+    .trial input:focus { border-color: var(--gold); }
+    .lvlpick { display: flex; flex-wrap: wrap; gap: 8px; }
+    .lvlpick label { position: relative; }
+    .lvlpick input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .lvlpick span { display: inline-block; padding: 10px 16px; border-radius: 30px; border: 1px solid rgba(244, 236, 220, .25); font-size: 14px; font-weight: 600; cursor: pointer; transition: .3s; }
+    .lvlpick input:checked + span { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+    .lvlpick input:focus-visible + span { outline: 2px solid var(--gold2); outline-offset: 2px; }
+    .done { display: none; text-align: center; padding: 40px 10px; }
+    .done b { display: block; font: 700 64px/1 "Amiri", serif; color: var(--gold2); }
+    .done h3 { font: 500 30px "Playfair Display", serif; margin-top: 14px; }
+    .done p { color: rgba(244, 236, 220, .7); margin-top: 8px; }
+    footer { padding: 40px var(--pad) 110px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 1080px) {
+      .lvls { grid-template-columns: repeat(3, 1fr); }
+      .lvl:nth-child(even) { margin-top: 0; }
+      .teach { grid-template-columns: repeat(2, 1fr); }
+      .path svg.line { display: none; }
+    }
+    @media (max-width: 900px) {
+      .nav nav { display: none; }
+      .hero-in, .alpha, .quiz-wrap, .cab, .trial { grid-template-columns: 1fr; }
+      .medal { width: min(86%, 420px); }
+      .card { position: static; }
+      .plans { grid-template-columns: 1fr; }
+      .plan.hot { transform: none; }
+    }
+    @media (max-width: 600px) {
+      .letters { grid-template-columns: repeat(4, 1fr); }
+      .lvls, .teach, .dash { grid-template-columns: 1fr; }
+      .ring-t { grid-row: auto; }
+      .next { grid-column: auto; flex-wrap: wrap; }
+      .stats { flex-wrap: wrap; }
+      .c1 { left: 0; } .c2 { right: 0; }
+      .nav .btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Орнамент: восьмиконечные звёзды, общий для всех секций -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <pattern id="girih" width="90" height="90" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="#f0d58c" stroke-width="1">
+          <polygon points="45,12 55,35 78,45 55,55 45,78 35,55 12,45 35,35"/>
+          <rect x="25" y="25" width="40" height="40" transform="rotate(45 45 45)"/>
+          <rect x="25" y="25" width="40" height="40"/>
+          <path d="M0 0 L12 12 M90 0 L78 12 M0 90 L12 78 M90 90 L78 78"/>
+        </g>
+      </pattern>
+    </defs>
+  </svg>
+
+  <header class="nav" id="nav">
+    <a href="#" class="logo"><span class="ar">قلم</span>Qalam</a>
+    <nav><a href="#alphabet">Алфавит</a><a href="#program">Программа</a><a href="#teachers">Преподаватели</a><a href="#plans">Тарифы</a></nav>
+    <a href="#trial" class="btn btn-gold">Пробный урок</a>
+  </header>
+
+  <section class="hero">
+    <svg class="girih" width="100%" height="100%"><rect width="100%" height="100%" fill="url(#girih)"/></svg>
+    <div class="container hero-in">
+      <div>
+        <p class="kicker">Онлайн-школа арабского языка</p>
+        <h1 id="heroTitle">Арабский — от первой буквы до <em>свободной речи</em></h1>
+        <p class="hero-p">Живые уроки с преподавателями-носителями, интерактивные упражнения и личный кабинет, который ведёт вас к цели шаг за шагом.</p>
+        <div class="ctas"><a href="#trial" class="btn btn-gold">Бесплатный пробный урок</a><a href="#quiz" class="btn btn-line">Пройти мини-тест</a></div>
+        <div class="stats"><div><b data-count="12000">0</b><span>учеников</span></div><div><b><span data-count="4.9" data-dec="1">0</span></b><span>средняя оценка</span></div><div><b data-count="35">0</b><span>преподавателей-носителей</span></div></div>
+      </div>
+      <div class="medal" id="medal">
+        <svg class="medal-star" viewBox="0 0 200 200" id="medalStar"></svg>
+        <div class="medal-core"><span class="ar">اقرأ</span></div>
+        <div class="chip c1"><i>+10</i><div>Опыт за урок<small>Серия: 14 дней</small></div></div>
+        <div class="chip c2"><i>كتاب</i><div>китаб — книга<small>Слово дня</small></div></div>
+        <div class="chip c3"><i>A1</i><div>Урок 7 пройден<small>Солнечные буквы</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec container" id="alphabet">
+    <div class="alpha-head">
+      <div><p class="kicker">Интерактивный алфавит</p><h2 class="h2" data-split-up>28 букв, которые <em>оживают</em></h2></div>
+      <p>Нажмите на любую букву: увидите, как она пишется в начале, середине и конце слова, и услышите её звучание.</p>
+    </div>
+    <div class="alpha">
+      <div class="letters" id="letters"></div>
+      <aside class="card" id="card" aria-live="polite">
+        <svg class="girih" width="100%" height="100%" style="position:absolute;inset:0"><rect width="100%" height="100%" fill="url(#girih)"/></svg>
+        <div class="card-big ar" id="cBig"></div>
+        <div class="card-name" id="cName"></div>
+        <div class="card-sound" id="cSound"></div>
+        <div class="forms" id="cForms"></div>
+        <button class="say" id="say" hidden><svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Послушать</button>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sec quiz-sec" id="quiz">
+    <svg class="girih" width="100%" height="100%" style="position:absolute;inset:0;opacity:.06"><rect width="100%" height="100%" fill="url(#girih)"/></svg>
+    <div class="container quiz-wrap">
+      <div>
+        <p class="kicker">Мини-тест · 1 минута</p>
+        <h2 class="h2" data-split-up>Проверьте, сколько слов вы <em>уже знаете</em></h2>
+        <p>Так выглядят упражнения на платформе: мгновенная проверка, очки опыта и прогресс, который видно с первого урока.</p>
+      </div>
+      <div class="quiz" id="quizBox">
+        <div class="q-top"><div class="q-bar"><i id="qBar"></i></div><span class="q-xp" id="qXp">0 XP</span></div>
+        <div id="qBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec container" id="program">
+    <p class="kicker">Программа</p>
+    <h2 class="h2" data-split-up>Пять уровней — <em>один понятный путь</em></h2>
+    <div class="path">
+      <svg class="line" viewBox="0 0 1000 300" preserveAspectRatio="none"><path id="pathLine" d="M100 60 C200 60 200 200 300 200 S400 60 500 60 S600 200 700 200 S800 60 900 60"/></svg>
+      <div class="lvls">
+        <div class="lvl"><span class="ar">أ</span><span class="tag">A0</span><h3>Алфавит и чтение</h3><p>Буквы, огласовки, первые слова и уверенное чтение.</p><div class="meta"><span>4 недели</span><span>16 уроков</span></div></div>
+        <div class="lvl"><span class="ar">ب</span><span class="tag">A1</span><h3>Первые фразы</h3><p>Знакомство, семья, числа, покупки и время.</p><div class="meta"><span>8 недель</span><span>32 урока</span></div></div>
+        <div class="lvl"><span class="ar">ت</span><span class="tag">A2</span><h3>Повседневное общение</h3><p>Путешествия, город, кафе, разговор по телефону.</p><div class="meta"><span>12 недель</span><span>48 уроков</span></div></div>
+        <div class="lvl"><span class="ar">ث</span><span class="tag">B1</span><h3>Свободный разговор</h3><p>Диалекты, мнения, работа и учёба на арабском.</p><div class="meta"><span>16 недель</span><span>64 урока</span></div></div>
+        <div class="lvl"><span class="ar">ج</span><span class="tag">B2</span><h3>Медиа и литература</h3><p>Новости, классическая поэзия, деловая переписка.</p><div class="meta"><span>20 недель</span><span>80 уроков</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec container" id="teachers" style="padding-top:0">
+    <p class="kicker">Преподаватели</p>
+    <h2 class="h2" data-split-up>Носители языка из <em>пяти стран</em></h2>
+    <div class="teach" id="teach"></div>
+  </section>
+
+  <section class="sec container" style="padding-top:0">
+    <div class="cab">
+      <div>
+        <p class="kicker">Личный кабинет</p>
+        <h2 class="h2" data-split-up>Прогресс, который <em>видно</em></h2>
+        <p>Расписание, домашние задания, словарь и статистика — в одном месте. Ученик всегда знает, что делать дальше.</p>
+        <ul><li>Напоминания об уроках в Telegram</li><li>Личный словарь с карточками для повторения</li><li>Записи всех уроков с преподавателем</li></ul>
+      </div>
+      <div class="dash" id="dash">
+        <div class="tile ring-t"><small>Курс A1</small><div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" stroke="rgba(244,236,220,.12)"/><circle id="ringArc" cx="60" cy="60" r="50" stroke="#f0d58c" stroke-dasharray="314" stroke-dashoffset="314"/></svg><b id="ringTxt">0%</b></div><small>Пройдено</small></div>
+        <div class="tile"><small>Слов выучено</small><b data-count="412">0</b></div>
+        <div class="tile"><small>Минут за неделю</small><div class="bars"><i style="height:40%"></i><i style="height:65%"></i><i style="height:30%"></i><i style="height:85%"></i><i style="height:55%"></i><i style="height:100%"></i><i style="height:70%"></i></div></div>
+        <div class="tile next"><div class="av">АХ</div><div><small>Следующий урок · ср, 19:00</small><b>Урок 23 с Амирой Хасан</b></div><button class="go">Войти в класс</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec container" id="plans" style="padding-top:0">
+    <p class="kicker">Тарифы</p>
+    <h2 class="h2" data-split-up>Учитесь в своём <em>темпе</em></h2>
+    <div class="plans">
+      <div class="plan" data-reveal><h3>Самостоятельно</h3><div class="pr">2 900 ₽<small> / мес</small></div><p>Курс в записи и упражнения.</p><ul><li>Все видеоуроки уровня</li><li>Интерактивные задания</li><li>Проверка домашних заданий ИИ</li></ul><a href="#trial" class="btn btn-em">Начать</a></div>
+      <div class="plan hot" data-reveal=".1"><span class="badge">Выбирают чаще всего</span><h3>С преподавателем</h3><div class="pr">7 900 ₽<small> / мес</small></div><p>Живые уроки в мини-группе.</p><ul><li>2 урока в неделю, до 5 человек</li><li>Проверка домашних заданий преподавателем</li><li>Разговорный клуб по пятницам</li><li>Сертификат по окончании уровня</li></ul><a href="#trial" class="btn btn-gold">Записаться</a></div>
+      <div class="plan" data-reveal=".2"><h3>Индивидуально</h3><div class="pr">14 900 ₽<small> / мес</small></div><p>Программа под вашу цель.</p><ul><li>3 личных урока в неделю</li><li>Подготовка к экзаменам и переезду</li><li>Свободный выбор диалекта</li></ul><a href="#trial" class="btn btn-em">Обсудить цель</a></div>
+    </div>
+  </section>
+
+  <section class="container" id="trial" style="padding-bottom:40px">
+    <div class="trial">
+      <svg class="girih" width="100%" height="100%" style="position:absolute;inset:0;opacity:.07"><rect width="100%" height="100%" fill="url(#girih)"/></svg>
+      <div style="position:relative">
+        <p class="kicker" style="color:var(--gold2)">Пробный урок · бесплатно</p>
+        <h2 class="h2" data-split-up>Первый урок — <em>за наш счёт</em></h2>
+        <p>45 минут с преподавателем: определим уровень, составим план и прочитаем ваше первое слово по-арабски.</p>
+      </div>
+      <form id="trialForm">
+        <input placeholder="Ваше имя" required>
+        <input placeholder="Телефон или Telegram" required>
+        <div class="lvlpick" role="radiogroup" aria-label="Ваш уровень">
+          <label><input type="radio" name="lvl" checked><span>С нуля</span></label>
+          <label><input type="radio" name="lvl"><span>Знаю алфавит</span></label>
+          <label><input type="radio" name="lvl"><span>Немного говорю</span></label>
+        </div>
+        <button class="btn btn-gold" style="margin-top:6px">Записаться на пробный урок</button>
+        <div class="done" id="trialDone"><b>أهلاً</b><h3>Добро пожаловать!</h3><p>Преподаватель напишет вам, чтобы подобрать удобное время.</p></div>
+      </form>
+    </div>
+  </section>
+
+  <footer><span>© 2026 Qalam · онлайн-школа арабского языка</span><span>Концепт студии ShaleCode</span></footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="../../assets/demo/demo.js?v=3"></script>
+  <script>
+  (function () {
+    const { reduced, isTouch, split, reveals } = window.DEMO;
+    const $ = (s) => document.querySelector(s);
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+    // ---------- Звезда-медальон в hero: 16-лучевая из двух восьмиугольных звёзд ----------
+    const star = (cx, cy, R, r, n, rot) => Array.from({ length: n * 2 }, (_, i) => { const a = rot + i * Math.PI / n, rr = i % 2 ? r : R; return (cx + rr * Math.cos(a)).toFixed(2) + "," + (cy + rr * Math.sin(a)).toFixed(2); }).join(" ");
+    $("#medalStar").innerHTML = [[98, 74, 0], [98, 74, Math.PI / 8], [86, 64, Math.PI / 16], [74, 56, 0], [62, 48, Math.PI / 8]]
+      .map(([R, r, rot]) => `<polygon points="${star(100, 100, R, r, 8, rot)}"/>`).join("");
+
+    // ---------- Алфавит ----------
+    // [буква, название, звук, соединяется ли с последующей]
+    const A = [
+      ["ا", "алиф", "долгое «а»", 0], ["ب", "ба", "«б»", 1], ["ت", "та", "«т»", 1], ["ث", "са", "межзубное «с», как в think", 1],
+      ["ج", "джим", "«дж»", 1], ["ح", "ха", "глубокое горловое «х»", 1], ["خ", "ха", "«х»", 1], ["د", "даль", "«д»", 0],
+      ["ذ", "заль", "межзубное «з», как в this", 0], ["ر", "ра", "раскатистое «р»", 0], ["ز", "зай", "«з»", 0], ["س", "син", "«с»", 1],
+      ["ش", "шин", "«ш»", 1], ["ص", "сад", "твёрдое «с»", 1], ["ض", "дад", "твёрдое «д»", 1], ["ط", "та", "твёрдое «т»", 1],
+      ["ظ", "за", "твёрдое межзубное «з»", 1], ["ع", "айн", "гортанный звук без аналога в русском", 1], ["غ", "гайн", "грассирующее «г», как французское r", 1], ["ف", "фа", "«ф»", 1],
+      ["ق", "каф", "глубокое «к»", 1], ["ك", "каф", "«к»", 1], ["ل", "лям", "«л»", 1], ["م", "мим", "«м»", 1],
+      ["ن", "нун", "«н»", 1], ["ه", "ха", "лёгкое «х», выдох", 1], ["و", "вав", "«в» или долгое «у»", 0], ["ي", "йа", "«й» или долгое «и»", 1]
+    ];
+    const T = "ـ"; // татвиль — соединительная черта
+    const formsOf = ([c, , , join]) => [[c, "отдельно"], [join ? c + T : c, "в начале"], [join ? T + c + T : T + c, "в середине"], [T + c, "в конце"]];
+    const box = $("#letters");
+    A.forEach((a, i) => { const b = el("button", "lt", a[0]); b.append(el("small", null, a[1])); b.setAttribute("aria-label", "Буква " + a[1]); b.addEventListener("click", () => pick(i)); box.append(b); });
+
+    // Озвучка через синтез речи браузера — кнопка появляется, только если есть арабский голос
+    let arVoice = null;
+    const findVoice = () => { arVoice = (speechSynthesis.getVoices() || []).find((v) => /^ar/i.test(v.lang)) || null; $("#say").hidden = !arVoice; };
+    if ("speechSynthesis" in window) { findVoice(); speechSynthesis.addEventListener("voiceschanged", findVoice); }
+    let cur = 0;
+    $("#say").addEventListener("click", () => {
+      if (!arVoice) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(A[cur][0]); u.voice = arVoice; u.lang = arVoice.lang; u.rate = .8;
+      speechSynthesis.speak(u);
+    });
+
+    function pick(i, quiet) {
+      cur = i;
+      const a = A[i];
+      box.querySelectorAll(".lt").forEach((b, k) => b.classList.toggle("on", k === i));
+      $("#cBig").textContent = a[0];
+      $("#cName").textContent = a[1];
+      $("#cSound").textContent = "Звук: " + a[2];
+      const f = $("#cForms"); f.textContent = "";
+      formsOf(a).forEach(([g, label]) => { const d = el("div"); d.append(el("b", "ar", g), el("span", null, label)); f.append(d); });
+      if (!reduced && !quiet) gsap.timeline()
+        .fromTo("#cBig", { scale: .6, opacity: 0, rotate: -8 }, { scale: 1, opacity: 1, rotate: 0, duration: .9, ease: "back.out(1.7)" })
+        .fromTo("#cName, #cSound", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .06 }, .1)
+        .fromTo("#cForms > div", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .06, ease: "power3.out" }, .15);
+    }
+    pick(17, true); // «айн» — самая узнаваемая буква
+
+    // ---------- Мини-тест ----------
+    const Q = [
+      ["كتاب", "китаб", "книга", ["дом", "книга", "вода"]],
+      ["بيت", "байт", "дом", ["дом", "дорога", "солнце"]],
+      ["ماء", "ма", "вода", ["хлеб", "вода", "море"]],
+      ["شمس", "шамс", "солнце", ["луна", "звезда", "солнце"]],
+      ["قلم", "калам", "ручка", ["ручка", "стол", "письмо"]],
+      ["مدرسة", "мадраса", "школа", ["город", "школа", "друг"]]
+    ];
+    let qi = 0, xp = 0, right = 0;
+    const qBody = $("#qBody");
+    function burst(target) {
+      if (reduced) return;
+      const r = target.getBoundingClientRect(), host = $("#quizBox").getBoundingClientRect();
+      for (let i = 0; i < 18; i++) {
+        const s = el("i", "spark"); s.style.background = ["#d4a64a", "#f0d58c", "#c8643b", "#2e8c6e"][i % 4];
+        s.style.left = r.left - host.left + r.width / 2 + "px"; s.style.top = r.top - host.top + r.height / 2 + "px";
+        $("#quizBox").append(s);
+        gsap.to(s, { x: gsap.utils.random(-160, 160), y: gsap.utils.random(-120, 40), rotate: gsap.utils.random(-360, 360), opacity: 0, duration: gsap.utils.random(.7, 1.2), ease: "power3.out", onComplete: () => s.remove() });
+      }
+    }
+    function renderQ() {
+      $("#qBar").style.width = (qi / Q.length) * 100 + "%";
+      qBody.textContent = "";
+      if (qi >= Q.length) {
+        const end = el("div", "q-end");
+        const msg = right >= 5 ? "Отличный старт — вы уже знаете базовые слова!" : right >= 3 ? "Хорошее начало! На пробном уроке закрепим остальное." : "Самое время начать — первые слова выучим на пробном уроке.";
+        end.append(el("b", null, right + " из " + Q.length), el("p", null, msg));
+        const again = el("button", "btn btn-em", "Пройти ещё раз");
+        again.addEventListener("click", () => { qi = 0; xp = 0; right = 0; $("#qXp").textContent = "0 XP"; renderQ(); });
+        const go = el("a", "btn btn-gold", "Пробный урок"); go.href = "#trial"; go.style.marginInlineStart = "8px";
+        end.append(again, go);
+        qBody.append(end);
+        if (!reduced) gsap.from(end.children, { y: 20, opacity: 0, stagger: .08, duration: .6 });
+        return;
+      }
+      const [w, tr, ans, opts] = Q[qi];
+      qBody.append(el("div", "q-word ar", w), el("div", "q-tr", "Как переводится слово «" + tr + "»?"));
+      const list = el("div", "q-opts");
+      opts.forEach((o) => {
+        const b = el("button", "q-opt", o);
+        b.addEventListener("click", () => {
+          list.querySelectorAll("button").forEach((x) => { x.disabled = true; if (x.textContent === ans) x.classList.add("ok"); });
+          if (o === ans) { right++; xp += 10; burst(b); $("#qXp").textContent = xp + " XP"; if (!reduced) gsap.fromTo("#qXp", { scale: 1.5 }, { scale: 1, duration: .6, ease: "elastic.out(1,.4)" }); }
+          else { b.classList.add("no"); if (!reduced) gsap.fromTo(b, { x: -8 }, { x: 0, duration: .5, ease: "elastic.out(1,.3)" }); }
+          setTimeout(() => { qi++; renderQ(); }, 1100);
+        });
+        list.append(b);
+      });
+      qBody.append(list);
+      if (!reduced) gsap.from(qBody.children, { y: 20, opacity: 0, stagger: .06, duration: .5, ease: "power3.out" });
+    }
+    renderQ();
+
+    // ---------- Преподаватели ----------
+    const TEACH = [
+      ["Амира Хасан", "أميرة حسن", "Каир · литературный арабский", "4,98", "#c8643b,#8e3a1c"],
+      ["Юсуф Аль-Махди", "يوسف المهدي", "Амман · разговорный и левантийский", "4,95", "#0f4a40,#0a231f"],
+      ["Лейла Насер", "ليلى ناصر", "Бейрут · для детей и подростков", "4,97", "#d4a64a,#8a6424"],
+      ["Карим Беншейх", "كريم بن الشيخ", "Рабат · деловой арабский", "4,93", "#2e5a8c,#13294a"]
+    ];
+    const teach = $("#teach");
+    TEACH.forEach(([n, ar, d, r, g]) => {
+      const t = el("article", "t");
+      const ph = el("div", "t-ph"); ph.style.background = `linear-gradient(150deg, ${g})`;
+      ph.innerHTML = '<svg class="girih" width="100%" height="100%" style="position:absolute;inset:0"><rect width="100%" height="100%" fill="url(#girih)"/></svg>';
+      ph.append(el("b", null, n.split(" ").map((w) => w[0]).join("")), el("div", "ar", ar));
+      const inn = el("div", "t-in"); inn.append(el("h3", null, n), el("p", null, d), el("div", "rt", "★ " + r + " · отзывы учеников"));
+      t.append(ph, inn); teach.append(t);
+    });
+
+    // ---------- Пробный урок ----------
+    $("#trialForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = e.target;
+      [...f.children].forEach((c) => { if (!c.classList.contains("done")) c.style.display = "none"; });
+      $("#trialDone").style.display = "block";
+      if (!reduced) gsap.from("#trialDone > *", { y: 30, opacity: 0, stagger: .1, duration: .8, ease: "expo.out" });
+    });
+
+    // ---------- Навигация и анимации ----------
+    const nav = $("#nav");
+    window.addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > innerHeight * .8), { passive: true });
+    const counters = () => document.querySelectorAll("[data-count]").forEach((c) => {
+      const o = { v: 0 }, d = +(c.dataset.dec || 0);
+      const fmt = (v) => d ? v.toFixed(d).replace(".", ",") : Math.round(v).toLocaleString("ru");
+      if (reduced) { c.textContent = fmt(+c.dataset.count); return; }
+      gsap.to(o, { v: +c.dataset.count, duration: 2, ease: "power2.out", scrollTrigger: { trigger: c, start: "top 92%" }, onUpdate: () => (c.textContent = fmt(o.v)) });
+    });
+    counters();
+    if (reduced) { $("#ringArc").setAttribute("stroke-dashoffset", 314 * .32); $("#ringTxt").textContent = "68%"; return; }
+
+    gsap.timeline()
+      .from(".hero .kicker", { y: 20, opacity: 0, duration: .8 })
+      .from(split($("#heroTitle")), { yPercent: 110, duration: 1.3, stagger: .05, ease: "expo.out" }, .1)
+      .from(".hero-p, .ctas, .stats", { y: 30, opacity: 0, duration: 1, stagger: .1, ease: "power3.out" }, .4)
+      .from("#medalStar polygon", { scale: .3, opacity: 0, transformOrigin: "50% 50%", duration: 1.6, stagger: .1, ease: "expo.out" }, .2)
+      .from(".medal-core", { scale: .5, opacity: 0, duration: 1.4, ease: "expo.out" }, .4)
+      .from(".chip", { y: 40, opacity: 0, duration: 1, stagger: .15, ease: "back.out(1.5)" }, 1);
+    gsap.to("#medalStar", { rotate: 360, duration: 120, repeat: -1, ease: "none", transformOrigin: "50% 50%" });
+    gsap.to(".c1", { y: -12, duration: 3, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".c2", { y: 12, duration: 3.4, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".c3", { y: -8, duration: 2.8, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    if (!isTouch) {
+      const mx = gsap.quickTo(".medal-core", "x", { duration: 1, ease: "power3" }), my = gsap.quickTo(".medal-core", "y", { duration: 1, ease: "power3" });
+      window.addEventListener("pointermove", (e) => { mx((e.clientX / innerWidth - .5) * 24); my((e.clientY / innerHeight - .5) * 24); });
+    }
+    gsap.to(".hero .girih", { yPercent: 18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    gsap.from(".lt", { y: 30, opacity: 0, duration: .8, stagger: { each: .025, from: "end" }, ease: "power3.out", clearProps: "transform,opacity", scrollTrigger: { trigger: "#letters", start: "top 80%" } });
+    const pl = $("#pathLine"), L = pl.getTotalLength();
+    gsap.fromTo(pl, { strokeDashoffset: L }, { strokeDashoffset: 0, ease: "none", scrollTrigger: { trigger: ".path", start: "top 75%", end: "bottom 60%", scrub: 1 } });
+    gsap.from(".lvl", { y: 60, opacity: 0, duration: 1.1, stagger: .12, ease: "expo.out", clearProps: "transform,opacity", scrollTrigger: { trigger: ".lvls", start: "top 80%" } });
+    gsap.from(".t", { y: 60, opacity: 0, duration: 1.1, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: "#teach", start: "top 82%" } });
+    gsap.from(".quiz", { y: 80, rotate: 2, opacity: 0, duration: 1.3, ease: "expo.out", scrollTrigger: { trigger: "#quiz", start: "top 70%" } });
+    // Кабинет: кольцо прогресса и столбики
+    const ring = { p: 0 };
+    gsap.to(ring, { p: 68, duration: 2, ease: "power2.out", scrollTrigger: { trigger: "#dash", start: "top 75%" }, onUpdate: () => { $("#ringArc").setAttribute("stroke-dashoffset", 314 * (1 - ring.p / 100)); $("#ringTxt").textContent = Math.round(ring.p) + "%"; } });
+    gsap.from(".bars i", { scaleY: 0, duration: 1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: "#dash", start: "top 75%" } });
+    gsap.from(".dash .tile", { y: 40, opacity: 0, duration: 1, stagger: .08, ease: "power3.out", scrollTrigger: { trigger: "#dash", start: "top 80%" } });
+    reveals();
+  })();
+  </script>
+</body>
+</html>
